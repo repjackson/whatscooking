@@ -1,0 +1,247 @@
+template(name='nav')
+    .ui.attached.fluid.borderless.topnav.menu
+        a.icon.item.toggle_sidebar
+            i.large.bars.icon
+        a.icon.item(href='/grid' class="{{isActivePath '/grid'}}" title='apps')
+            i.large.th.icon
+                
+        a.header.item(href="/" class="{{isActivePath '/'}}")
+            //- unless subs_ready 
+                i.yin.yang.loading.large.grey.icon(title='dao')
+            //- else 
+            i.large.fire.icon.toggle_menu
+            |whats cooking
+        a.icon.item.mobile.hidden(href='/users' class="{{isActivePath '/users'}}" title='daoists')
+            i.users.icon
+        a.icon.item.mobile.hidden(href='/shop' class="{{isActivePath '/shop'}}" title='shop')
+            i.large.store.icon
+        a.icon.item.mobile.hidden(href='/tribes' class="{{isActivePath '/tribes'}}" title='tribes')
+            i.large.fire.icon
+        a.icon.item.mobile.hidden(href='/food' class="{{isActivePath '/food'}}" title='food')
+            i.large.food.icon
+        .ui.input.item
+            input(type='text')
+        .right.menu
+            if is_admin 
+                a.icon.item.mobile.hidden(href='/admin' class="{{isActivePath '/admin'}}" title="admin")
+                    i.user.shield.large.icon
+                
+            a.icon.item.mobile.hidden(href='/cart' class="{{isActivePath '/cart'}}" title="shopping cart #{cart_amount} items")
+                i.shopping.cart.large.icon
+            a.mobile.hidden.icon.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks') 
+                i.tasks.large.icon
+            a.mobile.hidden.icon.item(href='/events' class="{{isActivePath '/events'}}" title='events') 
+                i.calendar.large.icon
+            a.icon.item(href='/chat' class="{{isActivePath '/chat'}}" title='chat') 
+                i.chat.outline.large.icon
+            a.icon.item(href='/alerts' class="{{isActivePath '/alerts'}}" title='alerts') 
+                i.bell.large.icon(class=alert_icon_class)
+                //- i.rss.icon
+            
+            a.icon.item.mobile.hidden(href="/stats")
+                i.line.chart.large.icon
+            if currentUser
+                a.item(href="/user/#{currentUser.username}/karma")
+                    |#{currentUser.karma}
+                    //- i.line.chart.icon
+                a.item(href="/user/#{currentUser.username}") 
+                    i.user.icon
+                    |#{currentUser.username}
+            else 
+                a.item(href="/login")
+                    i.sign.in.alternate.icon
+                    |login
+
+
+template(name='sidebar')
+    .ui.left.inline.vertical.sidebar.fixed.menu
+        a.header.toggle_sidebar.item(href='/' class="{{isActivePath '/'}}") 
+            i.yin.yang.icon
+            | dao
+        a.toggle_sidebar.item(href='/grid' class="{{isActivePath '/grid'}}")
+            i.th.icon
+            | grid
+            
+        a.toggle_sidebar.item(href='/alerts' class="{{isActivePath '/alerts'}}")
+            i.bell.icon
+            | alerts
+        a.toggle_sidebar.item(href='/chat' class="{{isActivePath '/chat'}}")
+            i.chat.icon
+            | chat
+        a.toggle_sidebar.item(href='/users' class="{{isActivePath '/users'}}")
+            i.users.icon
+            | daoists
+        a.toggle_sidebar.item(href='/shop' class="{{isActivePath '/shop'}}")
+            i.shop.icon
+            | shop
+        a.toggle_sidebar.item(href='/events' class="{{isActivePath '/events'}}")
+            i.calendar.icon
+            | events
+        a.toggle_sidebar.item(href='/tasks' class="{{isActivePath '/tasks'}}")
+            i.edit.icon
+            | tasks
+        a.toggle_sidebar.item(href='/reddit' class="{{isActivePath '/reddit'}}")
+            i.reddit.icon
+            | redditors
+        if currentUser
+            a.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
+                i.dashboard.icon
+                | dashboard
+            .ui.simple.dropdown.icon.item
+                i.alarm.icon
+                | alerts
+            a.item(href='/messages' class="{{isActivePath '/messages'}}")
+                i.mail.icon
+                | mail
+            if is_admin
+                a.icon.toggle_sidebar.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
+                    i.configure.icon
+                    | admin
+            a.item(href="/user/#{currentUser.username}/edit" class="{{isActiveRoute regex='user_edit'}}")
+                if currentUser.image_id
+                    img.ui.avatar.image(src="{{c.url currentUser.image_id width=50 height=50 gravity='face' crop='fill'}}")
+                else
+                    i.user.icon
+                | #{currentUser.username}
+            a#logout.ui.item(href='#') 
+                i.sign.out.icon
+                | log out
+        else
+            a.ui.item(href='/login') 
+                i.sign.in.icon
+                | log in
+
+
+template(name='footer')
+    .ui.stackable.padded.grid.basic.segment
+        .row
+            .four.wide.column
+                //- .ui.link.large.list
+                //-     a.item(href='/p/about')
+                //-         | what is dao?
+                //-     //- a.item(href='/prime')
+                //-     //-     | forest prime
+                //-     a.item(href="/p/terms") 
+                //-         | terms of service
+                //-     a.item(href="/p/privacy") 
+                //-         | privacy policy
+                //-     //- a.item(href='/sponsor') 
+                //-     //-     | sponsor
+            .four.wide.column
+                .ui.link.large.list
+                    a.item(href='/blog')
+                        i.blog.icon
+                        | blog
+                    a.item(href='/m/model' class="{{isActivePath '/m/model'}}")
+                        i.database.icon
+                        |models
+                    a.icon.item(href='/events' class="{{isActivePath '/events'}}")
+                        i.calendar.icon
+                        |events
+                    a.icon.item(href='/chat' class="{{isActivePath '/chat'}}")
+                        i.chat.outline.icon
+                        |chat
+                    a.icon.item(href='/alerts' class="{{isActivePath '/alerts'}}")
+                        //- i.bell.icon(class=alert_icon_class)
+                        i.rss.icon
+                        |alerts
+                if currentUser
+                    .ui.link.large.list
+                        a.item(href='/users')
+                            i.users.icon
+                            | users
+                        a.item(href='/stats')
+                            i.line.chart.icon
+                            | stats
+                unless currentUser
+                    .ui.link.large.list
+                        a.item(href='/login')
+                            |login
+
+
+
+            .four.wide.column
+
+                +footer_chat
+                if is_admin
+                    with currentUser
+                        +role_switcher
+            .four.wide.column
+                +bug_reporter 
+                .ui.grey.small.header    
+                    i.copyright.outline.icon 
+                    |2020 DAO
+            //- 
+template(name='footer_chat')
+    a.ui.grey.header(href="/chat")
+        i.chat.outline.small.icon
+        |chat
+        //- .scroll
+    .ui.comments
+        each chat_messages
+            .comment(title="by #{_author_username} #{when}")
+                //- if author.image_id
+                //-     img.ui.avatar.image(src="{{c.url author.image_id width=200 height=200 gravity='face' crop='fill'}}")
+                .content
+                    a.author #{_author_username}
+                    .metadata
+                        span.date #{when}
+                    .text
+                        |#{text}
+                if is_author
+                    span
+                        i.remove.link.icon.remove_message
+    .ui.bottom.attached.fluid.icon.transparent.input
+        i.plus.icon
+        input.new_footer_chat_message(type='text' placeholder='add message')
+
+
+template(name='bug_reporter')
+    a.ui.small.grey.header.start_report(href="#")
+        i.bug.small.icon
+        |report bug
+    if reporting_bug
+        with new_bug
+            |#{pathname}
+            +text_edit key='text' direct=true
+            .ui.icon.fluid.button.submit_report
+                i.checkmark.icon
+            .ui.small.icon.button.cancel_bug
+                i.remove.icon
+
+
+
+
+template(name='my_latest_activity')
+    .ui.grey.header 
+        i.grey.rss.icon
+        |your activity
+    .ui.list
+        each my_latest_activity
+            .item 
+                img.ui.avatar.image(src="{{c.url author.image_id width=200 height=200 gravity='face' crop='fill'}}")
+                |#{text} #{body}
+                small #{when}
+
+
+
+template(name='role_switcher')
+    .ui.inline.center.aligned.small.grey.header 
+        |#{username} role switcher
+    //- if is_eric
+    //-     +multi_doc key='roles' label='roles' ref_model='role' direct=true
+    //-     div
+        //- +user_array_element_toggle key='roles' value='dev' user=currentUser
+    //- if current_user
+    //-     with current_user
+    //- else if currentUser
+    //-     with currentUser
+    //- +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
+    //- if is_admin
+        //- +multi_doc_edit key='current_roles' label='current roles' ref_model='role' direct=true
+    //- +user_array_element_toggle key='current_roles' value='admin' user=currentUser
+    //- +user_array_element_toggle key='current_roles' value='student' user=currentUser
+    //- +user_array_element_toggle key='current_roles' value='staff' user=currentUser
+    +user_array_element_toggle key='roles' value='student' user=currentUser
+    +user_array_element_toggle key='roles' value='teacher' user=currentUser
+    +user_array_element_toggle key='roles' value='parent' user=currentUser
