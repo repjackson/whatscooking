@@ -4,22 +4,8 @@ template(name='register')
         .centered.row
             .ten.wide.column
                 .ui.center.aligned.basic.segment
-                    //- a.ui.icon.button(href="/")
-                    //-     i.large.home.icon
-                        
-                    div
-                    i.big.yin.yang.icon
+                    i.big.fire.icon
                     .ui.inline.header register
-                //- if message
-                //-     h4.ui.center.aligned.header #{message}
-                //- .ui.small.inline.header 
-                //-     |First Name
-                //- .ui.fluid.input(class=login_class)
-                //-     input.first_name(type='text')
-                //- .ui.small.inline.header 
-                //-     |Last Name
-                //- .ui.fluid.input(class=login_class)
-                //-     input.last_name(type='text')
                 .ui.small.inline.header 
                     i.user.outline.grey.icon
                     |username
@@ -30,19 +16,21 @@ template(name='register')
                     else
                         i.ban.icon
                     input.username(type='text')
+                .spacer
                 .ui.small.inline.header 
                     i.lock.grey.icon
                     | password
                 .ui.fluid.input(class=login_class)
                     input.password(type='password')
+                .spacer
                 //- .ui.fluid.labeled.input(class=login_class)
                 //-     .ui.small.inline.header 
                 //-         i.lock.grey.icon
                 //-         | password again
                 //-     input.password2(type='password')
                 if can_register
-                    //- if registering
-                    .ui.fluid.large.circular.button.register(class=enter_class)
+                    .spacer
+                    .ui.fluid.basic.large.circular.button.register(class=enter_class)
                         i.user.plus.icon
                         |register '#{username}'
                 else

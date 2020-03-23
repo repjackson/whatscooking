@@ -1,57 +1,55 @@
 template(name='nav')
     .ui.attached.fluid.borderless.topnav.menu
         a.icon.item.toggle_sidebar
-            i.large.bars.icon
+            i.bars.icon
         a.icon.item(href='/grid' class="{{isActivePath '/grid'}}" title='apps')
-            i.large.th.icon
-                
+            i.th.icon
         a.header.item(href="/" class="{{isActivePath '/'}}")
             //- unless subs_ready 
-                i.yin.yang.loading.large.grey.icon(title='dao')
+                i.yin.yang.loading.grey.icon(title='dao')
             //- else 
-            i.large.fire.icon.toggle_menu
-            |whats cooking
-        a.icon.item.mobile.hidden(href='/users' class="{{isActivePath '/users'}}" title='users')
-            i.users.large.icon
+            i.fire.icon.toggle_menu
+            span.mobile.hidden
+                |whats cooking
+            span.mobile.only
+                |wc
+        a.item.mobile.hidden(href='/users' class="{{isActivePath '/users'}}" title='users')
+            i.users.icon
             |users
         a.item.mobile.hidden(href='/meals' class="{{isActivePath '/meals'}}" title='meals')
-            i.large.wine.glass.icon
+            i.wine.glass.icon
             |meals
         a.item.mobile.hidden(href='/recipes' class="{{isActivePath '/recipes'}}" title='recipes')
-            i.large.blog.icon
+            i.blog.icon
             |recipes
         a.item.mobile.hidden(href='/tribes' class="{{isActivePath '/tribes'}}" title='tribes')
-            i.large.fire.icon
+            i.fire.icon
             |tribes
         a.item.mobile.hidden(href='/ingredients' class="{{isActivePath '/ingredients'}}" title='ingredients')
             i.pepper.hot.icon
             |ingredients
         a.icon.item.mobile.hidden(href='/food' class="{{isActivePath '/food'}}" title='food')
-            i.large.food.icon
-        .ui.input.item
-            input(type='text')
+            i.food.icon
+        //- .ui.input.item
+        //-     input(type='text')
         .right.menu
             if is_admin 
                 a.icon.item.mobile.hidden(href='/admin' class="{{isActivePath '/admin'}}" title="admin")
-                    i.user.shield.large.icon
+                    i.user.shield.icon
                 
-            a.icon.item.mobile.hidden(href='/cart' class="{{isActivePath '/cart'}}" title="shopping cart #{cart_amount} items")
-                i.shopping.cart.large.icon
-            a.mobile.hidden.icon.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks') 
-                i.tasks.large.icon
             a.mobile.hidden.icon.item(href='/events' class="{{isActivePath '/events'}}" title='events') 
-                i.calendar.large.icon
+                i.calendar.icon
             a.icon.item(href='/chat' class="{{isActivePath '/chat'}}" title='chat') 
-                i.chat.outline.large.icon
+                i.chat.outline.icon
             a.icon.item(href='/alerts' class="{{isActivePath '/alerts'}}" title='alerts') 
-                i.bell.large.icon(class=alert_icon_class)
+                i.bell.icon(class=alert_icon_class)
                 //- i.rss.icon
             
             a.icon.item.mobile.hidden(href="/stats")
-                i.line.chart.large.icon
+                i.line.chart.icon
             if currentUser
-                a.item(href="/user/#{currentUser.username}/karma")
-                    |#{currentUser.karma}
+                a.item(href="/user/#{currentUser.username}/credit" title='your credit')
+                    |#{currentUser.credit}
                     //- i.line.chart.icon
                 a.item(href="/user/#{currentUser.username}") 
                     i.user.icon
@@ -63,7 +61,7 @@ template(name='nav')
 
 
 template(name='sidebar')
-    .ui.left.inline.vertical.sidebar.fixed.thin.large.menu
+    .ui.left.inline.vertical.sidebar.fixed.thin.menu
         a.header.toggle_sidebar.item(href='/' class="{{isActivePath '/'}}") 
             i.fire.icon
             | whats cooking
@@ -124,7 +122,7 @@ template(name='footer')
     .ui.stackable.padded.grid.basic.segment
         .row
             .four.wide.column
-                //- .ui.link.large.list
+                //- .ui.link.list
                 //-     a.item(href='/p/about')
                 //-         | what is dao?
                 //-     //- a.item(href='/prime')
@@ -136,7 +134,7 @@ template(name='footer')
                 //-     //- a.item(href='/sponsor') 
                 //-     //-     | sponsor
             .four.wide.column
-                .ui.link.large.list
+                .ui.link.list
                     a.item(href='/blog')
                         i.blog.icon
                         | blog
@@ -154,7 +152,7 @@ template(name='footer')
                         i.rss.icon
                         |alerts
                 if currentUser
-                    .ui.link.large.list
+                    .ui.link.list
                         a.item(href='/users')
                             i.users.icon
                             | users
@@ -162,7 +160,7 @@ template(name='footer')
                             i.line.chart.icon
                             | stats
                 unless currentUser
-                    .ui.link.large.list
+                    .ui.link.list
                         a.item(href='/login')
                             |login
 
@@ -178,7 +176,7 @@ template(name='footer')
                 +bug_reporter 
                 .ui.grey.small.header    
                     i.copyright.outline.icon 
-                    |2020 DAO
+                    |2020 whats cooking
             //- 
 template(name='footer_chat')
     a.ui.grey.header(href="/chat")

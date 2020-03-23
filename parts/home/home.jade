@@ -1,5 +1,5 @@
 template(name='home')
-    .ui.stackable.grid.home
+    .ui.stackable.grid.padded.home
         .centered.row 
             .four.wide.column.scrolling
                 .ui.header 
@@ -33,42 +33,42 @@ template(name='home')
                     button.ui.basic.circular.compact.large.button.result(tabindex="0" class=result_class title=count) #{title}
                         //- small #{count}
                 .spacer
-                +session_toggle_button key='view_redditor_filter' title='toggle redditor filter' icon='user outline'
-                if session_is 'view_redditor_filter' true
+                +session_toggle_button key='view_user_filter' title='toggle user filter' icon='user outline'
+                if session_is 'view_user_filter' true
                     //- i.large.grey.users.icon
                     .ui.left.icon.large.search.input
                         if template_subs_ready
                             i.search.icon.refresh_tags
                         else
                             i.users.loading.large.icon
-                        input#search_redditor.prompt(type='text' autofocus='' autocomplete="off")
-                    if selected_redditors_plural
-                        .ui.icon.circular.black.compact.large.button.clear_selected_redditors
+                        input#search_user.prompt(type='text' autofocus='' autocomplete="off" placeholder='search usernames')
+                    if selected_users_plural
+                        .ui.icon.circular.black.compact.large.button.clear_selected_users
                             i.remove.icon
-                    each selected_redditors
-                        button.ui.black.compact.circular.large.button.unselect_redditor(tabindex='0')
+                    each selected_users
+                        button.ui.black.compact.circular.large.button.unselect_user(tabindex='0')
                             //- i.remove.icon
                             | #{this}
-                    each redditor_leaders
+                    each user_leaders
                         button.ui.basic.circular.compact.large.button.result(tabindex="0" class=result_class title=count) #{title}
                     .spacer
-                +session_toggle_button key='view_subreddit_filter' title='toggle subreddit filter' icon='reddit'
-                if session_is 'view_subreddit_filter' true
+                +session_toggle_button key='view_ingredient_filter' title='toggle ingredient filter' icon='hot pepper'
+                if session_is 'view_ingredient_filter' true
                     .ui.left.icon.large.search.input
                         if template_subs_ready
                             i.search.icon.refresh_tags
                         else
                             i.reddit.loading.large.icon
-                        input#search_subreddit.prompt(type='text' autofocus='' autocomplete="off")
-                    if selected_subreddit_results
-                        .ui.icon.circular.black.compact.large.button.clear_selected_subreddits
+                        input#search_ingredient.prompt(type='text' autofocus='' autocomplete="off" placeholder='search ingredients')
+                    if selected_ingredient_results
+                        .ui.icon.circular.black.compact.large.button.clear_selected_ingredients
                             i.remove.icon
-                    each selected_subreddits
-                        button.ui.black.compact.circular.large.button.unselect_subreddit(tabindex='0')
+                    each selected_ingredients
+                        button.ui.black.compact.circular.large.button.unselect_ingredient(tabindex='0')
                             //- i.remove.icon
                             | #{this}
-                    each subreddit_results
-                        button.ui.basic.circular.compact.large.button.subreddit_result(tabindex="0" class=result_class title=count) #{title}
+                    each ingredient_results
+                        button.ui.basic.circular.compact.large.button.ingredient_result(tabindex="0" class=result_class title=count) #{title}
                             //- small #{count}
                     .spacer
                 //- timestamp tags
@@ -177,16 +177,16 @@ template(name='home')
                 //- .ui.circular.icon.button.calc_leaderboard
                 //-     i.refresh.icon
                 .ui.relaxed.divided.list
-                    each redditor_leaders
+                    each user_leaders
                         .item
-                            .ui.small.header.goto_redditor.pointer
+                            .ui.small.header.goto_user.pointer
                                 i.outline.grey.user.icon
                                 |#{title}
                             span.ui.grey.text #{count} results
-                        unless redditor
-                            i.circular.link.plus.icon.create_redditor
-                        with redditor
-                            i.circular.link.refresh.icon.calc_redditor
+                        unless user
+                            i.circular.link.plus.icon.create_user
+                        with user
+                            i.circular.link.refresh.icon.calc_user
                             span(title='submission count ranking')
                                 i.globe.icon
                                 | ##{submission_rank}

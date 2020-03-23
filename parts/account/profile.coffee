@@ -11,10 +11,10 @@ if Meteor.isClient
         @layout 'profile_layout'
         @render 'user_about'
         ), name:'user_about'
-    Router.route '/user/:username/finance', (->
+    Router.route '/user/:username/credit', (->
         @layout 'profile_layout'
-        @render 'user_finance'
-        ), name:'user_finance'
+        @render 'user_credit'
+        ), name:'user_credit'
     Router.route '/user/:username/tutoring', (->
         @layout 'profile_layout'
         @render 'user_tutoring'
@@ -192,7 +192,7 @@ if Meteor.isClient
             Docs.find {
                 model:'log_event'
             }, sort: _timestamp: -1
-        # user_finances: ->
+        # user_credits: ->
         #     Docs.find {
         #         model:'log_event'
         #         event_type:'credit'

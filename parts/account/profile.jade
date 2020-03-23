@@ -7,19 +7,21 @@ template(name='profile_layout')
                 img.ui.centered.small.rounded.profile_image.image(src="{{c.url profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
                 .ui.center.aligned.basic.segment
                     a(href="/user/#{username}")
-                        .ui.center.aligned.inline.header
-                            | #{user.first_name} #{user.last_name}
-                        //- div
-                        //- .ui.small.inline.header @#{user.username}        
+                        if user.first_name
+                            .ui.center.aligned.inline.header
+                                | #{user.first_name} #{user.last_name}
+                        div
+                        .ui.inline.header @#{user.username}        
                 .ui.fluid.vertical.pointing.menu(class="{{currentUser.nav_color}}")
                     a.item(href="/user/#{username}/dashboard" class="{{isActiveRoute regex='user_dashboard'}}")
                         i.grey.dashboard.icon
                         |dashboard
                     a.item(href="/user/#{username}/profile" class="{{isActiveRoute regex=user_offers}}")
+                        i.grey.info.icon
                         |profile
-                    a.item(href="/user/#{username}/finance" class="{{isActiveRoute regex='user_finance'}}")
+                    a.item(href="/user/#{username}/credit" class="{{isActiveRoute regex='user_credit'}}")
                         i.grey.coins.icon
-                        |finance
+                        |credit
                     a.item(href="/user/#{username}/events" class="{{isActiveRoute regex='user_events'}}")
                         i.grey.calendar.icon
                         |calendar
@@ -76,9 +78,19 @@ template(name='profile_layout')
 
 template(name='user_dashboard')             
     .ui.center.aligned.header 
-        i.dashboard.icon
+        i.dashboard.grey.icon
         |dashboard
     .ui.stackable.padded.grid
+        .row
+            .four.wide.column
+                .ui.header meals offered
+                if is_current_user
+                    .ui.button.offer_new_meal
+                        |offer new meal
+                each offered_meals
+                    .ui.small.header #{title}
+            .four.wide.column
+                .ui.header meals consumed
         .three.column.row
             .column
                 i.recalc_user_act_stats.refresh.link.icon

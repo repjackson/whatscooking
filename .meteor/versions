@@ -47,8 +47,8 @@ fetch@0.1.1
 flowkey:hotkeys@1.2.0
 fortawesome:fontawesome@4.4.0_1
 fourseven:scss@4.12.0
-froala:editor@2.4.2
-froala:editor-reactive@2.4.2
+froala:editor@2.9.6
+froala:editor-reactive@2.9.6
 geojson-utils@1.0.10
 gwendall:body-events@0.1.7
 gwendall:session-json@0.1.7
@@ -73,7 +73,6 @@ lepozepo:cloudinary@4.2.6
 livedata@1.0.18
 localstorage@1.2.0
 logging@1.1.20
-maazalik:highcharts@0.4.0
 manuel:reactivearray@1.0.9
 matb33:collection-hooks@0.9.1
 meteor@1.9.3

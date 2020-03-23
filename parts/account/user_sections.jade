@@ -289,7 +289,7 @@ template(name='user_cart')
 
 
 
-template(name='user_finance')  
+template(name='user_credit')  
     .ui.grid      
         .three.column.row
             .column
@@ -384,8 +384,11 @@ template(name='user_finance')
             .column
                 +user_tutor_sessions
             .column
-                .ui.header admin 
-                +number_edit key='credit' label='credit' direct=true
+                .ui.segment
+                    .ui.header
+                        i.shield.icon
+                        |admin 
+                    +number_edit key='credit' label='edit credit' direct=true
                 
                 
                 

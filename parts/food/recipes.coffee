@@ -14,7 +14,7 @@ if Meteor.isClient
 
 
     Template.recipes.onCreated ->
-        @autorun => Meteor.subscribe 'docs', 'recipe'
+        @autorun => Meteor.subscribe 'model_docs', 'recipe'
 
         # @autorun => Meteor.subscribe 'model_docs', 'recipe'
 

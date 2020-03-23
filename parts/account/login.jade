@@ -12,21 +12,21 @@ template(name='login')
                 div
                 if message
                     h4.ui.center.aligned.header #{message}
-                .ui.inline.small.header 
+                .ui.inline.small.header(class=form_login_class) 
                     i.user.outline.icon
                     |username
-                .ui.fluid.large.input(class=login_class)
+                .ui.fluid.large.input(class=form_login_class)
                     input.username(type='text')
                 .spacer
-                .ui.inline.small.header 
+                .ui.inline.small.header(class=form_login_class) 
                     i.lock.icon
                     | password
-                .ui.fluid.large.input(class=login_class)
+                .ui.fluid.large.input(class=form_login_class)
                     input.password(type='password')
                 //- if username
                 if logging_in
                     .spacer
-                    .ui.fluid.big.circular.button.enter(title="login #{username}" class=enter_class)
+                    .ui.fluid.big.circular.basic.button.enter(title="login #{username}" class=enter_class)
                         |login
                         strong #{username}
                         |&nbsp;
@@ -36,14 +36,15 @@ template(name='login')
                     if username
                         .ui.center.aligned.basic.segment
                             .ui.header no '#{username}' user
-                            a.ui.button(href='/register')
+                            a.ui.basic.circular.large.button(href='/register')
                                 i.user.plus.icon
                                 | register
-                .ui.center.aligned.basic.segment    
-                    a.ui.circular.button(href='/forgot_password')
-                        i.refresh.icon
-                        |forgot password
-                    a.ui.circular.button(href='/register') 
-                        i.user.plus.icon
-                        |register
-                    //- .ui.center.aligned.inline.header see the front desk to register an account
+                unless username
+                    .ui.center.aligned.basic.segment    
+                        a.ui.circular.basic.button(href='/forgot_password')
+                            i.refresh.icon
+                            |forgot password
+                        a.ui.circular.basic.button(href='/register') 
+                            i.user.plus.icon
+                            |register
+                        //- .ui.center.aligned.inline.header see the front desk to register an account

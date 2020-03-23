@@ -17,10 +17,10 @@ template(name='recipes')
                 .ui.stackable.three.cards
                     each recipes
                         .ui.card
-                            if picture
-                                img.ui.image(src="{{c.url picture width=400 height=400}}")
+                            if image_id
+                                img.ui.image(src="{{c.url image_id width=400 height=400}}")
                             else
-                                img.ui.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
+                                img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
                             .content
                                 a.ui.header(href="/recipe/#{_id}") #{title}
                                 div created {{from_now _timestamp}}
@@ -82,10 +82,14 @@ template(name='recipe_view')
     with cd
         .ui.stackable.padded.grid
             .four.wide.column
+                .ui.small.header viewing recipe
                 .ui.header #{title}
                 +array_view key='tags' direct=true
                 +array_view key='recipes' direct=true
                 +array_view key='location_tags' direct=true
+                .ui.header meals used in
+                each recipe_meals
+                    .ui.small.header #{title}
                 .ui.small.header
                     |date available
                     |#{available_date}
@@ -98,20 +102,18 @@ template(name='recipe_view')
                     |signup before 24 hours
                 .ui.header
                     |payment before 24 hours
-            .four.wide.column
+            .eight.wide.column
                 img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
                 +html_view key='description' direct=true
                 +comments
             .four.wide.column
-                a.ui.large.basic.button(href="/recipe/#{_id}/edit")
+                a.ui.large.basic.fluid.button(href="/recipe/#{_id}/edit")
                     i.pencil.icon
-                a.ui.large.basic.button(href="/recipe/#{_id}/view")
-                    i.right.chevron.icon        
-                +reservations
+                    |edit
+                //- +reservations
                 .ui.header cook #{_author_username}
                 with _author_id
                     +user_card
-            .four.wide.column
                 with cd
                     +voting
                     .ui.header similar recipes
@@ -139,10 +141,9 @@ template(name='recipe_edit')
                     |#{time_available}
             .eight.wide.column
                 img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
-                +textarea_edit key='description' direct=true
+                +html_edit key='description' direct=true
             .four.wide.column
-                a.ui.large.basic.button(href="/recipe/#{_id}/edit")
-                    i.pencil.icon
-                a.ui.large.basic.button(href="/recipe/#{_id}/view")
-                    i.right.chevron.icon        
-                +reservations
+                a.ui.large.basic.fluid.button(href="/recipe/#{_id}/view")
+                    i.checkmark.green.icon
+                    |save        
+                //- +reservations

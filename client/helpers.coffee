@@ -117,11 +117,11 @@ Template.registerHelper 'members', () ->
 
 Template.registerHelper 'current_user', () ->
     # Meteor.users.findOne username:Router.current().params.username
-    Meteor.users.findOne Router.current().params.user_id
+    Meteor.users.findOne username:Router.current().params.username
 Template.registerHelper 'is_current_user', () ->
     if Meteor.user()
         # if Meteor.user().username is Router.current().params.username
-        if Meteor.userId() is Router.current().params.user_id
+        if Meteor.user().username is Router.current().params.username
             true
     else
         if Meteor.user().roles and 'dev' in Meteor.user().roles

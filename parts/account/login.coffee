@@ -40,6 +40,9 @@ if Meteor.isClient
                     console.log err
                     $('body').toast({
                         message: err.reason
+                        class: 'error'
+                        showProgress: 'bottom'
+                        classProgress: 'red'
                     })
                 else
                     # console.log res
@@ -65,6 +68,9 @@ if Meteor.isClient
                             console.log err
                             $('body').toast({
                                 message: err.reason
+                                class: 'error'
+                                showProgress: 'bottom'
+                                classProgress: 'red'
                             })
                         else
                             # Router.go "/user/#{username}"
@@ -77,6 +83,8 @@ if Meteor.isClient
     Template.login.helpers
         username: -> Session.get 'username'
         logging_in: -> Session.equals 'enter_mode', 'login'
+        form_login_class: ->
+            if Meteor.loggingIn() then 'disabled'
         enter_class: ->
             if Session.get('username').length
                 if Session.get 'enter_mode', 'login'
