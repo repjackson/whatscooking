@@ -320,8 +320,8 @@ if Meteor.isServer
             model:model
             _author_id:username
 
-    Meteor.publish 'user_events', (user_id)->
-        user = Meteor.users.findOne user_id
+    Meteor.publish 'user_events', (username)->
+        user = Meteor.users.findOne username:username
         Docs.find
             model:'log_event'
             user_id:user._id

@@ -150,7 +150,7 @@ if Meteor.isClient
         'click .item': (e,t)->
             $(e.currentTarget).closest('.item').transition(
                 animation: 'pulse'
-                duration: 500
+                duration: 250
             )
 
 
