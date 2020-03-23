@@ -128,10 +128,10 @@ template(name='image_edit')
                 |#{title}
             else if label
                 |#{label}
-            else if key
-                |#{key}
-            else
-                |#{this}   
+            //- else if key
+            //-     |#{key}
+            //- else
+            //-     |#{this}   
         if tooltip
             i.info.icon(title=tooltip)         
         .field

@@ -10,11 +10,6 @@ Meteor.methods
             slug:'model'
 
 
-    import_tests: ->
-        # myobject = HTTP.get(Meteor.absoluteUrl("/public/tests.json")).data;
-        myjson = JSON.parse(Assets.getText("tests.json"));
-        console.log myjson
-
 
     add_user: (username)->
         options = {}

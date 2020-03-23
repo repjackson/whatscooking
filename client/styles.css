@@ -69,8 +69,8 @@ body {
 }
 
 .ui.image, .label, .ui.embed, .ui.text, .green.header, .red.header, .blue.header, .orange.header, .invert{
-    /* border-radius: 7px !important; */
-    filter: invert(1) !important;
+    border-radius: 7px !important;
+    /* filter: invert(1) !important; */
 }
 
 .invert{

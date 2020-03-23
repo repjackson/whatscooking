@@ -11,12 +11,21 @@ template(name='nav')
             //- else 
             i.large.fire.icon.toggle_menu
             |whats cooking
-        a.icon.item.mobile.hidden(href='/users' class="{{isActivePath '/users'}}" title='daoists')
-            i.users.icon
-        a.icon.item.mobile.hidden(href='/shop' class="{{isActivePath '/shop'}}" title='shop')
-            i.large.store.icon
-        a.icon.item.mobile.hidden(href='/tribes' class="{{isActivePath '/tribes'}}" title='tribes')
+        a.icon.item.mobile.hidden(href='/users' class="{{isActivePath '/users'}}" title='users')
+            i.users.large.icon
+            |users
+        a.item.mobile.hidden(href='/meals' class="{{isActivePath '/meals'}}" title='meals')
+            i.large.wine.glass.icon
+            |meals
+        a.item.mobile.hidden(href='/recipes' class="{{isActivePath '/recipes'}}" title='recipes')
+            i.large.blog.icon
+            |recipes
+        a.item.mobile.hidden(href='/tribes' class="{{isActivePath '/tribes'}}" title='tribes')
             i.large.fire.icon
+            |tribes
+        a.item.mobile.hidden(href='/ingredients' class="{{isActivePath '/ingredients'}}" title='ingredients')
+            i.pepper.hot.icon
+            |ingredients
         a.icon.item.mobile.hidden(href='/food' class="{{isActivePath '/food'}}" title='food')
             i.large.food.icon
         .ui.input.item
@@ -54,14 +63,13 @@ template(name='nav')
 
 
 template(name='sidebar')
-    .ui.left.inline.vertical.sidebar.fixed.menu
+    .ui.left.inline.vertical.sidebar.fixed.thin.large.menu
         a.header.toggle_sidebar.item(href='/' class="{{isActivePath '/'}}") 
-            i.yin.yang.icon
-            | dao
+            i.fire.icon
+            | whats cooking
         a.toggle_sidebar.item(href='/grid' class="{{isActivePath '/grid'}}")
             i.th.icon
             | grid
-            
         a.toggle_sidebar.item(href='/alerts' class="{{isActivePath '/alerts'}}")
             i.bell.icon
             | alerts
@@ -70,19 +78,19 @@ template(name='sidebar')
             | chat
         a.toggle_sidebar.item(href='/users' class="{{isActivePath '/users'}}")
             i.users.icon
-            | daoists
-        a.toggle_sidebar.item(href='/shop' class="{{isActivePath '/shop'}}")
+            | users
+        a.toggle_sidebar.item(href='/meals' class="{{isActivePath '/meals'}}")
             i.shop.icon
-            | shop
-        a.toggle_sidebar.item(href='/events' class="{{isActivePath '/events'}}")
-            i.calendar.icon
-            | events
-        a.toggle_sidebar.item(href='/tasks' class="{{isActivePath '/tasks'}}")
-            i.edit.icon
-            | tasks
-        a.toggle_sidebar.item(href='/reddit' class="{{isActivePath '/reddit'}}")
-            i.reddit.icon
-            | redditors
+            | meals
+        //- a.toggle_sidebar.item(href='/events' class="{{isActivePath '/events'}}")
+        //-     i.calendar.icon
+        //-     | events
+        a.toggle_sidebar.item(href='/ingredients' class="{{isActivePath '/ingredients'}}")
+            i.pepper.hot.icon
+            | ingredients
+        a.toggle_sidebar.item(href='/recipes' class="{{isActivePath '/recipes'}}")
+            i.blog.icon
+            | recipes
         if currentUser
             a.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
                 i.dashboard.icon

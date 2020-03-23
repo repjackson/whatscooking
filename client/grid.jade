@@ -38,55 +38,84 @@ template(name='grid')
                             i.tasks.icon
                             |groups
             .ui.header 
-                i.money.icon
-                |commerce            
+                i.food.icon
+                |food                
             .ui.stackable.cards
                 .ui.card
                     .content 
-                        a.icon.header(href="/cart")
-                            i.shopping.cart.icon
-                            |cart
+                        a.icon.header(href="/meals")
+                            i.wine.glass.icon
+                            |meals
                 .ui.card
                     .content 
-                        a.icon.header(href="/offers")
-                            i.shopping.cart.icon
-                            |offers
+                        a.icon.header(href="/ingredients")
+                            i.pepper.hot.icon
+                            |ingredients
                 .ui.card
                     .content 
-                        a.icon.header(href="/services")
-                            i.wrench.icon
-                            |services
+                        a.icon.header(href="/votes")
+                            i.file.alternate.outline.icon
+                            |recipes
                 .ui.card
                     .content 
-                        a.icon.header(href="/products")
-                            i.shopping.bag.icon
-                            |products
+                        a.icon.header(href="/events")
+                            i.calendar.icon
+                            |events
                 .ui.card
                     .content 
-                        a.icon.header(href="/ads")
-                            i.bullhorn.icon
-                            |ads
-            .ui.header 
-                i.line.chart.icon
-                |project management
-            .ui.stackable.cards
-                .ui.card
-                    .content 
-                        a.icon.header(href="/minutes")
-                            i.clock.icon
-                            |minutes
-                .ui.card
-                    .content 
-                        a.icon.header(href="/timecard")
-                            i.notepad.icon
-                            |timecard
-                .ui.card
-                    .content 
-                        a.icon.header(href="/work_orders")
-                            i.shovel.icon
-                            |work orders
-                .ui.card
-                    .content 
-                        a.icon.header(href="/work")
-                            i.pencil.icon
-                            |work
+                        a.icon.header(href="/groups")
+                            i.users.icon
+                            |groups
+            //- .ui.header 
+            //-     i.money.icon
+            //-     |commerce            
+            //- .ui.stackable.cards
+            //-     .ui.card
+            //-         .content 
+            //-             a.icon.header(href="/cart")
+            //-                 i.shopping.cart.icon
+            //-                 |cart
+            //-     .ui.card
+            //-         .content 
+            //-             a.icon.header(href="/offers")
+            //-                 i.shopping.cart.icon
+            //-                 |offers
+            //-     .ui.card
+            //-         .content 
+            //-             a.icon.header(href="/services")
+            //-                 i.wrench.icon
+            //-                 |services
+            //-     .ui.card
+            //-         .content 
+            //-             a.icon.header(href="/products")
+            //-                 i.shopping.bag.icon
+            //-                 |products
+            //-     .ui.card
+            //-         .content 
+            //-             a.icon.header(href="/ads")
+            //-                 i.bullhorn.icon
+            //-                 |ads
+            //- .ui.header 
+            //-     i.line.chart.icon
+            //-     |project management
+            //- .ui.stackable.cards
+            //-     .ui.card
+            //-         .content 
+            //-             a.icon.header(href="/minutes")
+            //-                 i.clock.icon
+            //-                 |minutes
+            //-     .ui.card
+            //-         .content 
+            //-             a.icon.header(href="/timecard")
+            //-                 i.notepad.icon
+            //-                 |timecard
+            //-     .ui.card
+            //-         .content 
+            //-             a.icon.header(href="/work_orders")
+            //-                 i.shovel.icon
+            //-                 |work orders
+            //-     .ui.card
+            //-         .content 
+            //-             a.icon.header(href="/work")
+            //-                 i.pencil.icon
+            //-                 |work

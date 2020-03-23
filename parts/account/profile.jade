@@ -15,13 +15,8 @@ template(name='profile_layout')
                     a.item(href="/user/#{username}/dashboard" class="{{isActiveRoute regex='user_dashboard'}}")
                         i.grey.dashboard.icon
                         |dashboard
-                    a.item(href="/user/#{username}/mentorship" class="{{isActiveRoute regex=user_mentorship}}")
-                        |mentorship
                     a.item(href="/user/#{username}/profile" class="{{isActiveRoute regex=user_offers}}")
                         |profile
-                    a.item(href="/user/#{username}/tutoring" class="{{isActiveRoute regex='user_tutoring'}}")
-                        i.grey.chalkboard.icon
-                        |tutoring
                     a.item(href="/user/#{username}/finance" class="{{isActiveRoute regex='user_finance'}}")
                         i.grey.coins.icon
                         |finance
@@ -30,9 +25,6 @@ template(name='profile_layout')
                         |calendar
 
                     //- if is_admin
-                    a.item(href="/user/#{username}/brain" class="{{isActiveRoute regex=user_brain}}")
-                        i.grey.brain.icon
-                        |brain
                     a.item(href="/user/#{username}/karma" class="{{isActiveRoute regex=user_karma}}")
                         i.grey.yin.yang.icon
                         |karma
@@ -48,9 +40,6 @@ template(name='profile_layout')
                     a.item(href="/user/#{username}/groups" class="{{isActiveRoute regex='user_groups'}}")
                         i.grey.users.icon
                         |groups
-                    a.item(href="/user/#{username}/awards" class="{{isActiveRoute regex=user_awards}}")
-                        i.grey.award.icon
-                        |awards
                     a.item(href="/user/#{username}/friends" class="{{isActiveRoute regex='user_friends'}}")
                         i.grey.users.icon
                         |friends
@@ -127,17 +116,11 @@ template(name='user_dashboard')
                 +user_bookmarks_small
             //-     +user_answered_questions_small
             .column
-                .ui.small.header section average
+                .ui.small.header meals
                 .ui.list 
                     .item from yesterday
                     .item from last week
                     .item from last month
-                .ui.header.calc_test_sessions test sessions
-                .ui.list 
-                    .item #{current_user.all_sessions_count} total
-                    .item #{current_user.todays_sessions_count} last 24 hrs
-                    .item #{current_user.weeks_sessions_count} last 7 days
-                    .item #{current_user.months_sessions_count} last 30 days
             .column
                 //- .ui.header #{site_percent_complete}% site complete
                 //- .ui.header #{session_count} sessions
@@ -151,16 +134,6 @@ template(name='user_dashboard')
                     |#{global_section_average_rank}
             
         .three.column.row
-            //- .column
-            //-     +user_sessions_small
-            //- .column
-            //-     +user_fiq_small
-            .column
-                +user_brain_small
-            .column
-                +user_authored_questions_small
-            .column
-                +user_progress_small
             .column
                 +user_stats_small
 
@@ -206,17 +179,17 @@ template(name='user_sessions_small')
     .ui.basic.modal
         .ui.icon.header
             i.trash.icon
-            |     Confirm Delete Session
+            | confirm delete session
         //- .content
         //-     p
         //-         | Confirm
         .actions
             .ui.red.basic.cancel.inverted.button
                 i.ban.icon
-                | Cancel
+                | cancel
             .ui.green.ok.inverted.button
                 i.checkmark.icon
-                | Confirm
+                | confirm
 
 
 template(name='user_session')            
