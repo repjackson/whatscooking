@@ -28,21 +28,21 @@ Template.registerHelper 'template_subs_ready', () ->
 Template.registerHelper 'global_subs_ready', () ->
     Session.get('global_subs_ready')
 
-Template.registerHelper 'youtube_id', () ->
-    regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/
-    match = @url.match(regExp)
-    if (match && match[2].length == 11)
-        console.log 'match 2', match[2]
-        match[2]
-    else
-        console.log 'error'
+# Template.registerHelper 'youtube_id', () ->
+#     regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/
+#     match = @url.match(regExp)
+#     if (match && match[2].length == 11)
+#         console.log 'match 2', match[2]
+#         match[2]
+#     else
+#         console.log 'error'
 
 
 
-Template.registerHelper 'is_streamable', () ->
-    @domain is 'streamable.com'
-Template.registerHelper 'is_youtube', () ->
-    @domain is 'youtube.com'
+# Template.registerHelper 'is_streamable', () ->
+#     @domain is 'streamable.com'
+# Template.registerHelper 'is_youtube', () ->
+#     @domain is 'youtube.com'
 Template.registerHelper 'calc_size', (metric) ->
     # console.log metric
     # console.log typeof parseFloat(@relevance)
@@ -118,6 +118,14 @@ Template.registerHelper 'members', () ->
 Template.registerHelper 'current_user', () ->
     # Meteor.users.findOne username:Router.current().params.username
     Meteor.users.findOne username:Router.current().params.username
+
+
+Template.registerHelper 'is_admin', () ->
+    # Meteor.users.findOne username:Router.current().params.username
+    if Meteor.user() and Meteor.user().roles
+        if 'admin' in Meteor.user().roles then true else false
+
+
 Template.registerHelper 'is_current_user', () ->
     if Meteor.user()
         # if Meteor.user().username is Router.current().params.username

@@ -51,17 +51,17 @@ Meteor.publish 'results', (
     #     match.is_video = $ne:false
     # if selected_tags.length > 0 then match.tags = $all: selected_tags
         # match.$regex:"#{current_query}", $options: 'i'}
-    if query and query.length > 1
-    #     console.log 'searching query', query
-    #     # match.tags = {$regex:"#{query}", $options: 'i'}
-    #     # match.tags_string = {$regex:"#{query}", $options: 'i'}
-    #
-        Terms.find {
-            title: {$regex:"#{query}", $options: 'i'}
-        },
-            sort:
-                count: -1
-            limit: 20
+    # if query and query.length > 1
+    # #     console.log 'searching query', query
+    # #     # match.tags = {$regex:"#{query}", $options: 'i'}
+    # #     # match.tags_string = {$regex:"#{query}", $options: 'i'}
+    # #
+    #     Terms.find {
+    #         title: {$regex:"#{query}", $options: 'i'}
+    #     },
+    #         sort:
+    #             count: -1
+    #         limit: 20
         # tag_cloud = Docs.aggregate [
         #     { $match: match }
         #     { $project: "tags": 1 }
@@ -74,96 +74,96 @@ Meteor.publish 'results', (
         #     { $project: _id: 0, name: '$_id', count: 1 }
         #     ]
 
-    else
-        # unless query and query.length > 2
-        if selected_tags.length > 0 then match.tags = $all: selected_tags
-        # match.tags = $all: selected_tags
-        # console.log 'match for tags', match
-        tag_cloud = Docs.aggregate [
-            { $match: match }
-            { $project: "tags": 1 }
-            { $unwind: "$tags" }
-            { $group: _id: "$tags", count: $sum: 1 }
-            { $match: _id: $nin: selected_tags }
-            # { $match: _id: {$regex:"#{current_query}", $options: 'i'} }
-            { $sort: count: -1, _id: 1 }
-            { $limit: 20 }
-            { $project: _id: 0, name: '$_id', count: 1 }
-        ], {
-            allowDiskUse: true
-        }
+    # else
+    # unless query and query.length > 2
+    if selected_tags.length > 0 then match.tags = $all: selected_tags
+    # match.tags = $all: selected_tags
+    # console.log 'match for tags', match
+    tag_cloud = Docs.aggregate [
+        { $match: match }
+        { $project: "tags": 1 }
+        { $unwind: "$tags" }
+        { $group: _id: "$tags", count: $sum: 1 }
+        { $match: _id: $nin: selected_tags }
+        # { $match: _id: {$regex:"#{current_query}", $options: 'i'} }
+        { $sort: count: -1, _id: 1 }
+        { $limit: 20 }
+        { $project: _id: 0, name: '$_id', count: 1 }
+    ], {
+        allowDiskUse: true
+    }
 
-        tag_cloud.forEach (tag, i) =>
-            # console.log 'queried tag ', tag
-            # console.log 'key', key
-            self.added 'tags', Random.id(),
-                title: tag.name
-                count: tag.count
-                # category:key
-                # index: i
-        redditor_leader_cloud = Docs.aggregate [
-            { $match: match }
-            { $project: "author": 1 }
-            { $group: _id: "$author", count: $sum: 1 }
-            { $sort: count: -1, _id: 1 }
-            { $limit: 10 }
-            { $project: _id: 0, title: '$_id', count: 1 }
-        ], {
-            allowDiskUse: true
-        }
+    tag_cloud.forEach (tag, i) =>
+        # console.log 'queried tag ', tag
+        # console.log 'key', key
+        self.added 'tags', Random.id(),
+            title: tag.name
+            count: tag.count
+            # category:key
+            # index: i
+    redditor_leader_cloud = Docs.aggregate [
+        { $match: match }
+        { $project: "author": 1 }
+        { $group: _id: "$author", count: $sum: 1 }
+        { $sort: count: -1, _id: 1 }
+        { $limit: 10 }
+        { $project: _id: 0, title: '$_id', count: 1 }
+    ], {
+        allowDiskUse: true
+    }
 
-        redditor_leader_cloud.forEach (redditor, i) =>
-            # console.log 'queried redditor ', redditor
-            self.added 'redditor_leaders', Random.id(),
-                title: redditor.title
-                count: redditor.count
-                # category:key
-                # index: i
+    redditor_leader_cloud.forEach (redditor, i) =>
+        # console.log 'queried redditor ', redditor
+        self.added 'redditor_leaders', Random.id(),
+            title: redditor.title
+            count: redditor.count
+            # category:key
+            # index: i
 
-        subreddit_cloud = Docs.aggregate [
-            { $match: match }
-            { $project: "subreddit": 1 }
-            { $group: _id: "$subreddit", count: $sum: 1 }
-            { $sort: count: -1, _id: 1 }
-            { $limit: 10 }
-            { $project: _id: 0, title: '$_id', count: 1 }
-        ], {
-            allowDiskUse: true
-        }
+    subreddit_cloud = Docs.aggregate [
+        { $match: match }
+        { $project: "subreddit": 1 }
+        { $group: _id: "$subreddit", count: $sum: 1 }
+        { $sort: count: -1, _id: 1 }
+        { $limit: 10 }
+        { $project: _id: 0, title: '$_id', count: 1 }
+    ], {
+        allowDiskUse: true
+    }
 
-        subreddit_cloud.forEach (redditor, i) =>
-            # console.log 'queried redditor ', redditor
-            self.added 'subreddits', Random.id(),
-                title: redditor.title
-                count: redditor.count
-                # category:key
-                # index: i
+    subreddit_cloud.forEach (redditor, i) =>
+        # console.log 'queried redditor ', redditor
+        self.added 'subreddits', Random.id(),
+            title: redditor.title
+            count: redditor.count
+            # category:key
+            # index: i
 
 
-        timestamp_tag_cloud = Docs.aggregate [
-            { $match: match }
-            { $project: "_timestamp_tags": 1 }
-            { $unwind: "$_timestamp_tags" }
-            { $group: _id: "$_timestamp_tags", count: $sum: 1 }
-            { $match: _id: $nin: selected_timestamp_tags }
-            { $sort: count: -1, _id: 1 }
-            { $limit: 10 }
-            { $project: _id: 0, title: '$_id', count: 1 }
-        ], {
-            allowDiskUse: true
-        }
+    timestamp_tag_cloud = Docs.aggregate [
+        { $match: match }
+        { $project: "_timestamp_tags": 1 }
+        { $unwind: "$_timestamp_tags" }
+        { $group: _id: "$_timestamp_tags", count: $sum: 1 }
+        { $match: _id: $nin: selected_timestamp_tags }
+        { $sort: count: -1, _id: 1 }
+        { $limit: 10 }
+        { $project: _id: 0, title: '$_id', count: 1 }
+    ], {
+        allowDiskUse: true
+    }
 
-        timestamp_tag_cloud.forEach (timestamp_tag, i) =>
-            # console.log 'queried timestamp_tag ', timestamp_tag
-            self.added 'timestamp_tags', Random.id(),
-                title: timestamp_tag.title
-                count: timestamp_tag.count
-                # category:key
-                # index: i
+    timestamp_tag_cloud.forEach (timestamp_tag, i) =>
+        # console.log 'queried timestamp_tag ', timestamp_tag
+        self.added 'timestamp_tags', Random.id(),
+            title: timestamp_tag.title
+            count: timestamp_tag.count
+            # category:key
+            # index: i
 
-        # console.log doc_tag_cloud.count()
+    # console.log doc_tag_cloud.count()
 
-        self.ready()
+    self.ready()
 
 
 

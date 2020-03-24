@@ -10,15 +10,15 @@ if Meteor.isClient
         #         onChange: (text,value,$selectedItem)->
         #     )
         # , 1000
-        Meteor.setTimeout ->
-            $('.context.example .ui.sidebar')
-                .sidebar({
-                    context: $('.context.example .segment')
-                    dimPage: false
-                    transition:  'overlay'
-                })
-                .sidebar('attach events', '.context.example .menu .toggle_sidebar.item')
-        , 1000
+        # Meteor.setTimeout ->
+        #     $('.context.example .ui.sidebar')
+        #         .sidebar({
+        #             context: $('.context.example .segment')
+        #             dimPage: false
+        #             transition:  'overlay'
+        #         })
+        #         .sidebar('attach events', '.context.example .menu .toggle_sidebar.item')
+        # , 1000
 
         Meteor.setTimeout ->
             $('.item').popup(
@@ -126,19 +126,19 @@ if Meteor.isClient
                     model:'classroom'
                     teacher_id:Meteor.userId()
 
-    Template.sidebar.events
-        'click .toggle_sidebar': ->
-            console.log @
-            $('.ui.sidebar')
-                .sidebar('setting', 'transition', 'overlay')
-                .sidebar('toggle')
-
+    # Template.sidebar.events
+    #     'click .toggle_sidebar': ->
+    #         console.log @
+    #         $('.ui.sidebar')
+    #             .sidebar('setting', 'transition', 'overlay')
+    #             .sidebar('toggle')
+    #
 
     Template.nav.events
-        'click .toggle_sidebar': ->
-            $('.ui.sidebar')
-                .sidebar('setting', 'transition', 'overlay')
-                .sidebar('toggle')
+        # 'click .toggle_sidebar': ->
+        #     $('.ui.sidebar')
+        #         .sidebar('setting', 'transition', 'overlay')
+        #         .sidebar('toggle')
 
         # 'mouseenter .item': (e,t)->
         #     $(e.currentTarget).closest('.item').transition('pulse', 500)

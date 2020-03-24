@@ -1,56 +1,56 @@
 if Meteor.isClient
-    Router.route '/user/:user_id/edit/', (->
+    Router.route '/user/:username/edit/', (->
         @layout 'user_edit_layout'
         @render 'user_edit_info'
         ), name:'user_edit_home'
-    Router.route '/user/:user_id/edit/info', (->
+    Router.route '/user/:username/edit/info', (->
         @layout 'user_edit_layout'
         @render 'user_edit_info'
         ), name:'user_edit_info'
-    Router.route '/user/:user_id/edit/friends', (->
+    Router.route '/user/:username/edit/friends', (->
         @layout 'user_edit_layout'
         @render 'user_edit_friends'
         ), name:'user_edit_friends'
-    Router.route '/user/:user_id/edit/payment', (->
+    Router.route '/user/:username/edit/payment', (->
         @layout 'user_edit_layout'
         @render 'user_edit_payment'
         ), name:'user_edit_payment'
-    Router.route '/user/:user_id/edit/account', (->
+    Router.route '/user/:username/edit/account', (->
         @layout 'user_edit_layout'
         @render 'user_edit_account'
         ), name:'user_edit_account'
-    Router.route '/user/:user_id/edit/styles', (->
+    Router.route '/user/:username/edit/styles', (->
         @layout 'user_edit_layout'
         @render 'user_edit_styles'
         ), name:'user_edit_styles'
-    Router.route '/user/:user_id/edit/tutoring', (->
+    Router.route '/user/:username/edit/tutoring', (->
         @layout 'user_edit_layout'
         @render 'user_edit_tutoring'
         ), name:'user_edit_tutoring'
-    Router.route '/user/:user_id/edit/alerts', (->
+    Router.route '/user/:username/edit/alerts', (->
         @layout 'user_edit_layout'
         @render 'user_edit_alerts'
         ), name:'user_edit_alerts'
-    Router.route '/user/:user_id/edit/coach', (->
+    Router.route '/user/:username/edit/coach', (->
         @layout 'user_edit_layout'
         @render 'user_edit_coach'
         ), name:'user_edit_coach'
-    Router.route '/user/:user_id/edit/privacy', (->
+    Router.route '/user/:username/edit/privacy', (->
         @layout 'user_edit_layout'
         @render 'user_edit_privacy'
         ), name:'user_edit_privacy'
-    Router.route '/user/:user_id/edit/ads', (->
+    Router.route '/user/:username/edit/ads', (->
         @layout 'user_edit_layout'
         @render 'user_edit_ads'
         ), name:'user_edit_ads'
-    Router.route '/user/:user_id/edit/tags', (->
+    Router.route '/user/:username/edit/tags', (->
         @layout 'user_edit_layout'
         @render 'user_edit_tags'
         ), name:'user_edit_tags'
 
     Template.user_edit_layout.onCreated ->
         @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
-        @autorun -> Meteor.subscribe 'user_from_id', Router.current().params.user_id
+        # @autorun -> Meteor.subscribe 'user_from_id', Router.current().params.user_id
 
     Template.user_edit_layout.onRendered ->
         Meteor.setTimeout ->
@@ -116,7 +116,7 @@ if Meteor.isClient
                     if err
                         console.error 'Error uploading', err
                     else
-                        user = Meteor.users.findOne Router.current().params.user_id
+                        user = Meteor.users.findOne username:Router.current().params.username
                         Meteor.users.update user._id,
                             $set: "image_id": res.public_id
                     return
@@ -125,7 +125,7 @@ if Meteor.isClient
     Template.username_edit.events
         'click .change_username': (e,t)->
             new_username = t.$('.new_username').val()
-            current_user = Meteor.users.findOne Router.current().params.user_id
+            current_user = Meteor.users.findOne username:Router.current().params.username
             if new_username
                 if confirm "change username from #{current_user.username} to #{new_username}?"
                     Meteor.call 'change_username', current_user._id, new_username, (err,res)->
@@ -148,30 +148,30 @@ if Meteor.isClient
 
         'click .set_password': (e, t) ->
             new_password = $('#new_password').val()
-            current_user = Meteor.users.findOne Router.current().params.user_id
+            current_user = Meteor.users.findOne username:Router.current().params.username
             Meteor.call 'set_password', current_user._id, new_password, ->
                 alert "password set to #{new_password}."
 
         'click .send_password_reset_email': (e,t)->
-            current_user = Meteor.users.findOne Router.current().params.user_id
+            current_user = Meteor.users.findOne username:Router.current().params.username
             Meteor.call 'send_password_reset_email', current_user._id, @address, ->
                 alert 'password reset email sent'
 
 
         'click .send_enrollment_email': (e,t)->
-            current_user = Meteor.users.findOne Router.current().params.user_id
+            current_user = Meteor.users.findOne username:Router.current().params.username
             Meteor.call 'send_enrollment_email', current_user._id, @address, ->
                 alert 'enrollment email sent'
 
 
     Template.emails_edit.helpers
         current_user: ->
-            Meteor.users.findOne Router.current().params.user_id
+            Meteor.users.findOne username:Router.current().params.username
 
     Template.emails_edit.events
         'click #add_email': ->
             new_email = $('#new_email').val().trim()
-            current_user = Meteor.users.findOne Router.current().params.user_id
+            current_user = Meteor.users.findOne username:Router.current().params.username
 
             re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             valid_email = re.test(new_email)
@@ -187,13 +187,13 @@ if Meteor.isClient
 
         'click .remove_email': ->
             if confirm 'remove email?'
-                current_user = Meteor.users.findOne Router.current().params.user_id
+                current_user = Meteor.users.findOne username:Router.current().params.username
                 Meteor.call 'remove_email', current_user._id, @address, (error,result)->
                     if error
                         alert "error removing email: #{error.reason}"
 
 
         'click .send_verification_email': (e,t)->
-            current_user = Meteor.users.findOne Router.current().params.user_id
+            current_user = Meteor.users.findOne username:Router.current().params.username
             Meteor.call 'verify_email', current_user._id, @address, ->
                 alert 'verification email sent'

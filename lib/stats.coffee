@@ -40,9 +40,9 @@ if Meteor.isServer
 
             total_user_count = Meteor.users.find().count()
             total_doc_count = Docs.find().count()
-            total_term_count = Terms.find().count()
+            # total_term_count = Terms.find().count()
             Docs.update ssd_id,
                 $set:
                     total_user_count: total_user_count
                     total_doc_count: total_doc_count
-                    total_term_count: total_term_count
+                    # total_term_count: total_term_count

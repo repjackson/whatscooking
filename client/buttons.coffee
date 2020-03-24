@@ -34,7 +34,7 @@ Template.buy_now_button.onCreated ->
         token: (token) ->
             product = Docs.findOne Router.current().params.doc_id
             charge =
-                amount: product.dollar_price*100
+                amount: 1*100
                 currency: 'usd'
                 source: token.id
                 description: token.description

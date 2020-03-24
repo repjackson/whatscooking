@@ -1,9 +1,5 @@
 if Meteor.isClient
     Template.home.onCreated ->
-        Session.setDefault 'view_images', true
-        Session.setDefault 'view_videos', true
-        Session.setDefault 'view_articles', true
-        Session.setDefault 'view_tweets', true
         Session.setDefault 'view_mode', 'list'
         Session.setDefault 'meal_sort_key', 'ups'
         Session.setDefault 'meal_sort_label', 'upvotes'
@@ -25,7 +21,7 @@ if Meteor.isClient
         @autorun => @subscribe 'results',
             selected_tags.array()
             selected_authors.array()
-            selected_subreddits.array()
+            # selected_subreddits.array()
             selected_timestamp_tags.array()
             Session.get('current_query')
             Session.get('dummy')
@@ -66,18 +62,12 @@ if Meteor.isClient
 
         'click .result': (event,template)->
             # console.log @
-            if selected_tags.array().length is 1
-                Meteor.call 'call_wiki', search, ->
             Meteor.call 'log_term', @title, ->
             selected_tags.push @title
             $('#search').val('')
-            Meteor.call 'call_wiki', @title, ->
             Session.set('current_query', null)
             Session.set('searching', false)
             Meteor.call 'search_reddit', selected_tags.array(), ->
-            Meteor.setTimeout ->
-                Session.set('dummy', !Session.get('dummy'))
-            , 10000
         'click .select_query': -> queries.push @title
         'click .unselect_tag': ->
             selected_tags.remove @valueOf()
@@ -117,11 +107,11 @@ if Meteor.isClient
         'click .calc_meal_count': ->
             Meteor.call 'calc_meal_count', ->
 
-        'click .create_redditor': ->
-            Meteor.call 'create_redditor', @title, ->
+        # 'click .create_redditor': ->
+        #     Meteor.call 'create_redditor', @title, ->
 
-        'click .calc_redditor': ->
-            Meteor.call 'calc_redditor_stats', @handle, ->
+        # 'click .calc_redditor': ->
+        #     Meteor.call 'calc_redditor_stats', @handle, ->
 
         'click .calc_post': ->
             console.log @
@@ -171,15 +161,15 @@ if Meteor.isClient
                     'invert'
         view_menu: -> Session.get('view_menu')
         tags: ->
-            if Session.get('current_query') and Session.get('current_query').length > 1
-                Terms.find({}, sort:count:-1)
+            # if Session.get('current_query') and Session.get('current_query').length > 1
+            #     Terms.find({}, sort:count:-1)
+            # else
+            meal_count = Docs.find().count()
+            # console.log 'meal count', meal_count
+            if meal_count < 3
+                Tags.find({count: $lt: meal_count})
             else
-                meal_count = Docs.find().count()
-                # console.log 'meal count', meal_count
-                if meal_count < 3
-                    Tags.find({count: $lt: meal_count})
-                else
-                    Tags.find()
+                Tags.find()
 
         result_class: ->
             if Template.instance().subscriptionsReady()

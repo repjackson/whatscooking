@@ -27,8 +27,21 @@ template(name='admin')
                             +author_info
                         
             .column
-                +my_latest_activity
-                +latest_activity
+                a.button(href='/ingredients' class="{{isActivePath '/ingredients'}}" title='ingredients')
+                    i.pepper.hot.icon
+                    |ingredients
+                a.icon.button(href="/stats")
+                    i.line.chart.icon
+                    |stats
+                a.ui.button(href='/recipes' class="{{isActivePath '/recipes'}}" title='recipes')
+                    i.blog.icon
+                    |recipes
+                a.ui.button(href='/meals' class="{{isActivePath '/meals'}}" title='meals')
+                    i.wine.glass.icon
+                    |meals
+
+                //- +my_latest_activity
+                //- +latest_activity
 
 
 template(name='call_method')

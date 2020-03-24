@@ -4,7 +4,7 @@ head
     
     meta(name='viewport', content='user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width')
     meta(name='apple-mobile-web-app-capable', content='yes')
-    meta(name='apple-mobile-web-app-status-bar-style', content='black')
+    meta(name='apple-mobile-web-app-status-bar-style', content='white')
     meta(name="msapplication-TileColor" content="#da532c")
     meta(name="theme-color" content="#000")
     link(href="https://fonts.googleapis.com/css?family=Ubuntu:300,400&display=swap" rel="stylesheet")
@@ -17,10 +17,6 @@ head
     script(src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.4/dist/semantic.min.js")
     
     
-    
-
-    
-    //- /* script(async='' src='//embed.redditmedia.com/widgets/platform.js' charset='UTF-8') */
     //- // Global site tag (gtag.js) - Google Analytics
     script(async='' src='https://www.googletagmanager.com/gtag/js?id=UA-156965333-1')
     script.
@@ -32,13 +28,17 @@ head
 
 template(name='layout')
     +nav
-    .content.example.global_container
-        .ui.attached.basic.segment.pushable
-            .pusher
-                +sidebar
-                #main_area
-                    +yield
-        +footer
+    //- +new_nav
+    #main_area
+        +yield
+    //- +footer
+    //- .content.example.global_container
+    //-     .ui.attached.basic.segment.pushable
+    //-         .pusher
+    //-             +sidebar
+    //-             #main_area
+    //-                 +yield
+    //-     +footer
 
 
 

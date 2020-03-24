@@ -1,9 +1,9 @@
 template(name='nav')
     .ui.attached.fluid.borderless.topnav.menu
-        a.icon.item.toggle_sidebar
-            i.bars.icon
-        a.icon.item(href='/grid' class="{{isActivePath '/grid'}}" title='apps')
-            i.th.icon
+        //- a.icon.item.toggle_sidebar
+        //-     i.bars.icon
+        //- a.icon.item(href='/grid' class="{{isActivePath '/grid'}}" title='menu')
+        //-     i.th.icon
         a.header.item(href="/" class="{{isActivePath '/'}}")
             //- unless subs_ready 
                 i.yin.yang.loading.grey.icon(title='dao')
@@ -13,40 +13,25 @@ template(name='nav')
                 |whats cooking
             span.mobile.only
                 |wc
-        a.item.mobile.hidden(href='/users' class="{{isActivePath '/users'}}" title='users')
-            i.users.icon
-            |users
-        a.item.mobile.hidden(href='/meals' class="{{isActivePath '/meals'}}" title='meals')
-            i.wine.glass.icon
-            |meals
-        a.item.mobile.hidden(href='/recipes' class="{{isActivePath '/recipes'}}" title='recipes')
-            i.blog.icon
-            |recipes
+        //- a.item.mobile.hidden(href='/users' class="{{isActivePath '/users'}}" title='users')
+        //-     i.users.icon
+        //-     |users
         a.item.mobile.hidden(href='/tribes' class="{{isActivePath '/tribes'}}" title='tribes')
             i.fire.icon
             |tribes
-        a.item.mobile.hidden(href='/ingredients' class="{{isActivePath '/ingredients'}}" title='ingredients')
-            i.pepper.hot.icon
-            |ingredients
-        a.icon.item.mobile.hidden(href='/food' class="{{isActivePath '/food'}}" title='food')
-            i.food.icon
-        //- .ui.input.item
-        //-     input(type='text')
         .right.menu
             if is_admin 
                 a.icon.item.mobile.hidden(href='/admin' class="{{isActivePath '/admin'}}" title="admin")
-                    i.user.shield.icon
+                    i.shield.icon
                 
-            a.mobile.hidden.icon.item(href='/events' class="{{isActivePath '/events'}}" title='events') 
-                i.calendar.icon
-            a.icon.item(href='/chat' class="{{isActivePath '/chat'}}" title='chat') 
-                i.chat.outline.icon
+            //- a.mobile.hidden.icon.item(href='/events' class="{{isActivePath '/events'}}" title='events') 
+            //-     i.calendar.icon
+            //- a.icon.item(href='/chat' class="{{isActivePath '/chat'}}" title='chat') 
+            //-     i.chat.outline.icon
             a.icon.item(href='/alerts' class="{{isActivePath '/alerts'}}" title='alerts') 
                 i.bell.icon(class=alert_icon_class)
                 //- i.rss.icon
             
-            a.icon.item.mobile.hidden(href="/stats")
-                i.line.chart.icon
             if currentUser
                 a.item(href="/user/#{currentUser.username}/credit" title='your credit')
                     |#{currentUser.credit}
@@ -60,62 +45,62 @@ template(name='nav')
                     |login
 
 
-template(name='sidebar')
-    .ui.left.inline.vertical.sidebar.fixed.thin.menu
-        a.header.toggle_sidebar.item(href='/' class="{{isActivePath '/'}}") 
-            i.fire.icon
-            | whats cooking
-        a.toggle_sidebar.item(href='/grid' class="{{isActivePath '/grid'}}")
-            i.th.icon
-            | grid
-        a.toggle_sidebar.item(href='/alerts' class="{{isActivePath '/alerts'}}")
-            i.bell.icon
-            | alerts
-        a.toggle_sidebar.item(href='/chat' class="{{isActivePath '/chat'}}")
-            i.chat.icon
-            | chat
-        a.toggle_sidebar.item(href='/users' class="{{isActivePath '/users'}}")
-            i.users.icon
-            | users
-        a.toggle_sidebar.item(href='/meals' class="{{isActivePath '/meals'}}")
-            i.shop.icon
-            | meals
-        //- a.toggle_sidebar.item(href='/events' class="{{isActivePath '/events'}}")
-        //-     i.calendar.icon
-        //-     | events
-        a.toggle_sidebar.item(href='/ingredients' class="{{isActivePath '/ingredients'}}")
-            i.pepper.hot.icon
-            | ingredients
-        a.toggle_sidebar.item(href='/recipes' class="{{isActivePath '/recipes'}}")
-            i.blog.icon
-            | recipes
-        if currentUser
-            a.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
-                i.dashboard.icon
-                | dashboard
-            .ui.simple.dropdown.icon.item
-                i.alarm.icon
-                | alerts
-            a.item(href='/messages' class="{{isActivePath '/messages'}}")
-                i.mail.icon
-                | mail
-            if is_admin
-                a.icon.toggle_sidebar.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
-                    i.configure.icon
-                    | admin
-            a.item(href="/user/#{currentUser.username}/edit" class="{{isActiveRoute regex='user_edit'}}")
-                if currentUser.image_id
-                    img.ui.avatar.image(src="{{c.url currentUser.image_id width=50 height=50 gravity='face' crop='fill'}}")
-                else
-                    i.user.icon
-                | #{currentUser.username}
-            a#logout.ui.item(href='#') 
-                i.sign.out.icon
-                | log out
-        else
-            a.ui.item(href='/login') 
-                i.sign.in.icon
-                | log in
+//- template(name='sidebar')
+//-     .ui.left.inline.vertical.sidebar.fixed.thin.menu
+//-         a.header.toggle_sidebar.item(href='/' class="{{isActivePath '/'}}") 
+//-             i.fire.icon
+//-             | whats cooking
+//-         a.toggle_sidebar.item(href='/grid' class="{{isActivePath '/grid'}}")
+//-             i.th.icon
+//-             | grid
+//-         a.toggle_sidebar.item(href='/alerts' class="{{isActivePath '/alerts'}}")
+//-             i.bell.icon
+//-             | alerts
+//-         a.toggle_sidebar.item(href='/chat' class="{{isActivePath '/chat'}}")
+//-             i.chat.icon
+//-             | chat
+//-         a.toggle_sidebar.item(href='/users' class="{{isActivePath '/users'}}")
+//-             i.users.icon
+//-             | users
+//-         a.toggle_sidebar.item(href='/meals' class="{{isActivePath '/meals'}}")
+//-             i.shop.icon
+//-             | meals
+//-         //- a.toggle_sidebar.item(href='/events' class="{{isActivePath '/events'}}")
+//-         //-     i.calendar.icon
+//-         //-     | events
+//-         a.toggle_sidebar.item(href='/ingredients' class="{{isActivePath '/ingredients'}}")
+//-             i.pepper.hot.icon
+//-             | ingredients
+//-         a.toggle_sidebar.item(href='/recipes' class="{{isActivePath '/recipes'}}")
+//-             i.blog.icon
+//-             | recipes
+//-         if currentUser
+//-             a.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
+//-                 i.dashboard.icon
+//-                 | dashboard
+//-             .ui.simple.dropdown.icon.item
+//-                 i.alarm.icon
+//-                 | alerts
+//-             a.item(href='/messages' class="{{isActivePath '/messages'}}")
+//-                 i.mail.icon
+//-                 | mail
+//-             if is_admin
+//-                 a.icon.toggle_sidebar.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
+//-                     i.configure.icon
+//-                     | admin
+//-             a.item(href="/user/#{currentUser.username}/edit" class="{{isActiveRoute regex='user_edit'}}")
+//-                 if currentUser.image_id
+//-                     img.ui.avatar.image(src="{{c.url currentUser.image_id width=50 height=50 gravity='face' crop='fill'}}")
+//-                 else
+//-                     i.user.icon
+//-                 | #{currentUser.username}
+//-             a#logout.ui.item(href='#') 
+//-                 i.sign.out.icon
+//-                 | log out
+//-         else
+//-             a.ui.item(href='/login') 
+//-                 i.sign.in.icon
+//-                 | log in
 
 
 template(name='footer')
@@ -133,36 +118,36 @@ template(name='footer')
                 //-         | privacy policy
                 //-     //- a.item(href='/sponsor') 
                 //-     //-     | sponsor
-            .four.wide.column
-                .ui.link.list
-                    a.item(href='/blog')
-                        i.blog.icon
-                        | blog
-                    a.item(href='/m/model' class="{{isActivePath '/m/model'}}")
-                        i.database.icon
-                        |models
-                    a.icon.item(href='/events' class="{{isActivePath '/events'}}")
-                        i.calendar.icon
-                        |events
-                    a.icon.item(href='/chat' class="{{isActivePath '/chat'}}")
-                        i.chat.outline.icon
-                        |chat
-                    a.icon.item(href='/alerts' class="{{isActivePath '/alerts'}}")
-                        //- i.bell.icon(class=alert_icon_class)
-                        i.rss.icon
-                        |alerts
-                if currentUser
-                    .ui.link.list
-                        a.item(href='/users')
-                            i.users.icon
-                            | users
-                        a.item(href='/stats')
-                            i.line.chart.icon
-                            | stats
-                unless currentUser
-                    .ui.link.list
-                        a.item(href='/login')
-                            |login
+            //- .four.wide.column
+            //-     .ui.link.list
+            //-         a.item(href='/blog')
+            //-             i.blog.icon
+            //-             | blog
+            //-         a.item(href='/m/model' class="{{isActivePath '/m/model'}}")
+            //-             i.database.icon
+            //-             |models
+            //-         a.icon.item(href='/events' class="{{isActivePath '/events'}}")
+            //-             i.calendar.icon
+            //-             |events
+            //-         a.icon.item(href='/chat' class="{{isActivePath '/chat'}}")
+            //-             i.chat.outline.icon
+            //-             |chat
+            //-         a.icon.item(href='/alerts' class="{{isActivePath '/alerts'}}")
+            //-             //- i.bell.icon(class=alert_icon_class)
+            //-             i.rss.icon
+            //-             |alerts
+            //-     if currentUser
+            //-         .ui.link.list
+            //-             a.item(href='/users')
+            //-                 i.users.icon
+            //-                 | users
+            //-             a.item(href='/stats')
+            //-                 i.line.chart.icon
+            //-                 | stats
+            //-     unless currentUser
+            //-         .ui.link.list
+            //-             a.item(href='/login')
+            //-                 |login
 
 
 
