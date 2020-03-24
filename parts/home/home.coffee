@@ -18,29 +18,22 @@ if Meteor.isClient
     #             $('#search').blur()
     #
     Template.home.onCreated ->
-        @autorun => @subscribe 'results',
-            selected_tags.array()
-            selected_authors.array()
-            # selected_subreddits.array()
-            selected_timestamp_tags.array()
-            Session.get('current_query')
-            Session.get('dummy')
-            Session.get('meal_limit')
-            Session.get('meal_sort_key')
-            Session.get('meal_sort_direction')
-            Session.get('view_images')
-            Session.get('view_videos')
-            Session.get('view_articles')
+        # @autorun => @subscribe 'results',
+        #     selected_tags.array()
+        #     selected_authors.array()
+        #     # selected_subreddits.array()
+        #     selected_timestamp_tags.array()
+        #     Session.get('current_query')
+        #     Session.get('meal_limit')
+        #     Session.get('meal_sort_key')
+        #     Session.get('meal_sort_direction')
         @autorun => @subscribe 'meals',
             selected_tags.array()
-            Session.get('view_images')
-            Session.get('view_videos')
-            Session.get('view_articles')
             Session.get('meal_limit')
             Session.get('meal_sort_key')
             Session.get('meal_sort_direction')
 
-        @autorun => @subscribe 'all_redditors'
+        # @autorun => @subscribe 'all_redditors'
 
 
 
@@ -77,9 +70,6 @@ if Meteor.isClient
 
             if selected_tags.array().length > 0
                 Meteor.call 'search_reddit', selected_tags.array(), ->
-
-        'click .refresh_tags': ->
-            Session.set('dummy', !Session.get('dummy'))
 
         'click .clear_selected_tags': ->
             Session.set('current_query',null)

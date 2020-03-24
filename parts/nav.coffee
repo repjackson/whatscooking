@@ -119,12 +119,12 @@ if Meteor.isClient
                     model:'model'
                     bookmark_ids:$in:[Meteor.userId()]
 
-
-        my_classrooms: ->
-            if Meteor.userId()
-                Docs.find
-                    model:'classroom'
-                    teacher_id:Meteor.userId()
+        #
+        # my_classrooms: ->
+        #     if Meteor.userId()
+        #         Docs.find
+        #             model:'classroom'
+        #             teacher_id:Meteor.userId()
 
     # Template.sidebar.events
     #     'click .toggle_sidebar': ->
@@ -135,6 +135,14 @@ if Meteor.isClient
     #
 
     Template.nav.events
+        'click .cook': ->
+            if Meteor.user()
+                new_meal_id =
+                    Docs.insert
+                        model:'meal'
+                Router.go "/meal/#{new_meal_id}/edit"
+            else
+                Router.go "/login"
         # 'click .toggle_sidebar': ->
         #     $('.ui.sidebar')
         #         .sidebar('setting', 'transition', 'overlay')
@@ -147,11 +155,11 @@ if Meteor.isClient
                 on:'hover'
             )
 
-        'click .item': (e,t)->
-            $(e.currentTarget).closest('.item').transition(
-                animation: 'pulse'
-                duration: 250
-            )
+        # 'click .item': (e,t)->
+        #     $(e.currentTarget).closest('.item').transition(
+        #         animation: 'pulse'
+        #         duration: 250
+        #     )
 
 
         'click .new_act_test': ->

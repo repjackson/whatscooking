@@ -58,12 +58,17 @@ template(name='meal_widget')
 
 
 
-template(name='meal_card_template')
-    .ui.stackable.grid.segment
-        .four.wide.column
+template(name='meal_card')
+    .ui.card
+        .content
+            .right.floated.meta
+                |#{when}
+            img.ui.avatar.image(src=author.profile_image_id)
+            |#{author.username}
+        .image
             //- img.ui.fluid.image(src="{{c.url image }}")
             img.ui.fluid.rounded.image(src="{{c.url image width=400 height=600 crop='fit'}}")
-        .twelve.wide.column
+        .content
             .ui.header #{title}
             .ui.inline.small.header ingredients
             each ingredients
@@ -159,14 +164,17 @@ template(name='meal_edit')
                     .ui.small.header select recipe
                     each recipes
                         .ui.button.select_recipe #{title}
-                .ui.small.header
-                    +date_edit key='date_available' label='date available' direct=true
-                .ui.small.header
-                    +time_edit key='time_available' label='time available' direct=true
+                //- .ui.small.header
+                +date_edit key='date_available' label='date available' direct=true
+                //- .ui.small.header
+                +time_edit key='time_available' label='time available' direct=true
             .eight.wide.column
                 img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
-                +textarea_edit key='description' direct=true
+                +html_edit key='description' direct=true
             .four.wide.column
+                a.ui.large.fluid.basic.green.button(href="/meal/#{_id}/view")
+                    i.checkmark.green.icon   
+                    |save     
                 a.ui.large.fluid.button(href="/meal/#{_id}/view")
                     i.checkmark.icon   
-                    |save     
+                    |save  

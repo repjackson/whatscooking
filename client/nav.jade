@@ -1,14 +1,15 @@
 template(name='nav')
-    .ui.attached.fluid.borderless.topnav.menu
+    .ui.attached.fluid.borderless.topnav.large.menu
         //- a.icon.item.toggle_sidebar
         //-     i.bars.icon
         //- a.icon.item(href='/grid' class="{{isActivePath '/grid'}}" title='menu')
         //-     i.th.icon
-        a.header.item(href="/" class="{{isActivePath '/'}}")
+        a.item(href="/" class="{{isActivePath '/'}}")
             //- unless subs_ready 
                 i.yin.yang.loading.grey.icon(title='dao')
             //- else 
-            i.fire.icon.toggle_menu
+            //- i.fire.icon.toggle_menu
+            +icolor name='campfire'
             span.mobile.hidden
                 |whats cooking
             span.mobile.only
@@ -16,9 +17,14 @@ template(name='nav')
         //- a.item.mobile.hidden(href='/users' class="{{isActivePath '/users'}}" title='users')
         //-     i.users.icon
         //-     |users
-        a.item.mobile.hidden(href='/tribes' class="{{isActivePath '/tribes'}}" title='tribes')
-            i.fire.icon
-            |tribes
+        //- a.item.mobile.hidden(href='/tribes' class="{{isActivePath '/tribes'}}" title='tribes')
+        //-     //- i.fire.icon
+        //-     +icolor name='crowd'
+        //-     |tribes
+        a.item.cook
+            //- i.fire.icon
+            +icolor name='cooking'
+            |cook
         .right.menu
             if is_admin 
                 a.icon.item.mobile.hidden(href='/admin' class="{{isActivePath '/admin'}}" title="admin")

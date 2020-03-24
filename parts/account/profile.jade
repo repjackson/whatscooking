@@ -12,33 +12,41 @@ template(name='profile_layout')
                                 | #{user.first_name} #{user.last_name}
                         div
                         .ui.inline.header @#{user.username}        
-                .ui.fluid.vertical.pointing.menu(class="{{currentUser.nav_color}}")
+                .ui.fluid.vertical.pointing.large.menu(class="{{currentUser.nav_color}}")
                     a.item(href="/user/#{username}/dashboard" class="{{isActiveRoute regex='user_dashboard'}}")
-                        i.grey.dashboard.icon
+                        //- i.grey.dashboard.icon
+                        i.icon 
+                            +ismall name='dashboard'
                         |dashboard
                     a.item(href="/user/#{username}/profile" class="{{isActiveRoute regex=user_offers}}")
-                        i.grey.info.icon
+                        i.icon 
+                            +ismall name='info'
+                        //- i.grey.info.icon
                         |profile
                     a.item(href="/user/#{username}/credit" class="{{isActiveRoute regex='user_credit'}}")
-                        i.grey.coins.icon
+                        //- i.grey.coins.icon
+                        i.icon 
+                            +ismall name='coins'
                         |credit
                     a.item(href="/user/#{username}/events" class="{{isActiveRoute regex='user_events'}}")
-                        i.grey.calendar.icon
+                        i.icon 
+                            +ismall name='calendar'
+                        //- i.grey.calendar.icon
                         |calendar
 
                     //- if is_admin
-                    a.item(href="/user/#{username}/karma" class="{{isActiveRoute regex=user_karma}}")
-                        i.grey.yin.yang.icon
-                        |karma
-                    a.item(href="/user/#{username}/upvoted" class="{{isActiveRoute regex=user_upvoted}}")
-                        i.grey.thumbs.up.icon
-                        |upvoted
-                    a.item(href="/user/#{username}/downvoted" class="{{isActiveRoute regex=user_downvoted}}")
-                        i.grey.thumbs.down.icon
-                        |downvoted
-                    a.item(href="/user/#{username}/cart" class="{{isActiveRoute regex='user_cart'}}")
-                        i.grey.shopping.cart.icon
-                        |cart
+                    //- a.item(href="/user/#{username}/karma" class="{{isActiveRoute regex=user_karma}}")
+                    //-     i.grey.yin.yang.icon
+                    //-     |karma
+                    //- a.item(href="/user/#{username}/upvoted" class="{{isActiveRoute regex=user_upvoted}}")
+                    //-     i.grey.thumbs.up.icon
+                    //-     |upvoted
+                    //- a.item(href="/user/#{username}/downvoted" class="{{isActiveRoute regex=user_downvoted}}")
+                    //-     i.grey.thumbs.down.icon
+                    //-     |downvoted
+                    //- a.item(href="/user/#{username}/cart" class="{{isActiveRoute regex='user_cart'}}")
+                    //-     i.grey.shopping.cart.icon
+                    //-     |cart
                     a.item(href="/user/#{username}/groups" class="{{isActiveRoute regex='user_groups'}}")
                         i.grey.users.icon
                         |groups
@@ -49,11 +57,13 @@ template(name='profile_layout')
                         i.grey.envelope.icon
                         |messages
                 if is_current_user
-                    a.ui.large.fluid.button(href="/user/#{username}/edit")
-                        i.cog.icon
+                    a.ui.large.fluid.basic.button(href="/user/#{username}/edit")
+                        //- i.cog.icon
+                        +ismall name='settings' classes='ui inline image'
                         |account
-                    a.ui.fluid.button.logout(href="#")
-                        i.sign.out.alternate.icon
+                    a.ui.fluid.basic.button.logout(href="#")
+                        //- i.sign.out.alternate.icon
+                        +ismall name='exit' classes='ui inline image'
                         |log out
                     //- a.ui.fluid.button.logout_other_clients(href="#" title='logout other clients')
                     //-     //- i.globe.icon
@@ -77,9 +87,9 @@ template(name='profile_layout')
 
 
 template(name='user_dashboard')             
-    .ui.center.aligned.header 
-        i.dashboard.grey.icon
-        |dashboard
+    //- .ui.center.aligned.header 
+    //-     i.dashboard.grey.icon
+    //-     |dashboard
     .ui.stackable.padded.grid
         .row
             .four.wide.column

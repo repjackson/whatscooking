@@ -8,6 +8,11 @@ Meteor.publish 'model_docs', (model)->
     Docs.find
         model:model
 
+Meteor.publish 'meals', (model)->
+    # console.log 'pulling doc'
+    Docs.find
+        model:'meal'
+
 Meteor.publish 'user_from_username', (username)->
     # console.log 'pulling doc'
     Meteor.users.find
@@ -30,13 +35,9 @@ Meteor.publish 'results', (
     selected_subreddits
     selected_timestamp_tags
     query
-    dummy
     doc_limit
     doc_sort_key
     doc_sort_direction
-    view_images
-    view_videos
-    view_articles
     )->
     # console.log 'dummy', dummy
     # console.log 'query', query
@@ -44,7 +45,7 @@ Meteor.publish 'results', (
 
     self = @
     match = {}
-    match.model = 'reddit'
+    match.model = 'meal'
     # if view_images
     #     match.is_image = $ne:false
     # if view_videos
