@@ -21,21 +21,13 @@ template(name='tribe_card_template')
             //- if icon
             //-     +i name=icon
             |#{title}
+        div
+        |#{member_ids.length} members
         |!{description}
         +ismall name='tags' classes='ui inline image'
         each tags
             .ui.basic.label #{this}
         div
-        +voting_full
-        a.ui.button(href="/tribe/#{_id}/view")
-            |view
-            i.right.chevron.icon
-
-
-template(name='tribe_update_small')
-    .ui.small.header #{text}
-
-
 
 
 
@@ -60,7 +52,7 @@ template(name='tribe_edit')
                 .six.wide.column 
                     +text_edit key='title' label='title' icon='title' direct=true
                     +image_edit key='image' label='image' icon='image' direct=true
-                    +textarea_edit key='description' label='description' icon='content' direct=true
+                    +html_edit key='description' label='description' icon='content' direct=true
                 .six.wide.column
                     +boolean_edit key='true_false' label='true/false' direct=true 
                     unless true_false
@@ -79,18 +71,16 @@ template(name='tribe_view')
         .ui.stackable.padded.grid
             .row
                 .sixteen.wide.column 
-                    a.ui.icon.button(href="/m/tribe" title='view tribes')
-                        i.left.chevron.icon
-                        |tribes
                     .ui.inline.header
                         if icon
                             +i name=icon
                         .ui.header #{title}
             .row
                 .four.wide.column 
-                    a.ui.big.button(href="/tribe/#{_id}/edit")
-                        i.pencil.icon
-                        |edit
+                    if can_edit
+                        a.ui.big.button(href="/tribe/#{_id}/edit")
+                            i.pencil.icon
+                            |edit
                     +array_view key='tags' label='tags' icon='tags' direct=true
                     +html_view key='description' icon='content' label='description' direct=true
                     +image_view key='image' icon='image' label='image' direct=true

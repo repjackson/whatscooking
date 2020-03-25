@@ -22,16 +22,12 @@ template(name='recipes')
                             else
                                 img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
                             .content
-                                a.ui.header(href="/recipe/#{_id}") #{title}
+                                a.ui.header(href="/recipe/#{_id}/view") #{title}
                                 div created {{from_now _timestamp}}
                                 div available {{from_now date}}
-                                +edit_button
-                                +view_button
-                                |available servings: #{available_servings}
-                                
-                                if servings_available
-                                    .ui.button.recipe_sign_up
-                                        |sign up
+                                if can_edit
+                                    +edit_button
+                                |servings: #{available_servings}
 
 
 
@@ -120,30 +116,3 @@ template(name='recipe_view')
                     .ui.header alerts
                     |alergen alert
                     |#{alergen_alert}
-
-
-
-template(name='recipe_edit')
-    with cd
-        .ui.stackable.padded.grid
-            .four.wide.column
-                .ui.header edit recipe
-                .ui.header #{title}
-                +text_edit key='title' direct=true
-                +array_edit key='tags' direct=true
-                +array_edit key='recipes' direct=true
-                +array_edit key='location_tags' direct=true
-                .ui.small.header
-                    |date available
-                    |#{available_date}
-                .ui.small.header
-                    |time available
-                    |#{time_available}
-            .eight.wide.column
-                img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
-                +html_edit key='description' direct=true
-            .four.wide.column
-                a.ui.large.basic.fluid.button(href="/recipe/#{_id}/view")
-                    i.checkmark.green.icon
-                    |save        
-                //- +reservations

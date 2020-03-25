@@ -17,14 +17,20 @@ template(name='nav')
         //- a.item.mobile.hidden(href='/users' class="{{isActivePath '/users'}}" title='users')
         //-     i.users.icon
         //-     |users
-        //- a.item.mobile.hidden(href='/tribes' class="{{isActivePath '/tribes'}}" title='tribes')
-        //-     //- i.fire.icon
-        //-     +icolor name='crowd'
-        //-     |tribes
+        a.item.mobile.hidden(href='/tribes' class="{{isActivePath '/tribes'}}" title='tribes')
+            //- i.fire.icon
+            +icolor name='log-cabin'
+            |tribes
         a.item.cook
             //- i.fire.icon
             +icolor name='cooking'
             |cook
+        a.mobile.hidden.item(href='/recipes' class="{{isActivePath '/recipes'}}") 
+            i.list.icon
+            |recipes
+        a.mobile.hidden.item(href='/ingredients' class="{{isActivePath '/ingredients'}}") 
+            i.apple.icon
+            |ingredients
         .right.menu
             if is_admin 
                 a.icon.item.mobile.hidden(href='/admin' class="{{isActivePath '/admin'}}" title="admin")
@@ -34,11 +40,11 @@ template(name='nav')
             //-     i.calendar.icon
             //- a.icon.item(href='/chat' class="{{isActivePath '/chat'}}" title='chat') 
             //-     i.chat.outline.icon
-            a.icon.item(href='/alerts' class="{{isActivePath '/alerts'}}" title='alerts') 
-                i.bell.icon(class=alert_icon_class)
                 //- i.rss.icon
             
             if currentUser
+                a.icon.item(href='/alerts' class="{{isActivePath '/alerts'}}" title='alerts') 
+                    i.bell.icon(class=alert_icon_class)
                 a.item(href="/user/#{currentUser.username}/credit" title='your credit')
                     |#{currentUser.credit}
                     //- i.line.chart.icon

@@ -28,11 +28,11 @@ template(name='profile_layout')
                         i.icon 
                             +ismall name='coins'
                         |credit
-                    a.item(href="/user/#{username}/events" class="{{isActiveRoute regex='user_events'}}")
-                        i.icon 
-                            +ismall name='calendar'
-                        //- i.grey.calendar.icon
-                        |calendar
+                    //- a.item(href="/user/#{username}/events" class="{{isActiveRoute regex='user_events'}}")
+                    //-     i.icon 
+                    //-         +ismall name='calendar'
+                    //-     //- i.grey.calendar.icon
+                    //-     |calendar
 
                     //- if is_admin
                     //- a.item(href="/user/#{username}/karma" class="{{isActiveRoute regex=user_karma}}")
@@ -47,14 +47,19 @@ template(name='profile_layout')
                     //- a.item(href="/user/#{username}/cart" class="{{isActiveRoute regex='user_cart'}}")
                     //-     i.grey.shopping.cart.icon
                     //-     |cart
-                    a.item(href="/user/#{username}/groups" class="{{isActiveRoute regex='user_groups'}}")
-                        i.grey.users.icon
-                        |groups
+                    a.item(href="/user/#{username}/tribes" class="{{isActiveRoute regex='user_tribes'}}")
+                        i.icon 
+                            +ismall name='group'
+                        |tribes
                     a.item(href="/user/#{username}/friends" class="{{isActiveRoute regex='user_friends'}}")
-                        i.grey.users.icon
+                        //- i.grey.users.icon
+                        i.icon 
+                            +ismall name='groups'
                         |friends
                     a.item(href="/user/#{username}/messages" class="{{isActiveRoute regex='user_messages'}}")
-                        i.grey.envelope.icon
+                        //- i.grey.envelope.icon
+                        i.icon 
+                            +ismall name='envelope'
                         |messages
                 if is_current_user
                     a.ui.large.fluid.basic.button(href="/user/#{username}/edit")
@@ -92,19 +97,20 @@ template(name='user_dashboard')
     //-     |dashboard
     .ui.stackable.padded.grid
         .row
-            .four.wide.column
+            .eight.wide.column
                 .ui.header meals offered
                 if is_current_user
-                    .ui.button.offer_new_meal
+                    .ui.basic.button.offer_new_meal
+                        i.plus.icon
                         |offer new meal
                 each offered_meals
                     .ui.small.header #{title}
-            .four.wide.column
+            .eight.wide.column
                 .ui.header meals consumed
         .three.column.row
             .column
-                i.recalc_user_act_stats.refresh.link.icon
-                i.recalc_user_cloud.refresh.link.icon
+                //- i.recalc_user_act_stats.refresh.link.icon
+                //- i.recalc_user_cloud.refresh.link.icon
                 .ui.header upvote cloud 
                     each current_user.upvote_tag_cloud
                         .ui.basic.large.label 
@@ -169,85 +175,6 @@ template(name='user_alerts_small')
             .ui.item #{content}
 
 
-template(name='user_fiq_small')
-    a.ui.header(href="/user/#{username}/fiq")
-        i.line.chart.icon
-        |#{current_user.username} fiq #{current_user.fiq}
-    .ui.small.header 
-        |your fiq #{currentUser.fiq}
-
-template(name='user_progress_small')
-    i.pie.chart.icon
-    .ui.inline.header 
-        |progress
-    div    
-
-template(name='user_authored_questions_small')
-    i.pencil.icon
-    .ui.inline.header 
-        |authored questions
-    div    
-
-
-
-template(name='user_sessions_small')
-    .ui.inline.header 
-        //- i.book.icon
-        |#{current_user.session_count} sessions
-    div    
-    .ui.list 
-        each sessions 
-            +user_session
-    .ui.basic.modal
-        .ui.icon.header
-            i.trash.icon
-            | confirm delete session
-        //- .content
-        //-     p
-        //-         | Confirm
-        .actions
-            .ui.red.basic.cancel.inverted.button
-                i.ban.icon
-                | cancel
-            .ui.green.ok.inverted.button
-                i.checkmark.icon
-                | confirm
-
-
-template(name='user_session')            
-    .item
-        .header 
-            |#{test.title}    
-        .content
-            //- .ui.indicating.tiny.invert.progress(data-percent=correct_percent)
-            //-     .bar 
-                //- .label 
-                //-     |#{correct_percent}% correct percent
-            span {{ correct_percent }}% progress
-                .rounded.invert(style="height:5px;width:{{correct_percent}}%;background-color:green" title="{{correct_percent}}% progress")
-        .content
-            .ui.grid
-                .six.column.row
-                    .column
-                        | #{when} #{correct_count}/#{question_count} 
-                    .column
-                        |#{correct_percent}%
-                    .column
-
-                        if act_score 
-                            .ui.label ACT Score: #{act_score}
-                    .column
-                        if time_difference_minutes 
-                            .ui.label #{time_difference_minutes} minutes
-                        
-                    .column
-                        a.ui.small.compact.button(href="/test_session/#{_id}/take")
-                            |review
-                            i.grey.right.chevron.icon
-                    .column
-                        .ui.small.compact.circular.icon.button.delete_session
-                            i.red.remove.invert.icon
-    
     
 template(name='user_stats_small')
     .ui.inline.header 
@@ -256,12 +183,9 @@ template(name='user_stats_small')
     div    
     .ui.large.list 
         .item profile views 
+        .item meals cooked
+        .item meals bought
         .item comments
-        .item questions authored 
-        .item likes 
-        .item dislikes
-        .item question views
-        .item courses enrolled
         
     
     

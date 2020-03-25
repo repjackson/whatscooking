@@ -3,10 +3,6 @@ if Meteor.isClient
         @layout 'layout'
         @render 'recipes'
         ), name:'recipes'
-    Router.route '/recipe/:doc_id/edit', (->
-        @layout 'layout'
-        @render 'recipe_edit'
-        ), name:'recipe_edit'
     Router.route '/recipe/:doc_id/view', (->
         @layout 'layout'
         @render 'recipe_view'
@@ -19,8 +15,6 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'model_docs', 'recipe'
 
     Template.recipe_view.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-    Template.recipe_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
 
     Template.recipes.events

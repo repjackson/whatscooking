@@ -18,14 +18,14 @@ template(name='detect')
 
 template(name='session_edit_icon')
     if currentUser
-        unless is_editing
+        unless is_edcompactiting
             i.pencil.link.icon.edit_this(title=tags class=button_classes)
         else
             .save_doc.ui.icon.button(class=button_classes title='save')
                 i.check.icon
 
 template(name='edit_button')
-    a.ui.icon.compact.basic.button(href="/m/#{model}/#{_id}/edit" title='edit')
+    a.ui.icon.large.compact.basic.button(href="/m/#{model}/#{_id}/edit" title='edit')
         i.pencil.icon
         
 

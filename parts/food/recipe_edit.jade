@@ -1,0 +1,34 @@
+template(name='recipe_edit')
+    with cd
+        .ui.stackable.padded.grid
+            .four.wide.column
+                .ui.header edit recipe
+                .ui.header #{title}
+                +text_edit key='title' direct=true
+                +array_edit key='tags' direct=true
+                +array_edit key='recipes' direct=true
+                +array_edit key='location_tags' direct=true
+                .ui.small.header
+                    |date available
+                    |#{available_date}
+                .ui.small.header
+                    |time available
+                    |#{time_available}
+            .eight.wide.column
+                img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
+                +html_edit key='description' direct=true
+            .four.wide.column
+                a.ui.large.basic.fluid.button(href="/recipe/#{_id}/view")
+                    i.checkmark.green.icon
+                    |save        
+                .ui.header ingredients 
+                .ui.icon.button.add_ingredient
+                    i.plus.icon
+                .ui.fluid.input
+                    input.search_ingredient(type='text' placeholder='search ingredient')
+                each recipe_ingredients
+                    .ui.small.header #{title}
+                .ui.small.header results
+                .ui.list
+                    each ingredient_results
+                        .item.select_ingredient #{title}
