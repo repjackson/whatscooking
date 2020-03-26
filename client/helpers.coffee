@@ -164,7 +164,10 @@ Template.registerHelper 'meal_dish', () ->
         _id:@dish_id
 
 Template.registerHelper 'total_potential_revenue', () ->
-    @price_per_serving * @servings
+    @price_per_serving * @servings_amount
+
+# Template.registerHelper 'servings_available', () ->
+#     @price_per_serving * @servings_amount
 
 Template.registerHelper 'session_is', (key, value)->
     Session.equals(key, value)

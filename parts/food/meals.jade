@@ -53,43 +53,66 @@ template(name='meal_widget')
 
 
 template(name='meal_card')
-    .ui.card
+    .ui.card(class=meal_card_class)
         .content
             .right.floated.meta
-                |#{when}
+                | {{from_now datetime_available}}
+
             img.ui.avatar.image(src="{{c.url _author.profile_image_id width=400 height=600 crop='fit'}}")
             |#{_author.username}
         .image
             //- img.ui.fluid.image(src="{{c.url image }}")
             img.ui.fluid.rounded.image(src="{{c.url image width=400 height=600 crop='fit'}}")
         .content
-            .ui.header #{title}
-            .ui.inline.small.header ingredients
-            each ingredients
-                .ui.basic.label #{this}
-            .ui.inline.small.header tags
-            each tags
-                .ui.basic.label #{this}
-            .ui.inline.small.header location_tags
-            each location_tags
-                .ui.basic.label #{this}
-            .ui.header available {{from_now date}} at #{time_available}
-            .ui.header servings available #{servings_available}
-            .ui.header $#{price_per_serving}/serving
-            if delivery
-                +icolor name='deliver-food'
-            if pickup
-                +icolor name='doormat'
-            if can_edit
-                a.ui.large.basic.icon.button(href="/meal/#{_id}/edit")
-                    i.pencil.icon
-            a.ui.large.basic.button(href="/meal/#{_id}/view")
-                |view
-                i.right.chevron.icon        
-            a.ui.large.green.button(href="/meal/#{_id}/view")
-                |buy
-            //- +edit_button
-            //- +view_button
+            if is_quickbuying
+                +quickbuying
+            else
+                .ui.header #{title}
+                .ui.inline.small.header ingredients
+                each ingredients
+                    .ui.basic.label #{this}
+                .ui.inline.small.header tags
+                each tags
+                    .ui.basic.label #{this}
+                .ui.inline.small.header location_tags
+                each location_tags
+                    .ui.basic.label #{this}
+                .ui.header available {{from_now date}} at #{time_available}
+                .ui.header servings amount #{servings_amount}
+                .ui.header servings available #{servings_available}
+                .ui.header $#{price_per_serving}/serving
+                if delivery
+                    +icolor name='deliver-food'
+                if pickup
+                    +icolor name='doormat'
+                if can_edit
+                    a.ui.large.basic.icon.button(href="/meal/#{_id}/edit")
+                        i.pencil.icon
+                a.ui.large.basic.button(href="/meal/#{_id}/view")
+                    |view
+                    i.right.chevron.icon        
+                a.ui.large.green.button(href="/meal/#{_id}/view")
+                    |buy
+                .ui.large.yellow.button.quickbuy
+                    i.lightning.icon
+                    |quickbuy
+                //- +edit_button
+                //- +view_button
+            
+template(name='quickbuying')
+    .ui.header quickbuy
+    .ui.header servings available #{servings_available}
+    .ui.header $#{price_per_serving}/serving
+    .ui.header total cost #{total_cost}
+    .ui.header available credit #{currentUser.credit}
+    .ui.header credit needed #{credit_needed}
+    .ui.green.button.confirm
+        |confirm
+    .ui.red.button.cancel_quickbuying
+        |cancel
+            
+            
+            
             
 template(name='meal_reviews')
     .ui.segment

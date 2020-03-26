@@ -1,8 +1,8 @@
 if Meteor.isClient
     Template.home.onCreated ->
         Session.setDefault 'view_mode', 'list'
-        Session.setDefault 'meal_sort_key', 'ups'
-        Session.setDefault 'meal_sort_label', 'upvotes'
+        Session.setDefault 'meal_sort_key', 'datetime_available'
+        Session.setDefault 'meal_sort_label', 'available'
         Session.setDefault 'meal_limit', 5
 
     # Template.body.events

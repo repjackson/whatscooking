@@ -14,9 +14,9 @@ template(name='nav')
                 |whats cookin
             span.mobile.only
                 |wc
-        //- a.item.mobile.hidden(href='/users' class="{{isActivePath '/users'}}" title='users')
-        //-     i.users.icon
-        //-     |users
+        a.item.mobile.hidden(href='/users' class="{{isActivePath '/users'}}" title='users')
+            i.users.icon
+            |users
         a.mobile.hidden.item.mobile.hidden(href='/tribes' class="{{isActivePath '/tribes'}}" title='tribes')
             +icolor name='log-cabin'
             |tribes

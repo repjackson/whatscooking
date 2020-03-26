@@ -8,7 +8,7 @@ template(name='home')
                 //- .ui.header #{connection.status}
                 unless connected
                     .ui.inline.header disconnected
-                    .ui.red.basic.circular.button.reconnect reconnect
+                    .ui.green.basic.circular.button.reconnect reconnect
                 //- else 
                 //-     i.image.circular.link.icon.toggle_images(title='toggle images' class=view_images_class)
                 //-     i.video.circular.link.icon.toggle_videos(title='toggle video' class=view_videos_class)
@@ -111,8 +111,8 @@ template(name='home')
                             i.dropdown.icon
                             .menu
                                 +set_meal_sort_key key='price_per_serving' label='$/serving' icon='money'
-                                +set_meal_sort_key key='ups' label='upvotes' icon='thumbs up outline'
-                                +set_meal_sort_key key='_timestamp' label='added' icon='clock'
+                                +set_meal_sort_key key='datetime_available' label='available' icon='clock'
+                                //- +set_meal_sort_key key='_timestamp' label='added' icon='clock'
                                 +set_meal_sort_key key='comment_count' label='comment count' icon='chat'
                     .ui.compact.icon.basic.circular.button.set_sort_direction(title='toggle sort direction')
                         if sorting_up

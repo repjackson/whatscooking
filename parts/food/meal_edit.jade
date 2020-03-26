@@ -4,7 +4,7 @@ template(name='meal_edit')
             .four.wide.column
                 .ui.header editing meal
                 .ui.header #{title}
-                +number_edit key='servings' label='servings' direct=true
+                +number_edit key='servings_amount' label='servings available' direct=true
                 +number_edit key='price_per_serving' label='price per serving' direct=true
                 //- +array_edit key='location_tags' direct=true
                 .ui.header $#{total_potential_revenue} 
@@ -18,9 +18,10 @@ template(name='meal_edit')
                         .ui.button.select_dish #{title}
             .eight.wide.column
                 //- .ui.small.header
-                +date_edit key='date_available' label='date available' direct=true
-                //- .ui.small.header
-                +time_edit key='time_available' label='time available' direct=true
+                //- +date_edit key='date_available' label='date available' direct=true
+                //- //- .ui.small.header
+                //- +time_edit key='time_available' label='time available' direct=true
+                +datetime_edit key='datetime_available' label='date/time available' direct=true
                 .ui.segment
                     +boolean_edit key='delivery' label='delivery' color_icon='deliver-food' direct=true
                     if pickup

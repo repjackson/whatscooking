@@ -13,16 +13,19 @@ template(name='meal_view')
                 +array_view key='tags' direct=true
                 +array_view key='ingredients' direct=true
                 +array_view key='location_tags' direct=true
-                .ui.small.header
-                    |date available
-                    |#{available_date}
-                .ui.small.header
-                    |time available
-                    |#{time_available}
+                +datetime_view key='datetime_available' label='date/time available' direct=true
+                .ui.header available {{from_now datetime_available}}
+                //- .ui.small.header
+                //-     |date available
+                //-     |#{available_date}
+                //- .ui.small.header
+                //-     |time available
+                //-     |#{time_available}
                 .ui.dividing.header
                     |rules
-                .ui.header #{servings} servings
+                .ui.header #{serving_amount} serving amount
                 .ui.header $#{price_per_serving}/serving
+                .ui.header #{servings_available} servings available
                 .ui.header
                     if pickup
                         i.checkmark.icon

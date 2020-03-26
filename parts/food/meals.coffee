@@ -46,6 +46,113 @@ if Meteor.isClient
             }, sort:title:1
 
 
+    Template.meal_card.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'meal'
+    Template.meal_card.events
+        'click .quickbuy': ->
+            console.log @
+            Session.set('quickbuying_id', @_id)
+
+
+    Template.meal_card.helpers
+        meal_card_class: ->
+            if Session.get('quickbuying_id')
+                if Session.equals('quickbuying_id', @_id)
+                    'raised'
+                else
+                    'inverted'
+        is_quickbuying: ->
+            Session.equals('quickbuying_id', @_id)
+
+        meals: ->
+            # console.log Meteor.user().roles
+            Docs.find {
+                model:'meal'
+            }, sort:title:1
+
+    Template.quickbuying.helpers
+        credit_needed: ->
+            console.log @
+            Meteor.user().credit - @price_per_serving
+    Template.quickbuying.events
+        'click .cancel_quickbuying': ->
+            console.log @
+            Session.set('quickbuying_id', null)
+
+        'click .confirm': ->
+            if Meteor.user().credit >= @price_per_serving
+                if confirm 'confirm buy serving?'
+                    Docs.insert
+                        model:'order'
+                        meal_id: @_id
+                        order_price: @price_per_serving
+                        buyer_id: Meteor.userId()
+                    Meteor.users.update Meteor.userId(),
+                        $inc:credit:-@price_per_serving
+                    Meteor.users.update @_author_id,
+                        $inc:credit:@price_per_serving
+                    alert 'order processed'
+            else
+                alert 'need more credit'
+                # deposit_amount = Math.abs(parseFloat($('.adding_credit').val()))
+                # stripe_charge = parseFloat(deposit_amount)*100*1.02+20
+                stripe_charge = 1000
+                # stripe_charge = parseInt(deposit_amount*1.02+20)
+
+                # if confirm "add #{deposit_amount} credit?"
+                Template.instance().checkout.open
+                    name: 'credit deposit'
+                    # email:Meteor.user().emails[0].address
+                    description: 'wc top up'
+                    amount: stripe_charge
+
+                # Meteor.call 'buy_serving', @_id, ->
+    Template.quickbuying.onCreated ->
+        if Meteor.isDevelopment
+            pub_key = Meteor.settings.public.stripe_test_publishable
+        else if Meteor.isProduction
+            pub_key = Meteor.settings.public.stripe_live_publishable
+        Template.instance().checkout = StripeCheckout.configure(
+            key: pub_key
+            image: 'https://res.cloudinary.com/facet/image/upload/v1571084876/mmmlogo.png'
+            locale: 'auto'
+            # zipCode: true
+            token: (token) ->
+                product = Docs.findOne Router.current().params.doc_id
+                charge =
+                    amount: 1*100
+                    currency: 'usd'
+                    source: token.id
+                    description: token.description
+                    # receipt_email: token.email
+                Meteor.call 'STRIPE_single_charge', charge, product, (error, response) =>
+                    if error then alert error.reason, 'danger'
+                    else
+                        alert 'Payment received.', 'success'
+                        Docs.insert
+                            model:'transaction'
+                            # product_id:product._id
+                        Meteor.users.update Meteor.userId(),
+                            $inc: credit:10
+                    
+    	)
+
+    # Template.quickbuying.events
+    #     'click .buy_now': ->
+    #         deposit_amount = Math.abs(parseFloat($('.adding_credit').val()))
+    #         stripe_charge = parseFloat(deposit_amount)*100*1.02+20
+    #         # stripe_charge = parseInt(deposit_amount*1.02+20)
+    #
+    #         # if confirm "add #{deposit_amount} credit?"
+    #         Template.instance().checkout.open
+    #             name: 'credit deposit'
+    #             # email:Meteor.user().emails[0].address
+    #             description: 'wc top up'
+    #             amount: stripe_charge
+
+
+
+
     Template.meal_reviews.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'review'
     Template.meal_reviews.helpers
@@ -63,102 +170,15 @@ if Meteor.isClient
 
 
 
-    # Template.reservations.onCreated ->
-    #     @autorun => Meteor.subscribe 'asset_reservations', Router.current().params.doc_id
-    #     @editing = new ReactiveVar false
-    # Template.reservations.events
-    #     'click .new_reservation': ->
-    #         Docs.insert
-    #             model:'reservation'
-    #             parent_id:Router.current().params.doc_id
-    #
-    #     'click .toggle_editing': (e,t)->
-    #         t.editing.set !t.editing.get()
-    #
-    # Template.reservations.helpers
-    #     taken_slots: ->
-    #         asset = Docs.findOne Router.current().params.doc_id
-    #         reservation_count = Docs.find(model:'reservation').count()
-    #     money_earned: ->
-    #         asset = Docs.findOne Router.current().params.doc_id
-    #         reservation_count = Docs.find(model:'reservation').count()
-    #         asset.slot_price*reservation_count
-    #     available_slots: ->
-    #         asset = Docs.findOne Router.current().params.doc_id
-    #         reservation_count = Docs.find(model:'reservation').count()
-    #         asset.slots_available - reservation_count
-    #         # console.log asset.slots_available
-    #     is_editing: -> Template.instance().editing.get()
-    #     my_reservation: ->
-    #         Docs.findOne
-    #             _author_id:Meteor.userId()
-    #             model:'reservation'
-    #             parent_id:Router.current().params.doc_id
-    #
-    #     can_reserve: ->
-    #         found_reservation =
-    #             Docs.findOne
-    #                 _author_id:Meteor.userId()
-    #                 model:'reservation'
-    #                 parent_id:Router.current().params.doc_id
-    #         if found_reservation then false else true
-    #     existing_reservation: ->
-    #         found_reservation =
-    #             Docs.findOne
-    #                 _author_id:Meteor.userId()
-    #                 model:'reservation'
-    #                 parent_id:Router.current().params.doc_id
-    #     reservations: ->
-    #         Docs.find
-    #             model: 'reservation'
-    #             parent_id:Router.current().params.doc_id
 
 
 
 
-    # Template.model_scroller.onCreated ->
-    #     @skip = new ReactiveVar 0
-    #     @autorun => Meteor.subscribe 'model_docs_with_skip', @data.model, @skip.get()
-    # Template.model_scroller.helpers
-    #     user_results: -> Template.instance().user_results.get()
-    #     current_doc: ->
-    #         # console.log @model
-    #         Docs.findOne {
-    #             model:@model
-    #         }, skip: Template.instance().skip.get()
-    #         # }
-    #     model_doc_template: ->
-    #         # console.log "#{@model}_doc_view"
-    #         "#{@model}_doc_view"
-    #
-    #     can_go_left: ->
-    #         Template.instance().skip.get() > 0
-    #     can_go_right: ->
-    #         count = Docs.find(model:@model).count()
-    #         # console.log count
-    #         Template.instance().skip.get() < count-1
-    #
-    #
-    # Template.model_scroller.events
-    #     'click .go_to_model': ->
-    #         # console.log @
-    #         Session.set 'loading', true
-    #         Meteor.call 'set_facets', @model, ->
-    #             Session.set 'loading', false
-    #         # Router.go "/m/#{@model}"
-    #     'click .go_left': ->
-    #         current_skip = Template.instance().skip.get()
-    #         unless current_skip is 0
-    #             Template.instance().skip.set(current_skip-1)
-    #     'click .go_right': ->
-    #         current_skip = Template.instance().skip.get()
-    #         Template.instance().skip.set(current_skip+1)
-
-
-
-
-
-# if Meteor.isServer
+if Meteor.isServer
+    Meteor.methods
+        buy_serving: (meal_id)->
+            meal = Docs.findOne meal_id
+            console.log 'buying serving from meal', meal
     # Meteor.publish 'asset_reservations', (asset_id)->
     #     asset = Docs.findOne asset_id
     #     Docs.find

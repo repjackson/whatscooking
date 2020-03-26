@@ -48,13 +48,6 @@ Template.buy_now_button.onCreated ->
                         product_id:product._id
 	)
 
-
-
-
-
-
-
-
 Template.buy_now_button.events
     'click .buy_now': ->
         deposit_amount = Math.abs(parseFloat($('.adding_credit').val()))
