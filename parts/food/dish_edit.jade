@@ -29,6 +29,10 @@ template(name='dish_edit')
                 .ui.four.cards
                     each dish_ingredients
                         .ui.card
+                            if image_id
+                                .image
+                                    img.ui.rounded.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+
                             .content
                                 .header #{title}
                                 .ui.button.make_protein
@@ -51,8 +55,12 @@ template(name='dish_edit')
                 if current_ingredient_query
                     .ui.small.header results
                     if ingredient_results
-                        .ui.list
+                        .ui.large.divided.middle.aligned.selection.animated.list
                             each ingredient_results
-                                .item.select_ingredient #{title}
+                                a.item.select_ingredient
+                                    img.ui.avatar.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+         
+                                    .content
+                                        .header #{title}
                     else
                         a.ui.header.add_new_ingredient add #{current_ingredient_query}

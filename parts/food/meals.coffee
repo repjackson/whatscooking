@@ -3,10 +3,6 @@ if Meteor.isClient
         @layout 'layout'
         @render 'meals'
         ), name:'meals'
-    Router.route '/meal/:doc_id/edit', (->
-        @layout 'layout'
-        @render 'meal_edit'
-        ), name:'meal_edit'
     Router.route '/meal/:doc_id/view', (->
         @layout 'layout'
         @render 'meal_view'
@@ -18,16 +14,6 @@ if Meteor.isClient
 
     Template.meal_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-
-
-    Template.meal_edit.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'model_docs', 'recipe'
-    Template.meal_edit.helpers
-        # 'click .'
-
-
-
 
 
 

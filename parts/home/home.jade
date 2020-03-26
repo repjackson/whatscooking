@@ -106,11 +106,13 @@ template(name='home')
                 +boolean_edit label='no shellfish' color_icon='no-shellfish' direct=true key='shellfish_free'
                     
                 .sorting_row
+                    |sort by
                     .ui.compact.small.menu
                         .ui.simple.dropdown.item
                             strong #{current_meal_sort_label}
                             i.dropdown.icon
                             .menu
+                                +set_meal_sort_key key='price_per_serving' label='$/serving' icon='money'
                                 +set_meal_sort_key key='ups' label='upvotes' icon='thumbs up outline'
                                 +set_meal_sort_key key='_timestamp' label='added' icon='clock'
                                 +set_meal_sort_key key='comment_count' label='comment count' icon='chat'
@@ -132,24 +134,23 @@ template(name='home')
                                 +set_meal_limit amount=5
                                 +set_meal_limit amount=10
                                 +set_meal_limit amount=20
-                                +set_meal_limit amount=50
-                    .ui.compact.menu
-                        .ui.simple.dropdown.item
-                            |#{meal_view_mode}
-                            i.dropdown.icon
-                            .menu
-                                +set_view_mode_meals title='table' icon='table'
-                                +set_view_mode_meals title='list' icon='list'
-                                +set_view_mode_meals title='cards' icon='clone'
-                                +set_view_mode_meals title='items' icon='list'
-                                +set_view_mode_meals title='map' icon='map'
-                                +set_view_mode_meals title='graph' icon='line chart'
-                    |sort by
-                    +session_edit_value_button key='sort_key' value='_timestamp' label='created'
-                    +session_edit_value_button key='sort_key' value='upvotes' label='upvotes'
-                    +session_edit_value_button key='view_mode' value='cards' label='cards' icon='grip horizontal' icon_view=true classes='circular icon'
-                    +session_edit_value_button key='view_mode' value='list' label='list' icon='list' icon_view=true classes='circular icon'
-                    +session_edit_value_button key='view_mode' value='table' label='table' icon='border none' icon_view=true classes='circular icon'
+                                //- +set_meal_limit amount=50
+                    //- .ui.compact.menu
+                    //-     .ui.simple.dropdown.item
+                    //-         |#{meal_view_mode}
+                    //-         i.dropdown.icon
+                    //-         .menu
+                    //-             +set_view_mode_meals title='table' icon='table'
+                    //-             +set_view_mode_meals title='list' icon='list'
+                    //-             +set_view_mode_meals title='cards' icon='clone'
+                    //-             +set_view_mode_meals title='items' icon='list'
+                    //-             +set_view_mode_meals title='map' icon='map'
+                    //-             +set_view_mode_meals title='graph' icon='line chart'
+                    //- +session_edit_value_button key='sort_key' value='_timestamp' label='created'
+                    //- +session_edit_value_button key='sort_key' value='upvotes' label='upvotes'
+                    //- +session_edit_value_button key='view_mode' value='cards' label='cards' icon='grip horizontal' icon_view=true classes='circular icon'
+                    //- +session_edit_value_button key='view_mode' value='list' label='list' icon='list' icon_view=true classes='circular icon'
+                    //- +session_edit_value_button key='view_mode' value='table' label='table' icon='border none' icon_view=true classes='circular icon'
                 //- .scrolling
                 //- if session_is 'view_mode' 'cards'
                 .ui.stackable.cards

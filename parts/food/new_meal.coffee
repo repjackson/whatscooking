@@ -41,11 +41,11 @@ if Meteor.isClient
                 model:'meal'
             }, limit:5
 
-        your_dishs: ->
+        your_dishes: ->
             Docs.find
                 model:'dish'
                 _author_id:Meteor.userId()
-        possible_dishs: ->
+        possible_dishes: ->
             Docs.find
                 model:'dish'
 

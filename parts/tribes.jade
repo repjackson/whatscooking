@@ -16,18 +16,19 @@ template(name='tribes')
                     
                     
 template(name='tribe_card_template')
-    .ui.fluid.segment
-        a.ui.inline.header(href="/tribe/#{_id}/view")
-            //- if icon
-            //-     +i name=icon
-            |#{title}
-        div
-        |#{member_ids.length} members
-        |!{description}
-        +ismall name='tags' classes='ui inline image'
-        each tags
-            .ui.basic.label #{this}
-        div
+    .ui.fluid.segment.stackable.grid
+        .four.wide.column
+            if image_id
+                img.ui.small.inline.image(src="{{c.url image_id}}")
+        .twelve.wide.column
+            a.ui.header(href="/tribe/#{_id}/view")
+                |#{title}
+            |#{member_ids.length} members
+            |!{description}
+            //- +ismall name='tags' classes='ui inline image'
+            each tags
+                .ui.basic.label #{this}
+            div
 
 
 
@@ -51,7 +52,7 @@ template(name='tribe_edit')
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                 .six.wide.column 
                     +text_edit key='title' label='title' icon='title' direct=true
-                    +image_edit key='image' label='image' icon='image' direct=true
+                    +image_edit key='image_id' label='image' icon='image' direct=true
                     +html_edit key='description' label='description' icon='content' direct=true
                 .six.wide.column
                     +boolean_edit key='true_false' label='true/false' direct=true 

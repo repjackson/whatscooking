@@ -1,4 +1,4 @@
-# whats cooking
+# whats cookin
 
  - install meteor (https://www.meteor.com/install)
  - clone repo

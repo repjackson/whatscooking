@@ -1,23 +1,16 @@
 template(name='ingredients')
     .ui.stackable.padded.grid
         .row
-            .four.wide.column
+            .three.wide.column
                 .ui.inline.header 
                     |ingredients
-                .ui.icon.button.add_ingredient
+                .ui.icon.circular.basic.button.add_ingredient
                     i.plus.icon
-                div
-                a.ui.button(href='/meals')
-                    |meals
-                a.ui.button(href='/reservations')
-                    |reservations
-                a.ui.button(href='/recipes')
-                    |recipes
                 .spacer
                 .ui.small.inline.header filter
                 +cloud filter='ingredient'
-            .twelve.wide.column
-                .ui.stackable.three.centered.cards
+            .thirteen.wide.column
+                .ui.stackable.centered.cards
                     each ingredients
                         +ingredient_card
 
@@ -31,30 +24,13 @@ template(name='ingredient_card')
         .content
             a.ui.header(href="/ingredient/#{_id}/view") #{title}
             div created {{from_now _timestamp}}
-            +view_button
-            |available servings: #{available_servings}
+            //- |available servings: #{available_servings}
             
 
             
             
             
             
-template(name='ingredient_reviews')
-    .ui.segment
-        .ui.header 
-            +i name='popular-topic'
-            |reviews
-        if can_leave_review
-            .ui.basic.button.leave_review leave review
-        else
-            .ui.basic.button.edit_review leave review
-        each reviews
-            .ui.header #{text}
-            each tags
-                .ui.basic.tag #{this}
-            .ui.header vote #{vote}
-
-
 
 template(name='ingredient_view')
     with cd
@@ -64,9 +40,13 @@ template(name='ingredient_view')
                     i.left.chevron.icon
                     |ingredients
                 .ui.header #{title}
+                +image_view key='image_id' direct=true
+                
                 +array_view key='tags' direct=true
-                +array_view key='ingredients' direct=true
-                +array_view key='location_tags' direct=true
+                a.ui.large.fluid.button(href="/ingredient/#{_id}/edit")
+                    i.pencil.icon
+                    |edit        
+                
                 .ui.header meals included in
                 each meal_inclusions
                     a.ui.small.header(href="/meal/#{_id}/view")

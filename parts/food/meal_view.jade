@@ -1,0 +1,54 @@
+template(name='meal_view')
+    with cd
+        .ui.stackable.padded.grid
+            .four.wide.column
+                a.ui.fluid.basic.button(href="/meals")
+                    +icolor name='meal' classes='ui mini inline image'
+                    |meals
+                .ui.header #{title}
+                if can_edit
+                    a.ui.large.basic.button(href="/meal/#{_id}/edit")
+                        i.pencil.icon
+                        |edit
+            
+                +array_view key='tags' direct=true
+                +array_view key='ingredients' direct=true
+                +array_view key='location_tags' direct=true
+                .ui.small.header
+                    |date available
+                    |#{available_date}
+                .ui.small.header
+                    |time available
+                    |#{time_available}
+                .ui.dividing.header
+                    |rules
+                .ui.header #{servings} servings
+                .ui.header $#{price_per_serving}/serving
+                .ui.header
+                    if pickup
+                        i.checkmark.icon
+                    else 
+                        |no
+                    |pickup
+                .ui.header 
+                    if delivery
+                        i.checkmark.icon
+                    else 
+                        |no
+                    |delivery
+                
+            .four.wide.column
+                img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
+                +html_view key='description' direct=true
+                +comments
+            .four.wide.column
+                .ui.header cook #{_author_username}
+                with _author_id
+                    +user_card
+            .four.wide.column
+                with cd
+                    +voting_full
+                    .ui.header similar meals
+                    .ui.header alerts
+                    |alergen alert
+                    |#{alergen_alert}

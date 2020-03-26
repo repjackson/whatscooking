@@ -8,13 +8,10 @@ template(name='new_meal')
                             .title select dish
                     .step
                         .content
-                            .title edit dish
+                            .title scheduling & payment
                     .step
                         .content
-                            .title scheduling and payment
-                    .step
-                        .content
-                            .title confirm and publish
+                            .title confirm & publish
                 
     
         //- .row
@@ -23,15 +20,15 @@ template(name='new_meal')
                 //- .ui.search
                 //-     .ui.icon.input
                 //-         i.search.icon
-                //-         input.seach_dishs(type='text' placeholder='search dishs')
-                //- each possible_dishs
+                //-         input.seach_dishes(type='text' placeholder='search dishes')
+                //- each possible_dishes
                 //-     .ui.button.select_dish #{title}
         .centered.row
             .fourteen.wide.column
-                .ui.divided.grid
+                .ui.divided.stackable.padded.grid
                     .two.column.row
                         .column
-                            .ui.header create new
+                            .ui.header create new dish
                             .ui.icon.input
                                 i.search.icon
                                 input.new_dish_title(type='text' placeholder='new dish title')
@@ -48,11 +45,12 @@ template(name='new_meal')
                                             .description
                                                 |#{when}
                         .column
-                            .ui.header your dishs
-                            .ui.list
-                                each your_dishs
-                                    .ui.button.select_dish
-                                        |#{title}
+                            .ui.header your dishes
+                            .ui.stackable.cards
+                                each your_dishes
+                                    a.ui.card.select_dish
+                                        .content
+                                            .header #{title}
 
 template(name='meal_logistics')
     with cd
@@ -89,7 +87,7 @@ template(name='meal_logistics')
                         .ui.small.header dish
                     else 
                         .ui.small.header select dish
-                        each dishs
+                        each dishes
                             .ui.button.select_dish #{title}
                     //- .ui.small.header
                     +date_edit key='date_available' label='date available' direct=true

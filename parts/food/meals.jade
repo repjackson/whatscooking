@@ -24,8 +24,8 @@ template(name='meals')
 
 template(name='meal')
     .ui.card
-        if picture
-            img.ui.image(src="{{c.url picture width=400 height=400}}")
+        if image_id
+            img.ui.image(src="{{c.url image_id width=400 height=400}}")
         else
             img.ui.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
         .content
@@ -63,8 +63,8 @@ template(name='meal_card')
         .content
             .right.floated.meta
                 |#{when}
-            img.ui.avatar.image(src=author.profile_image_id)
-            |#{author.username}
+            img.ui.avatar.image(src="{{c.url _author.profile_image_id width=400 height=600 crop='fit'}}")
+            |#{_author.username}
         .image
             //- img.ui.fluid.image(src="{{c.url image }}")
             img.ui.fluid.rounded.image(src="{{c.url image width=400 height=600 crop='fit'}}")
@@ -81,10 +81,19 @@ template(name='meal_card')
                 .ui.basic.label #{this}
             .ui.header available {{from_now date}} at #{time_available}
             .ui.header servings available #{servings_available}
-            a.ui.large.basic.icon.button(href="/meal/#{_id}/edit")
-                i.pencil.icon
-            a.ui.large.basic.icon.button(href="/meal/#{_id}/view")
+            .ui.header $#{price_per_serving}/serving
+            if delivery
+                +icolor name='deliver-food'
+            if pickup
+                +icolor name='doormat'
+            //- if can
+            //- a.ui.large.basic.icon.button(href="/meal/#{_id}/edit")
+            //-     i.pencil.icon
+            a.ui.large.basic.button(href="/meal/#{_id}/view")
                 i.right.chevron.icon        
+                |view
+            a.ui.large.green.button(href="/meal/#{_id}/view")
+                |buy
             //- +edit_button
             //- +view_button
             
@@ -102,46 +111,3 @@ template(name='meal_reviews')
             each tags
                 .ui.basic.tag #{this}
             .ui.header vote #{vote}
-
-
-
-template(name='meal_view')
-    with cd
-        .ui.stackable.padded.grid
-            .four.wide.column
-                a.ui.fluid.button(href="/meals")
-                    i.wine.glass.icon
-                    |meals
-                .ui.header #{title}
-                +array_view key='tags' direct=true
-                +array_view key='ingredients' direct=true
-                +array_view key='location_tags' direct=true
-                .ui.small.header
-                    |date available
-                    |#{available_date}
-                .ui.small.header
-                    |time available
-                    |#{time_available}
-                .ui.dividing.header
-                    |rules
-                .ui.header
-                    |signup before 24 hours
-                .ui.header
-                    |payment before 24 hours
-            .four.wide.column
-                img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
-                +html_view key='description' direct=true
-                +comments
-            .four.wide.column
-                a.ui.large.basic.button(href="/meal/#{_id}/edit")
-                    i.pencil.icon
-                .ui.header cook #{_author_username}
-                with _author_id
-                    +user_card
-            .four.wide.column
-                with cd
-                    +voting_full
-                    .ui.header similar meals
-                    .ui.header alerts
-                    |alergen alert
-                    |#{alergen_alert}
