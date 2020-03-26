@@ -10,7 +10,6 @@ template(name='meal_view')
                     a.ui.large.basic.button(href="/meal/#{_id}/edit")
                         i.pencil.icon
                         |edit
-            
                 +array_view key='tags' direct=true
                 +array_view key='ingredients' direct=true
                 +array_view key='location_tags' direct=true
@@ -43,7 +42,7 @@ template(name='meal_view')
                 +comments
             .four.wide.column
                 .ui.header cook #{_author_username}
-                with _author_id
+                with _author
                     +user_card
             .four.wide.column
                 with cd

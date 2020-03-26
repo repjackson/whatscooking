@@ -2,8 +2,8 @@ template(name='dish_edit')
     with cd
         .ui.stackable.padded.grid
             .four.wide.column
-                .ui.header edit dish
-                .ui.header #{title}
+                .ui.small.grey.inline.header edit dish:
+                .ui.inline.header #{title}
                 +text_edit key='title' direct=true
                 +array_edit key='tags' direct=true
             .eight.wide.column

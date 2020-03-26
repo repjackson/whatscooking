@@ -5,8 +5,9 @@ template(name='dishes')
                 .ui.inline.header 
                     +icolor name='meal'
                     |dishes
-                .ui.icon.circular.basic.button.add_dish
-                    i.plus.icon
+                if currentUser
+                    .ui.icon.circular.basic.button.add_dish
+                        i.plus.icon
                 +cloud filter='dish'
                 //- a.ui.button(href='/meals')
                 //-     |meals

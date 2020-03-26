@@ -6,21 +6,32 @@ template(name='meal_edit')
                 .ui.header #{title}
                 +number_edit key='servings' label='servings' direct=true
                 +number_edit key='price_per_serving' label='price per serving' direct=true
-                +array_edit key='location_tags' direct=true
-                .ui.header recipe
-                if selected_recipe
-                    .ui.small.header recipe
+                //- +array_edit key='location_tags' direct=true
+                .ui.header $#{total_potential_revenue} 
+                    small total potential revenue
+                .ui.header dish
+                if meal_dish
+                    .ui.small.header #{meal_dish.title}
                 else 
-                    .ui.small.header select recipe
-                    each recipes
-                        .ui.button.select_recipe #{title}
+                    .ui.small.header select dish
+                    each dishes
+                        .ui.button.select_dish #{title}
             .eight.wide.column
                 //- .ui.small.header
                 +date_edit key='date_available' label='date available' direct=true
                 //- .ui.small.header
                 +time_edit key='time_available' label='time available' direct=true
-                +boolean_edit key='delivery' label='delivery' color_icon='deliver-food' direct=true
-                +boolean_edit key='pickup' label='pickup' color_icon='doormat' direct=true
+                .ui.segment
+                    +boolean_edit key='delivery' label='delivery' color_icon='deliver-food' direct=true
+                    if pickup
+                        .ui.header delivery
+                        +text_edit key='delivery_notes' label='delivery notes' direct=true
+                .ui.segment
+                    +boolean_edit key='pickup' label='pickup' color_icon='doormat' direct=true
+                    if pickup
+                        .ui.header pickup
+                        +text_edit key='pickup_notes' label='pickup notes' direct=true
+                        +time_edit key='pickup_cutoff' direct=true
                 img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
                 +html_edit key='description' direct=true
             .four.wide.column

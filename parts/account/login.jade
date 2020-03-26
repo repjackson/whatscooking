@@ -3,12 +3,9 @@ template(name='login')
         .centered.row
             .eight.wide.column
                 .ui.center.aligned.basic.segment
-                    //- a.ui.icon.large.button(href="/" title='return home')
-                    //-     i.home.icon
-                        //- |home
-                    i.huge.fire.icon
-                    //- img.ui.rounded.large.centered.inline.image(src="{{c.url 'forest_logo_blue' width=400 height=400}}")
-                    .ui.inline.large.header whats cookin login
+                    .ui.large.header
+                        +icolor name='campfire' classes='ui inline image'
+                        |whats cookin login
                 div
                 if message
                     h4.ui.center.aligned.header #{message}

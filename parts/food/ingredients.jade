@@ -4,8 +4,9 @@ template(name='ingredients')
             .three.wide.column
                 .ui.inline.header 
                     |ingredients
-                .ui.icon.circular.basic.button.add_ingredient
-                    i.plus.icon
+                if currentUser
+                    .ui.icon.circular.basic.button.add_ingredient
+                        i.plus.icon
                 .spacer
                 .ui.small.inline.header filter
                 +cloud filter='ingredient'
@@ -36,14 +37,14 @@ template(name='ingredient_view')
     with cd
         .ui.stackable.padded.grid
             .four.wide.column
-                a.ui.button(href="/ingredients")
+                a.ui.basic.button(href="/ingredients")
                     i.left.chevron.icon
                     |ingredients
                 .ui.header #{title}
                 +image_view key='image_id' direct=true
                 
                 +array_view key='tags' direct=true
-                a.ui.large.fluid.button(href="/ingredient/#{_id}/edit")
+                a.ui.basic.fluid.button(href="/ingredient/#{_id}/edit")
                     i.pencil.icon
                     |edit        
                 

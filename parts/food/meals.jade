@@ -9,12 +9,6 @@ template(name='meals')
                     i.plus.icon
                 
                 +cloud filter='meal'
-                a.ui.button(href='/ingredients')
-                    |ingredients
-                a.ui.button(href='/meals')
-                    |meals
-                a.ui.button(href='/recipes')
-                    |recipes
             .twelve.wide.column
                 .ui.stackable.three.cards
                     each meals
@@ -86,12 +80,12 @@ template(name='meal_card')
                 +icolor name='deliver-food'
             if pickup
                 +icolor name='doormat'
-            //- if can
-            //- a.ui.large.basic.icon.button(href="/meal/#{_id}/edit")
-            //-     i.pencil.icon
+            if can_edit
+                a.ui.large.basic.icon.button(href="/meal/#{_id}/edit")
+                    i.pencil.icon
             a.ui.large.basic.button(href="/meal/#{_id}/view")
-                i.right.chevron.icon        
                 |view
+                i.right.chevron.icon        
             a.ui.large.green.button(href="/meal/#{_id}/view")
                 |buy
             //- +edit_button

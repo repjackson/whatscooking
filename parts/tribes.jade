@@ -5,8 +5,9 @@ template(name='tribes')
                 .ui.inline.header 
                     +i name='elections' classes='ui avatar image'
                     |tribes
-                .ui.big.icon.button.add_tribe(title='add tribe')
-                    i.plus.icon
+                if currentUser
+                    .ui.basic.cricular.icon.button.add_tribe(title='add tribe')
+                        i.plus.icon
                 +cloud filter='tribe'
             .ten.wide.column.scrolling
                 each tribes
@@ -85,11 +86,18 @@ template(name='tribe_view')
                     +array_view key='tags' label='tags' icon='tags' direct=true
                     +html_view key='description' icon='content' label='description' direct=true
                     +image_view key='image' icon='image' label='image' direct=true
+                    div
                     +viewing
                 .six.wide.column
                     .ui.header #{members.count} members
                     each members 
                         .ui.small.header #{username}
+                    .ui.header #{meal_count} total meals
+                    each tribe_meals
+                        .ui.small.header #{dish.title}
+                    .ui.header #{upcoming_meal_count} upcoming meals
+                    each upcoming_tribe_meals
+                        .ui.small.header #{dish.title}
                 .six.wide.column 
                     +doc_array_togggle key='member_ids' value=currentUser._id add_label='join' remove_label='leave'
                     .ui.header 
