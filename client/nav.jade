@@ -11,25 +11,26 @@ template(name='nav')
             //- i.fire.icon.toggle_menu
             +icolor name='campfire'
             span.mobile.hidden
-                |whats cooking
+                |whats cookin
             span.mobile.only
                 |wc
         //- a.item.mobile.hidden(href='/users' class="{{isActivePath '/users'}}" title='users')
         //-     i.users.icon
         //-     |users
         a.item.mobile.hidden(href='/tribes' class="{{isActivePath '/tribes'}}" title='tribes')
-            //- i.fire.icon
             +icolor name='log-cabin'
             |tribes
-        a.item.cook
-            //- i.fire.icon
+        a.item(href="/new_meal")
             +icolor name='cooking'
             |cook
-        a.mobile.hidden.item(href='/recipes' class="{{isActivePath '/recipes'}}") 
-            i.list.icon
-            |recipes
+        //- a.mobile.hidden.item(href='/recipes' class="{{isActivePath '/recipes'}}") 
+        //-     +icolor name='beer-recipe'
+        //-     |recipes
+        a.mobile.hidden.item(href='/dishes' class="{{isActivePath '/dishes'}}") 
+            +icolor name='meal'
+            |dishes
         a.mobile.hidden.item(href='/ingredients' class="{{isActivePath '/ingredients'}}") 
-            i.apple.icon
+            +icolor name='ingredients'
             |ingredients
         .right.menu
             if is_admin 
@@ -53,7 +54,8 @@ template(name='nav')
                     |#{currentUser.username}
             else 
                 a.item(href="/login")
-                    i.sign.in.alternate.icon
+                    +icolor name='enter-2' classes='ui mini inline image'
+                    //- i.sign.in.alternate.icon
                     |login
 
 
@@ -61,7 +63,7 @@ template(name='nav')
 //-     .ui.left.inline.vertical.sidebar.fixed.thin.menu
 //-         a.header.toggle_sidebar.item(href='/' class="{{isActivePath '/'}}") 
 //-             i.fire.icon
-//-             | whats cooking
+//-             | whats cookin
 //-         a.toggle_sidebar.item(href='/grid' class="{{isActivePath '/grid'}}")
 //-             i.th.icon
 //-             | grid
@@ -173,7 +175,7 @@ template(name='footer')
                 +bug_reporter 
                 .ui.grey.small.header    
                     i.copyright.outline.icon 
-                    |2020 whats cooking
+                    |2020 whats cookin
             //- 
 template(name='footer_chat')
     a.ui.grey.header(href="/chat")

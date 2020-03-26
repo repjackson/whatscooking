@@ -4,7 +4,7 @@ template(name='home')
             .four.wide.column
                 //- .ui.header 
                 //-     i.fire.icon
-                //-     |whats cooking
+                //-     |whats cookin
                 //- .ui.header #{connection.status}
                 unless connected
                     .ui.inline.header disconnected
@@ -94,6 +94,17 @@ template(name='home')
                 //- .ui.divider
                 
             .twelve.wide.column
+                .sorting_row
+                +boolean_edit label='paleo' color_icon='caveman' direct=true key='paleo'
+                +boolean_edit label='vegan' color_icon='vegan-symbol' direct=true key='vegan'
+                +boolean_edit label='keto' color_icon='carbohydrates' direct=true key='paleo'
+                +boolean_edit label='vegetarian' color_icon='vegetarian-mark' direct=true key='vegetarian'
+                +boolean_edit label='sugar free' color_icon='sugar' direct=true key='sugar free'
+                +boolean_edit label='heart healthy' color_icon='heart-health' direct=true key='heart_healthy'
+                +boolean_edit label='dairy free' color_icon='no-milk' direct=true key='dairy_free'
+                +boolean_edit label='nut free' color_icon='no-nut' direct=true key='nut_free'
+                +boolean_edit label='no shellfish' color_icon='no-shellfish' direct=true key='shellfish_free'
+                    
                 .sorting_row
                     .ui.compact.small.menu
                         .ui.simple.dropdown.item

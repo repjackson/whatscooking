@@ -145,36 +145,3 @@ template(name='meal_view')
                     .ui.header alerts
                     |alergen alert
                     |#{alergen_alert}
-
-
-
-template(name='meal_edit')
-    with cd
-        .ui.stackable.padded.grid
-            .four.wide.column
-                .ui.header editing meal
-                .ui.header #{title}
-                +number_edit key='servings' label='servings' direct=true
-                +number_edit key='price_per_serving' label='price per serving' direct=true
-                +array_edit key='location_tags' direct=true
-                .ui.header recipe
-                if selected_recipe
-                    .ui.small.header recipe
-                else 
-                    .ui.small.header select recipe
-                    each recipes
-                        .ui.button.select_recipe #{title}
-                //- .ui.small.header
-                +date_edit key='date_available' label='date available' direct=true
-                //- .ui.small.header
-                +time_edit key='time_available' label='time available' direct=true
-            .eight.wide.column
-                img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
-                +html_edit key='description' direct=true
-            .four.wide.column
-                a.ui.large.fluid.basic.green.button(href="/meal/#{_id}/view")
-                    i.checkmark.green.icon   
-                    |save     
-                a.ui.large.fluid.button(href="/meal/#{_id}/view")
-                    i.checkmark.icon   
-                    |save  

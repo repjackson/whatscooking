@@ -1,0 +1,58 @@
+template(name='dish_edit')
+    with cd
+        .ui.stackable.padded.grid
+            .four.wide.column
+                .ui.header edit dish
+                .ui.header #{title}
+                +text_edit key='title' direct=true
+                +array_edit key='tags' direct=true
+            .eight.wide.column
+                +boolean_edit label='paleo' color_icon='caveman' direct=true key='paleo'
+                +boolean_edit label='vegan' color_icon='vegan-symbol' direct=true key='vegan'
+                +boolean_edit label='keto' color_icon='carbohydrates' direct=true key='paleo'
+                +boolean_edit label='vegetarian' color_icon='vegetarian-mark' direct=true key='vegetarian'
+                +boolean_edit label='sugar free' color_icon='sugar' direct=true key='sugar free'
+                +boolean_edit label='heart healthy' color_icon='heart-health' direct=true key='heart_healthy'
+                +boolean_edit label='dairy free' color_icon='no-milk' direct=true key='dairy_free'
+                +boolean_edit label='nut free' color_icon='no-nut' direct=true key='nut_free'
+                +boolean_edit label='no shellfish' color_icon='no-shellfish' direct=true key='shellfish_free'
+                img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
+                //- +html_edit key='description' direct=true
+                .ui.header proteins
+                each protein_ingredients
+                    .ui.label #{title}
+                .ui.header vegetables
+                .ui.header fruit
+                .ui.header grain
+                .ui.header dairy
+                .ui.header all ingredients
+                .ui.four.cards
+                    each dish_ingredients
+                        .ui.card
+                            .content
+                                .header #{title}
+                                .ui.button.make_protein
+                                    |protein
+                                .ui.button.remove_ingredient 
+                                    i.remove.icon
+                                    |remove
+                
+            .four.wide.column
+                a.ui.large.basic.fluid.button(href="/dish/#{_id}/view")
+                    i.checkmark.green.icon
+                    |save        
+                .ui.header ingredients 
+                //- .ui.icon.button.add_ingredient
+                //-     i.plus.icon
+                .ui.fluid.input
+                    input.search_ingredient(type='text' placeholder='search/add ingredient')
+                //- each dish_ingredients
+                //-     a.ui.small.header #{title}
+                if current_ingredient_query
+                    .ui.small.header results
+                    if ingredient_results
+                        .ui.list
+                            each ingredient_results
+                                .item.select_ingredient #{title}
+                    else
+                        a.ui.header.add_new_ingredient add #{current_ingredient_query}

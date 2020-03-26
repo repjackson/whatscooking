@@ -406,7 +406,7 @@ Template.boolean_edit.helpers
             parent = Template.parentData()
         else
             parent = Template.parentData(5)
-        if parent["#{@key}"] then 'active' else ''
+        if parent["#{@key}"] then 'blue' else 'basic'
 
 
 Template.boolean_edit.events

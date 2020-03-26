@@ -731,11 +731,17 @@ template(name='signature_view')
 
 template(name='boolean_edit')
     //- div
-    .ui.button.toggle_boolean(class="#{boolean_toggle_class} #{classes}" title=tooltip)
+    .ui.circular.button.toggle_boolean(class="#{boolean_toggle_class} #{classes}" title=tooltip)
         if field_value
-            i.checkmark.icon
+            if color_icon
+                +icolor name=color_icon classes='ui mini inline image'
+            else
+                i.checkmark.icon
         else
-            i.circle.outline.icon
+            if color_icon
+                +icolor name=color_icon classes='ui mini inline image'
+            else
+                i.circle.outline.icon
         //- .ui.compact.button.toggle_boolean(class=boolean_toggle_class)
         if icon
             i.small.icon(class=icon)
