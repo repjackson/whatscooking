@@ -35,12 +35,11 @@ template(name='home')
                 .spacer
                 //- +session_toggle_button key='view_user_filter' title='toggle user filter' icon='user outline'
                 //- if session_is 'view_user_filter' true
-                //- i.large.grey.users.icon
                 .ui.left.icon.large.search.input
-                    if template_subs_ready
-                        i.search.icon.refresh_tags
-                    else
-                        i.users.loading.large.icon
+                    i.search.icon.refresh_tags
+                    //- if template_subs_ready
+                    //- else
+                    //-     i.users.loading.large.icon
                     input#search_user.prompt(type='text' autofocus='' autocomplete="off" placeholder='search usernames')
                 if selected_users_plural
                     .ui.icon.circular.black.compact.large.button.clear_selected_users
@@ -55,10 +54,10 @@ template(name='home')
                 //- +session_toggle_button key='view_ingredient_filter' title='toggle ingredient filter' icon='hot pepper'
                 //- if session_is 'view_ingredient_filter' true
                 .ui.left.icon.large.search.input
-                    if template_subs_ready
-                        i.search.icon.refresh_tags
-                    else
-                        i.reddit.loading.large.icon
+                    i.search.icon.refresh_tags
+                    //- if template_subs_ready
+                    //- else
+                    //-     i.reddit.loading.large.icon
                     input#search_ingredient.prompt(type='text' autofocus='' autocomplete="off" placeholder='search ingredients')
                 if selected_ingredient_results
                     .ui.icon.circular.black.compact.large.button.clear_selected_ingredients
@@ -75,33 +74,51 @@ template(name='home')
                 //- +session_toggle_button key='view_timestamp_tags' title='toggle time tags' icon='clock'
                 //- i.large.grey.clock.icon
                 //- if session_is 'view_timestamp_tags' true
-                .ui.left.icon.large.search.input
-                    if template_subs_ready
-                        i.search.icon.refresh_tags
-                    else
-                        i.clock.loading.large.icon
-                    input#search_timestamp_tag.prompt(type='text' autofocus='' autocomplete="off")
-                if selected_timestamp_tags
-                    .ui.icon.circular.black.compact.large.button.clear_selected_timestamp_tags
+                //- .ui.left.icon.large.search.input
+                //-     i.search.icon
+                    //- if template_subs_ready
+                    //- else
+                    //-     i.clock.loading.large.icon
+                    //- input#search_food_preference.prompt(type='text' autofocus='' autocomplete="off")
+                if selected_food_preferences
+                    .ui.icon.circular.black.compact.large.button.clear_selected_food_preferences
                         i.remove.icon
-                each selected_timestamp_tags
-                    button.ui.black.compact.circular.large.button.unselect_timestamp_tag(tabindex='0')
+                each selected_food_preferences
+                    button.ui.black.compact.circular.large.button.unselect_food_preference(tabindex='0')
                         //- i.remove.icon
                         | #{this}
-                each timestamp_tags
-                    button.ui.basic.circular.compact.large.button.timestamp_tag_result(tabindex="0" class=result_class title=count) #{title}
+                each food_preferences
+                    button.ui.basic.circular.compact.large.button.food_preference_result(tabindex="0" class=result_class title=count) #{title}
                         //- small #{count}
-                //- .ui.divider
-                
-                +boolean_edit label='paleo' color_icon='caveman' direct=true key='paleo'
-                +boolean_edit label='vegan' color_icon='vegan-symbol' direct=true key='vegan'
-                +boolean_edit label='keto' color_icon='carbohydrates' direct=true key='paleo'
-                +boolean_edit label='vegetarian' color_icon='vegetarian-mark' direct=true key='vegetarian'
-                +boolean_edit label='sugar free' color_icon='sugar' direct=true key='sugar free'
-                +boolean_edit label='heart healthy' color_icon='heart-health' direct=true key='heart_healthy'
-                +boolean_edit label='dairy free' color_icon='no-milk' direct=true key='dairy_free'
-                +boolean_edit label='nut free' color_icon='no-nut' direct=true key='nut_free'
-                +boolean_edit label='no shellfish' color_icon='no-shellfish' direct=true key='shellfish_free'
+                .ui.small.header meal
+                .ui.circular.basic.compact.small.button
+                    +icolor name='breakfast' classes='ui mini inline image'
+                    |breakfast
+                .ui.circular.basic.compact.small.button
+                    +icolor name='lunch' classes='ui mini inline image'
+                    |lunch
+                .ui.circular.basic.compact.small.button
+                    +icolor name='dinner' classes='ui mini inline image'
+                    |dinner
+                .ui.small.header available
+                .ui.circular.basic.compact.small.button
+                    +icolor name='present' classes='ui mini inline image'
+                    |now
+                .ui.circular.basic.compact.small.button
+                    +icolor name='today' classes='ui mini inline image'
+                    |today
+                .ui.circular.basic.compact.small.button
+                    +icolor name='date-to' classes='ui mini inline image'
+                    |tomorrow
+                //- +boolean_edit label='paleo' color_icon='caveman' direct=true key='paleo'
+                //- +boolean_edit label='vegan' color_icon='vegan-symbol' direct=true key='vegan'
+                //- +boolean_edit label='keto' color_icon='carbohydrates' direct=true key='paleo'
+                //- +boolean_edit label='vegetarian' color_icon='vegetarian-mark' direct=true key='vegetarian'
+                //- +boolean_edit label='sugar free' color_icon='sugar' direct=true key='sugar free'
+                //- +boolean_edit label='heart healthy' color_icon='heart-health' direct=true key='heart_healthy'
+                //- +boolean_edit label='dairy free' color_icon='no-milk' direct=true key='dairy_free'
+                //- +boolean_edit label='nut free' color_icon='no-nut' direct=true key='nut_free'
+                //- +boolean_edit label='no shellfish' color_icon='no-shellfish' direct=true key='shellfish_free'
             .twelve.wide.column
                 .sorting_row
                     |sort by

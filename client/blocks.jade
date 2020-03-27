@@ -181,7 +181,7 @@ template(name='big_user_card')
         //- .ui.card(class=student_status_class)
         .ui.card
             .image
-                img.ui.rounded.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+                img.ui.rounded.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='lpad'}}")
             .content
                 a.header(href="/user/#{username}")
                      |#{first_name} #{last_name} 

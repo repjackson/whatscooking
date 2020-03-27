@@ -11,14 +11,14 @@ template(name='tribes')
                 +cloud filter='tribe'
             .ten.wide.column.scrolling
                 each tribes
-                    +tribe_card_template
+                    +tribe_card
                     
                     
                     
                     
-template(name='tribe_card_template')
+template(name='tribe_card')
     .ui.fluid.segment.stackable.grid
-        .four.wide.column
+        a.four.wide.column(href="/tribe/#{_id}/view")
             if image_id
                 img.ui.small.inline.image(src="{{c.url image_id}}")
         .twelve.wide.column
@@ -51,6 +51,7 @@ template(name='tribe_edit')
                     +remove_button
                     +icon_edit key='icon' label='icon' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
+                    +link_edit key='link' label='link' icon='link' direct=true
                 .six.wide.column 
                     +text_edit key='title' label='title' icon='title' direct=true
                     +image_edit key='image_id' label='image' icon='image' direct=true
@@ -85,6 +86,7 @@ template(name='tribe_view')
                             |edit
                     +array_view key='tags' label='tags' icon='tags' direct=true
                     +html_view key='description' icon='content' label='description' direct=true
+                    +link_view key='link' label='link' icon='link' direct=true
                     +image_view key='image' icon='image' label='image' direct=true
                     div
                     +viewing

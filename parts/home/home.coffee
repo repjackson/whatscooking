@@ -18,6 +18,7 @@ if Meteor.isClient
     #             $('#search').blur()
     #
     Template.home.onCreated ->
+        @autorun => @subscribe 'model_docs', 'dish'
         # @autorun => @subscribe 'results',
         #     selected_tags.array()
         #     selected_authors.array()

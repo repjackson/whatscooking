@@ -6,6 +6,8 @@ template(name='dish_edit')
                 .ui.inline.header #{title}
                 +text_edit key='title' direct=true
                 +array_edit key='tags' direct=true
+                +image_edit key='image_id' direct=true
+                
             .eight.wide.column
                 +boolean_edit label='paleo' color_icon='caveman' direct=true key='paleo'
                 +boolean_edit label='vegan' color_icon='vegan-symbol' direct=true key='vegan'

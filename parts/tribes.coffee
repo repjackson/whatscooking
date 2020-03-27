@@ -10,13 +10,13 @@ if Meteor.isClient
 
     Template.tribe_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-    Template.tribe_card_template.onRendered ->
-        Meteor.setTimeout ->
-            $('.accordion').accordion()
-        , 1000
-    Template.tribe_card_template.onCreated ->
+    # Template.tribe_card.onRendered ->
+    #     Meteor.setTimeout ->
+    #         $('.accordion').accordion()
+    #     , 1000
+    Template.tribe_card.onCreated ->
         @autorun => Meteor.subscribe 'children', 'tribe_update', @data._id
-    Template.tribe_card_template.helpers
+    Template.tribe_card.helpers
         updates: ->
             Docs.find
                 model:'tribe_update'
