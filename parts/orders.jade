@@ -1,26 +1,20 @@
-template(name='reservations')
+template(name='orders')
     .ui.stackable.padded.grid
         .row
             .four.wide.column
-                .ui.header reservations
-                a.ui.button(href='/ingredients')
-                    |ingredients
-                a.ui.button(href='/meals')
-                    |meals
-                a.ui.button(href='/recipes')
-                    |recipes
+                .ui.header orders
             .twelve.wide.column
                 .ui.segment
                     .ui.header 
                         +i name='ticket'
-                        |reservations
+                        |orders
                         
                     .ui.tiny.statistic
-                        .value #{taken_slots}     
-                        .label slots taken
+                        .value #{taken_servings}     
+                        .label servings taken
                     .ui.tiny.statistic
-                        .value #{available_slots}     
-                        .label slots available
+                        .value #{available_servings}     
+                        .label servings available
                     .ui.tiny.statistic
                         .value 
                             i.dollar.grey.icon
@@ -28,16 +22,16 @@ template(name='reservations')
                         .label karma earned
                     
                     if can_reserve
-                        .ui.basic.button.new_reservation 
+                        .ui.basic.button.new_order 
                             i.green.plus.icon
-                            |new reservation
+                            |new order
                     .ui.icon.basic.button.toggle_editing
                         i.blue.pencil.icon
-                    with my_reservation
+                    with my_order
                         if is_editing
                             +text_edit key='notes' direct=true 
                             +remove_button
-                    each reservations
+                    each orders
                         .ui.divider
                         .ui.header #{notes}
                         each author.tags
