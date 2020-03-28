@@ -22,17 +22,6 @@ template(name='meal_edit')
                 //- //- .ui.small.header
                 //- +time_edit key='time_available' label='time available' direct=true
                 +datetime_edit key='datetime_available' label='date/time available' direct=true
-                .ui.segment
-                    +boolean_edit key='delivery' label='delivery' color_icon='deliver-food' direct=true
-                    if pickup
-                        .ui.header delivery
-                        +text_edit key='delivery_notes' label='delivery notes' direct=true
-                .ui.segment
-                    +boolean_edit key='pickup' label='pickup' color_icon='doormat' direct=true
-                    if pickup
-                        .ui.header pickup
-                        +text_edit key='pickup_notes' label='pickup notes' direct=true
-                        +time_edit key='pickup_cutoff' direct=true
                 img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
                 +html_edit key='description' direct=true
             .four.wide.column
@@ -47,3 +36,14 @@ template(name='meal_edit')
                     .ui.red.disabled.button(title='existing reservations')
                         i.remove.icon   
                         |delete  
+                .ui.segment
+                    +boolean_edit key='delivery' label='delivery' color_icon='deliver-food' direct=true
+                    if pickup
+                        .ui.header delivery
+                        +text_edit key='delivery_notes' label='delivery notes' direct=true
+                .ui.segment
+                    +boolean_edit key='pickup' label='pickup' color_icon='doormat' direct=true
+                    if pickup
+                        .ui.header pickup
+                        +text_edit key='pickup_notes' label='pickup notes' direct=true
+                        +time_edit key='pickup_cutoff' direct=true

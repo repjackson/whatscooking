@@ -90,7 +90,8 @@ template(name='home')
                 each food_preferences
                     button.ui.basic.circular.compact.large.button.food_preference_result(tabindex="0" class=result_class title=count) #{title}
                         //- small #{count}
-                .ui.small.header meal
+                div
+                .ui.small.inline.header meal
                 .ui.circular.basic.compact.small.button
                     +icolor name='breakfast' classes='ui mini inline image'
                     |breakfast
@@ -100,7 +101,8 @@ template(name='home')
                 .ui.circular.basic.compact.small.button
                     +icolor name='dinner' classes='ui mini inline image'
                     |dinner
-                .ui.small.header available
+                div
+                .ui.small.inline.header available
                 .ui.circular.basic.compact.small.button
                     +icolor name='present' classes='ui mini inline image'
                     |now
@@ -149,81 +151,31 @@ template(name='home')
                                 +set_meal_limit amount=5
                                 +set_meal_limit amount=10
                                 +set_meal_limit amount=20
-                                //- +set_meal_limit amount=50
-                    //- .ui.compact.menu
-                    //-     .ui.simple.dropdown.item
-                    //-         |#{meal_view_mode}
-                    //-         i.dropdown.icon
-                    //-         .menu
-                    //-             +set_view_mode_meals title='table' icon='table'
-                    //-             +set_view_mode_meals title='list' icon='list'
-                    //-             +set_view_mode_meals title='cards' icon='clone'
-                    //-             +set_view_mode_meals title='items' icon='list'
-                    //-             +set_view_mode_meals title='map' icon='map'
-                    //-             +set_view_mode_meals title='graph' icon='line chart'
-                    //- +session_edit_value_button key='sort_key' value='_timestamp' label='created'
-                    //- +session_edit_value_button key='sort_key' value='upvotes' label='upvotes'
-                    //- +session_edit_value_button key='view_mode' value='cards' label='cards' icon='grip horizontal' icon_view=true classes='circular icon'
-                    //- +session_edit_value_button key='view_mode' value='list' label='list' icon='list' icon_view=true classes='circular icon'
-                    //- +session_edit_value_button key='view_mode' value='table' label='table' icon='border none' icon_view=true classes='circular icon'
-                //- .scrolling
-                //- if session_is 'view_mode' 'cards'
+                .spacer 
                 .ui.stackable.cards
                     each meals
                         +meal_card
-                            //- .ui.hidden.divider
-                    //- else if session_is 'view_mode' 'list'
-                    //-     .ui.list
-                    //-         each meals
-                    //-             +meal_item
-                    //-             .ui.divider
-                    //- else if session_is 'view_mode' 'table'
-                    //-     table.ui.table 
-                    //-         thead
-                    //-             tr 
-                    //-                 th image
-                    //-                 th title
-                    //-                 th upvotes
-                    //-         tbody
-                    //-             each meals
-                    //-                 tr
-                    //-                     td 
-                    //-                         img.ui.mini.image(src=thumbnail)
-                    //-                     td 
-                    //-                         |#{title}
-                    //-                     td 
-                    //-                         |#{ups}
-            //- .four.wide.column.scrolling
-            //-     .spacer
-            //-     .ui.header result cloud
-            //-     each result 
-            //-         .ui.basic.circular.label
-            //-             |#{this}
-            //-     .ui.header 
-            //-         |leaderboard
-            //-     //- .ui.circular.icon.button.calc_leaderboard
-            //-     //-     i.refresh.icon
-            //-     .ui.relaxed.divided.list
-            //-         each user_leaders
-            //-             .item
-            //-                 .ui.small.header.goto_user.pointer
-            //-                     i.outline.grey.user.icon
-            //-                     |#{title}
-            //-                 span.ui.grey.text #{count} results
-            //-             unless user
-            //-                 i.circular.link.plus.icon.create_user
-            //-             with user
-            //-                 i.circular.link.refresh.icon.calc_user
-            //-                 span(title='submission count ranking')
-            //-                     i.globe.icon
-            //-                     | ##{submission_rank}
-            //-                 span(title='submissions')
-            //-                     i.file.alternate.outline.icon
-            //-                     | #{submission_count}
-            //-                 each top_five_tags
-            //-                     .ui.small.black.circular.label #{this}
-            //-             .spacer
-                        
+        .ui.modal 
+            i.close.icon
+            with quickbuying_meal
+                .ui.header buy '#{meal_dish.title}' serving
+                .image.content
+                    .image
+                        img.ui.fluid.rounded.image(src="{{c.url meal_dish.image_id width=400 height=600 crop='fit'}}")
+                .content
+                    .ui.header servings available #{servings_available}
+                    .ui.header $#{price_per_serving}/serving
+                    .ui.header total cost #{total_cost}
+                    .ui.header available credit #{currentUser.credit}
+                    .ui.header credit needed #{credit_needed}
+                .actions
+                    .ui.green.button.confirm
+                        i.checkmark.icon
+                        |confirm
+                    .ui.red.button.cancel.cancel_quickbuying
+                        i.remove.icon
+                        |cancel
+
                         
 template(name='session_edit_value_button')
     .ui.button.set_session_value(class=calculated_class)

@@ -123,8 +123,6 @@ if Meteor.isClient
         'click .reconnect': ->
             Meteor.reconnect()
 
-        'click .goto_redditor': ->
-            Router.go "/redditor/#{@title}"
 
         'click .set_sort_direction': ->
             if Session.get('meal_sort_direction') is -1
@@ -134,6 +132,9 @@ if Meteor.isClient
 
 
     Template.home.helpers
+        quickbuying_meal: ->
+            Docs.findOne Session.get('quickbuying_id')
+
         sorting_up: ->
             parseInt(Session.get('meal_sort_direction')) is 1
 

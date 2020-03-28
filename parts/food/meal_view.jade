@@ -1,56 +1,78 @@
 template(name='meal_view')
     with cd
         .ui.stackable.padded.grid
-            .four.wide.column
-                a.ui.fluid.basic.button(href="/meals")
-                    +icolor name='meal' classes='ui mini inline image'
-                    |meals
-                .ui.header #{title}
-                if can_edit
-                    a.ui.large.basic.button(href="/meal/#{_id}/edit")
-                        i.pencil.icon
-                        |edit
-                +array_view key='tags' direct=true
-                +array_view key='ingredients' direct=true
-                +array_view key='location_tags' direct=true
-                +datetime_view key='datetime_available' label='date/time available' direct=true
-                .ui.header available {{from_now datetime_available}}
-                //- .ui.small.header
-                //-     |date available
-                //-     |#{available_date}
-                //- .ui.small.header
-                //-     |time available
-                //-     |#{time_available}
-                .ui.dividing.header
-                    |rules
-                .ui.header #{serving_amount} serving amount
-                .ui.header $#{price_per_serving}/serving
-                .ui.header #{servings_available} servings available
-                .ui.header
-                    if pickup
-                        i.checkmark.icon
-                    else 
-                        |no
-                    |pickup
-                .ui.header 
-                    if delivery
-                        i.checkmark.icon
-                    else 
-                        |no
-                    |delivery
-                
-            .four.wide.column
-                img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
-                +html_view key='description' direct=true
-                +comments
-            .four.wide.column
-                .ui.header cook #{_author_username}
-                with _author
-                    +user_card
-            .four.wide.column
-                with cd
-                    +voting_full
-                    .ui.header similar meals
-                    .ui.header alerts
-                    |alergen alert
-                    |#{alergen_alert}
+            .row
+                .sixteen.wide.center.aligned.column
+                    .ui.header #{meal_dish.title}
+            .three.column.row
+                .column
+                    //- a.ui.fluid.basic.button(href="/meals")
+                    //-     +icolor name='meal' classes='ui mini inline image'
+                    //-     |meals
+                    if can_edit
+                        a.ui.large.basic.button(href="/meal/#{_id}/edit")
+                            i.pencil.icon
+                            |edit
+                    img.ui.image(src="{{c.url meal_dish.image_id width=400 height=400}}")
+                            
+                    +array_view key='tags' direct=true
+                    +array_view key='ingredients' direct=true
+                    +array_view key='location_tags' direct=true
+                    +datetime_view key='datetime_available' label='date/time available' direct=true
+                    .ui.header available {{from_now datetime_available}}
+                    //- .ui.small.header
+                    //-     |date available
+                    //-     |#{available_date}
+                    //- .ui.small.header
+                    //-     |time available
+                    //-     |#{time_available}
+                    .ui.dividing.header
+                        |rules
+                    .ui.header #{serving_amount} serving amount
+                    .ui.header $#{price_per_serving}/serving
+                    .ui.header #{servings_available} servings available
+                    .ui.header
+                        if pickup
+                            i.checkmark.icon
+                        else 
+                            |no
+                        |pickup
+                    .ui.header 
+                        if delivery
+                            i.checkmark.icon
+                        else 
+                            |no
+                        |delivery
+                .column
+                    img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
+                    +html_view key='description' direct=true
+                    .ui.header 
+                        |order
+                    if can_order
+                        +order_button
+                    .ui.header 
+                        |orders
+                    each meal_orders
+                        .ui.segment 
+                            |#{when} #{_author.username}
+                            if can_edit
+                                .ui.small.compact.basic.button.cancel_order
+                                    i.remove.icon
+                                    |cancel
+                    .ui.hidden.divider
+                    +comments
+                .column
+                    .ui.header cook #{_author_username}
+                    with _author
+                        +user_card
+                    with cd
+                        +voting_full
+                        .ui.header similar meals
+                        .ui.header alerts
+                        |alergen alert
+                        |#{alergen_alert}
+
+
+template(name='order_button')
+    .ui.green.button.order_meal
+        |order

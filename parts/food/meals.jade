@@ -52,54 +52,6 @@ template(name='meal_widget')
 
 
 
-template(name='meal_card')
-    .ui.card(class=meal_card_class)
-        .content
-            .right.floated.meta
-                | {{from_now datetime_available}}
-
-            img.ui.avatar.image(src="{{c.url _author.profile_image_id width=400 height=600 crop='fit'}}")
-            |#{_author.username}
-            i.yellow.star.icon
-            |3.4
-        .image
-            //- img.ui.fluid.image(src="{{c.url image }}")
-            img.ui.fluid.rounded.image(src="{{c.url meal_dish.image_id width=400 height=600 crop='fit'}}")
-        if is_quickbuying
-            .content
-                +quickbuying
-        else
-            .content
-                a.ui.header(href="/meal/#{_id}/edit") #{meal_dish.title}
-                //- .ui.inline.small.header ingredients
-                //- each ingredients
-                //-     .ui.basic.label #{this}
-                //- .ui.inline.small.header tags
-                //- each tags
-                //-     .ui.basic.label #{this}
-                //- .ui.inline.small.header location_tags
-                //- each location_tags
-                //-     .ui.basic.label #{this}
-                .ui.header 
-                    span(title='servings available') #{servings_available}
-                    span(title='total offered servings') /#{servings_amount} servings
-            .content    
-                .ui.header $#{price_per_serving}
-                    small /serving
-                if delivery
-                    +icolor name='deliver-food'
-                if pickup
-                    +icolor name='doormat'
-                if can_edit
-                    a.ui.large.basic.icon.button(href="/meal/#{_id}/edit")
-                        i.pencil.icon
-            .ui.bottom.attached.buttons        
-                .ui.green.button.quickbuy
-                    i.lightning.icon
-                    |buy
-                a.ui.basic.button(href="/meal/#{_id}/view")
-                    |view
-                    i.right.chevron.icon
         
 template(name='quickbuying')
     .ui.header quickbuy

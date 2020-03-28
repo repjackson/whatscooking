@@ -448,46 +448,46 @@ if Meteor.isClient
 
 
 
-if Meteor.isServer
-    Meteor.methods
-        'send_kiosk_message': (message)->
-            parent = Docs.findOne message.parent._id
-            Docs.update message._id,
-                $set:
-                    sent: true
-                    sent_timestamp: Date.now()
-            Docs.insert
-                model:'log_event'
-                log_type:'kiosk_message_sent'
-                text:"kiosk message sent"
-
-
-    Meteor.publish 'rules_signed_username', (username)->
-        Docs.find
-            model:'rules_and_regs_signing'
-            student:username
-            # agree:true
-
-    Meteor.publish 'type', (type)->
-        Docs.find
-            type:type
-
-    Meteor.publish 'user_guidelines_username', (username)->
-        Docs.find
-            model:'user_guidelines_signing'
-            # student:username
-            # agree:true
-
-    Meteor.publish 'guests', ()->
-        Meteor.users.find
-            roles:$in:['guest']
-
-
-    Meteor.publish 'children', (model, parent_id, limit)->
-        # console.log model
-        # console.log parent_id
-        limit = if limit then limit else 10
-        Docs.find {
-            model:model
-            parent_id:parent_id
-        }, limit:limit
+# if Meteor.isServer
+#     Meteor.methods
+#         'send_kiosk_message': (message)->
+#             parent = Docs.findOne message.parent._id
+#             Docs.update message._id,
+#                 $set:
+#                     sent: true
+#                     sent_timestamp: Date.now()
+#             Docs.insert
+#                 model:'log_event'
+#                 log_type:'kiosk_message_sent'
+#                 text:"kiosk message sent"
+#
+#
+#     Meteor.publish 'rules_signed_username', (username)->
+#         Docs.find
+#             model:'rules_and_regs_signing'
+#             student:username
+#             # agree:true
+#
+#     Meteor.publish 'type', (type)->
+#         Docs.find
+#             type:type
+#
+#     Meteor.publish 'user_guidelines_username', (username)->
+#         Docs.find
+#             model:'user_guidelines_signing'
+#             # student:username
+#             # agree:true
+#
+#     Meteor.publish 'guests', ()->
+#         Meteor.users.find
+#             roles:$in:['guest']
+#
+#
+#     Meteor.publish 'children', (model, parent_id, limit)->
+#         # console.log model
+#         # console.log parent_id
+#         limit = if limit then limit else 10
+#         Docs.find {
+#             model:model
+#             parent_id:parent_id
+#         }, limit:limit

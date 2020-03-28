@@ -1,8 +1,8 @@
 if Meteor.isClient
-    Router.route '/food', (->
-        @layout 'layout'
-        @render 'food'
-        ), name:'food'
+    # Router.route '/food', (->
+    #     @layout 'layout'
+    #     @render 'food'
+    #     ), name:'food'
 
 
     Template.meal_widget.onCreated ->
@@ -12,8 +12,6 @@ if Meteor.isClient
 
         # @autorun => Meteor.subscribe 'model_docs', 'meal'
 
-    Template.meal_view.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.meal_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
 

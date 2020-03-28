@@ -15,7 +15,7 @@ template(name='user_card')
     .ui.card 
         if profile_image_id 
             a.image(href="/user/#{username}")
-                img.ui.image(src="{{c.url profile_image_id gravity='face' height='300' crop='crop'}}")
+                img.ui.image(src="{{c.url profile_image_id}}")
         .content
             a.ui.header(href="/user/#{username}") #{username}
             .ui.list
