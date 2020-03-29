@@ -3,37 +3,16 @@ template(name='orders')
         .row
             .four.wide.column
                 .ui.header orders
-            .twelve.wide.column
-                .ui.segment
+                with order_stats_doc
                     .ui.header 
-                        +i name='ticket'
-                        |orders
-                        
-                    .ui.tiny.statistic
-                        .value #{taken_servings}     
-                        .label servings taken
-                    .ui.tiny.statistic
-                        .value #{available_servings}     
-                        .label servings available
-                    .ui.tiny.statistic
-                        .value 
-                            i.dollar.grey.icon
-                            |#{karma_earned}     
-                        .label karma earned
-                    
-                    if can_reserve
-                        .ui.basic.button.new_order 
-                            i.green.plus.icon
-                            |new order
-                    .ui.icon.basic.button.toggle_editing
-                        i.blue.pencil.icon
-                    with my_order
-                        if is_editing
-                            +text_edit key='notes' direct=true 
-                            +remove_button
-                    each orders
-                        .ui.divider
-                        .ui.header #{notes}
-                        each author.tags
-                            .ui.basic.label #{this}
-                        +author_info
+                        |#{total_order_amount}
+                        |total order amount
+            .twelve.wide.column
+                .ui.segments
+                    each orders 
+                        .ui.segment
+                            .ui.header
+                                |#{meal.dish.title}
+                            | #{_author.username} #{when}
+                            .ui.green.inline.header
+                                |$#{order_price}

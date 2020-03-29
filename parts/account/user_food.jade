@@ -1,0 +1,33 @@
+template(name='user_dishes')
+    .ui.center.aligned.header 
+        i.list.icon
+        | dishes
+    each user_dishes
+        .ui.header #{title}
+
+
+
+template(name='user_ingredients')
+    .ui.stackable.padded.grid 
+        .row
+            .twelve.wide.column
+                .ui.center.aligned.header 
+                    +icolor name='ingredients' 
+                    | user ingredients
+        .row
+            .eight.wide.column
+                .ui.header 
+                    i.thumbs.up.outline.icon
+                    |liked ingredients
+            .eight.wide.column
+                .ui.header 
+                    i.thumbs.down.outline.icon
+                    |disliked ingredients
+            .eight.wide.column
+                .ui.header 
+                    i.pencil.icon
+                    |authored ingredients
+            .eight.wide.column
+                .ui.header ingredient karma 
+                .ui.button.convert_karma
+                    |convert karma into credit

@@ -14,7 +14,7 @@ template(name='meal_edit')
                     .ui.small.header #{meal_dish.title}
                 else 
                     .ui.small.header select dish
-                    each dishes
+                    each all_dishes
                         .ui.button.select_dish #{title}
             .eight.wide.column
                 //- .ui.small.header
@@ -31,11 +31,11 @@ template(name='meal_edit')
                 if can_delete
                     .ui.red.button.delete_meal
                         i.remove.icon   
-                        |delete  
+                        |cancel and delete
                 else  
                     .ui.red.disabled.button(title='existing reservations')
                         i.remove.icon   
-                        |delete  
+                        | can't cancel  
                 .ui.segment
                     +boolean_edit key='delivery' label='delivery' color_icon='deliver-food' direct=true
                     if pickup

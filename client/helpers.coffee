@@ -158,11 +158,6 @@ Template.registerHelper 'hsd', () ->
         model:'home_stats'
 
 
-Template.registerHelper 'meal_dish', () ->
-    Docs.findOne
-        model:'dish'
-        _id:@dish_id
-
 Template.registerHelper 'total_potential_revenue', () ->
     @price_per_serving * @servings_amount
 

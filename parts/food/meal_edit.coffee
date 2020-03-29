@@ -9,8 +9,9 @@ if Meteor.isClient
     Template.meal_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'model_docs', 'dish'
+
     Template.meal_edit.helpers
-        dishes: ->
+        all_dishes: ->
             Docs.find
                 model:'dish'
         can_delete: ->
@@ -32,6 +33,6 @@ if Meteor.isClient
 
 
         'click .delete_meal': ->
-            if confirm 'delete?'
+            if confirm 'refund orders and cancel meal?'
                 Docs.remove Router.current().params.doc_id
                 Router.go "/"

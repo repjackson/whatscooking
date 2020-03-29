@@ -27,8 +27,8 @@ template(name='meal_card')
             //- each location_tags
             //-     .ui.basic.label #{this}
             .ui.header 
-                span(title='servings available') #{servings_available}
-                span(title='total offered servings') /#{servings_amount} servings
+                |#{servings_left}/#{servings_amount}
+                small servings left
         .content    
             .ui.header $#{price_per_serving}
                 small /serving

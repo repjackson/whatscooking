@@ -26,27 +26,28 @@ Template.buy_now_button.onCreated ->
         pub_key = Meteor.settings.public.stripe_test_publishable
     else if Meteor.isProduction
         pub_key = Meteor.settings.public.stripe_live_publishable
-    Template.instance().checkout = StripeCheckout.configure(
-        key: pub_key
-        image: 'https://res.cloudinary.com/facet/image/upload/v1585357133/wc_logo.png'
-        locale: 'auto'
-        # zipCode: true
-        token: (token) ->
-            product = Docs.findOne Router.current().params.doc_id
-            charge =
-                amount: 1*100
-                currency: 'usd'
-                source: token.id
-                description: token.description
-                # receipt_email: token.email
-            Meteor.call 'STRIPE_single_charge', charge, product, (error, response) =>
-                if error then alert error.reason, 'danger'
-                else
-                    alert 'Payment received.', 'success'
-                    Docs.insert
-                        model:'transaction'
-                        product_id:product._id
-	)
+    if StripeCheckout
+        Template.instance().checkout = StripeCheckout.configure(
+            key: pub_key
+            image: 'https://res.cloudinary.com/facet/image/upload/v1585357133/wc_logo.png'
+            locale: 'auto'
+            # zipCode: true
+            token: (token) ->
+                product = Docs.findOne Router.current().params.doc_id
+                charge =
+                    amount: 1*100
+                    currency: 'usd'
+                    source: token.id
+                    description: token.description
+                    # receipt_email: token.email
+                Meteor.call 'STRIPE_single_charge', charge, product, (error, response) =>
+                    if error then alert error.reason, 'danger'
+                    else
+                        alert 'Payment received.', 'success'
+                        Docs.insert
+                            model:'transaction'
+                            product_id:product._id
+    	)
 
 Template.buy_now_button.events
     'click .buy_now': ->
@@ -56,7 +57,7 @@ Template.buy_now_button.events
 
         # if confirm "add #{deposit_amount} credit?"
         Template.instance().checkout.open
-            name: 'credit deposit'
+            name: 'we purchase'
             # email:Meteor.user().emails[0].address
-            description: 'wc top up'
+            # description: 'wc top up'
             amount: stripe_charge

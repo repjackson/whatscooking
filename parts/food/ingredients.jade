@@ -36,11 +36,13 @@ template(name='ingredient_card')
 template(name='ingredient_view')
     with cd
         .ui.stackable.padded.grid
+            .centered.row
+                .ten.wide.column
+                    .ui.center.aligned.header #{title}
             .four.wide.column
                 a.ui.basic.button(href="/ingredients")
                     i.left.chevron.icon
                     |ingredients
-                .ui.header #{title}
                 +image_view key='image_id' direct=true
                 
                 +array_view key='tags' direct=true
@@ -52,13 +54,17 @@ template(name='ingredient_view')
                 each meal_inclusions
                     a.ui.small.header(href="/meal/#{_id}/view")
                         |#{title}
-            .four.wide.column
+                .ui.header dishes included in
+                each ingredient_dishes
+                    a.ui.small.header(href="/dish/#{_id}/view")
+                        |#{title}
+            .eight.wide.column
                 img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
                 +textarea_view key='description' direct=true
                 +comments
             .four.wide.column
                 with cd
-                    +voting
+                    +voting_full
                     .ui.header similar ingredients
                     .ui.header alerts
                     |alergen alert

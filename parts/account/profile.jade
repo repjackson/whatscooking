@@ -14,17 +14,14 @@ template(name='profile_layout')
                         .ui.inline.header @#{user.username}        
                 .ui.fluid.vertical.pointing.large.menu(class="{{currentUser.nav_color}}")
                     a.item(href="/user/#{username}/dashboard" class="{{isActiveRoute regex='user_dashboard'}}")
-                        //- i.grey.dashboard.icon
                         i.icon 
                             +ismall name='dashboard'
                         |dashboard
-                    a.item(href="/user/#{username}/profile" class="{{isActiveRoute regex=user_offers}}")
+                    a.item(href="/user/#{username}/profile" class="{{isActiveRoute regex='user_profile'}}")
                         i.icon 
                             +ismall name='info'
-                        //- i.grey.info.icon
                         |profile
                     a.item(href="/user/#{username}/credit" class="{{isActiveRoute regex='user_credit'}}")
-                        //- i.grey.coins.icon
                         i.icon 
                             +ismall name='coins'
                         |credit
@@ -44,22 +41,35 @@ template(name='profile_layout')
                     //- a.item(href="/user/#{username}/downvoted" class="{{isActiveRoute regex=user_downvoted}}")
                     //-     i.grey.thumbs.down.icon
                     //-     |downvoted
-                    //- a.item(href="/user/#{username}/cart" class="{{isActiveRoute regex='user_cart'}}")
-                    //-     i.grey.shopping.cart.icon
-                    //-     |cart
+                .ui.fluid.vertical.pointing.large.menu(class="{{currentUser.nav_color}}")
+                    a.item(href="/user/#{username}/orders" class="{{isActiveRoute regex='user_orders'}}")
+                        i.icon 
+                            +ismall name='order-history'
+                        |orders
+                    a.item(href="/user/#{username}/ingredients" class="{{isActiveRoute regex='user_ingredients'}}")
+                        i.icon 
+                            +ismall name='ingredients'
+                        |ingredients
+                    a.item(href="/user/#{username}/dishes" class="{{isActiveRoute regex='user_dishes'}}")
+                        i.icon 
+                            +ismall name='meal'
+                        |dishes
                     a.item(href="/user/#{username}/tribes" class="{{isActiveRoute regex='user_tribes'}}")
                         i.icon 
                             +ismall name='group'
                         |tribes
+                    a.item(href="/user/#{username}/pantry" class="{{isActiveRoute regex='user_pantry'}}")
+                        i.icon 
+                            +ismall name='kitchen'
+                        |pantry
+                .ui.fluid.vertical.pointing.large.menu(class="{{currentUser.nav_color}}")
                     a.item(href="/user/#{username}/friends" class="{{isActiveRoute regex='user_friends'}}")
-                        //- i.grey.users.icon
                         i.icon 
                             +ismall name='groups'
                         |friends
                     a.item(href="/user/#{username}/messages" class="{{isActiveRoute regex='user_messages'}}")
-                        //- i.grey.envelope.icon
                         i.icon 
-                            +ismall name='envelope'
+                            +ismall name='mailbox'
                         |messages
                 if is_current_user
                     a.ui.large.fluid.basic.button(href="/user/#{username}/edit")

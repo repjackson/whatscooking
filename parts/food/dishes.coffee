@@ -16,6 +16,7 @@ if Meteor.isClient
 
     Template.dish_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'model_docs', 'ingredient'
 
     Template.dishes.events
         'click .add_dish': ->

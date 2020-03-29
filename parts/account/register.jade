@@ -4,7 +4,7 @@ template(name='register')
         .centered.row
             .ten.wide.column
                 .ui.center.aligned.basic.segment
-                    i.big.fire.icon
+                    +icolor name='fire'
                     .ui.inline.header register
                 .ui.small.inline.header 
                     i.user.outline.grey.icon
@@ -31,7 +31,8 @@ template(name='register')
                 if can_register
                     .spacer
                     .ui.fluid.basic.large.circular.button.register(class=enter_class)
-                        i.user.plus.icon
+                        //- i.user.plus.icon
+                        +icolor name='register'
                         |register '#{username}'
                 else
                     .ui.small.header username "#{username}" found

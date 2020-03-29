@@ -71,6 +71,41 @@ Docs.helpers
         if @to_user_id
             Meteor.users.findOne @to_user_id
 
+    order: ->
+        Docs.findOne
+            model:'order'
+            _id:@order_id
+
+    dish_meal: ->
+        Docs.findOne
+            model:'meal'
+            _id:@meal_id
+
+    ingredient_dishes: ->
+        Docs.find
+            model:'dish'
+            ingredient_ids: $in: [@_id]
+
+
+    meal_orders: ->
+        # if @order_ids
+        Docs.find
+            meal_id:@_id
+            model:'order'
+        # else
+        #     []
+
+    meal_dish: ->
+        Docs.findOne
+            model:'dish'
+            _id:@dish_id
+
+    dish_ingredients: ->
+        if @ingredient_ids
+            Docs.find
+                model:'ingredient'
+                _id:$in:@ingredient_ids
+
 
     upvoters: ->
         if @upvoter_ids
@@ -94,12 +129,12 @@ Meteor.users.helpers
             "#{@first_name} #{@last_name}"
         else
             "#{@username}"
-    is_current_student: ->
-        if @roles
-            if 'admin' in @roles
-                if 'student' in @current_roles then true else false
-            else
-                if 'student' in @roles then true else false
+    # is_current_student: ->
+    #     if @roles
+    #         if 'admin' in @roles
+    #             if 'student' in @current_roles then true else false
+    #         else
+    #             if 'student' in @roles then true else false
 
     email_address: -> if @emails and @emails[0] then @emails[0].address
     email_verified: -> if @emails and @emails[0] then @emails[0].verified

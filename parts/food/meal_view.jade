@@ -16,19 +16,20 @@ template(name='meal_view')
                     img.ui.image(src="{{c.url meal_dish.image_id width=400 height=400}}")
                             
                     +array_view key='tags' direct=true
-                    +array_view key='ingredients' direct=true
-                    +array_view key='location_tags' direct=true
-                    +datetime_view key='datetime_available' label='date/time available' direct=true
-                    .ui.header available {{from_now datetime_available}}
-                    //- .ui.small.header
-                    //-     |date available
-                    //-     |#{available_date}
-                    //- .ui.small.header
-                    //-     |time available
-                    //-     |#{time_available}
+                    //- +array_view key='ingredients' direct=true
+                    //- +array_view key='location_tags' direct=true
+                    div
+                    .ui.inline.header 
+                        small available 
+                        |{{from_now datetime_available}}:
+                    +html_view key='description' direct=true
+                    .ui.small.inline.header {{long_date datetime_available}}
+                    .ui.header ingredients
+                    each ingredient_titles
+                        .ui.label #{this}
                     .ui.dividing.header
                         |rules
-                    .ui.header #{serving_amount} serving amount
+                    .ui.header #{servings_amount} total servings amount
                     .ui.header $#{price_per_serving}/serving
                     .ui.header #{servings_available} servings available
                     .ui.header
@@ -44,8 +45,7 @@ template(name='meal_view')
                             |no
                         |delivery
                 .column
-                    img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
-                    +html_view key='description' direct=true
+                    .ui.header #{servings_left} servings left
                     .ui.header 
                         |order
                     if can_order

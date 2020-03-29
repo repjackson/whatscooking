@@ -6,9 +6,11 @@ if Meteor.isClient
 
 
     Template.orders.onCreated ->
-        @autorun => Meteor.subscribe 'docs', 'order'
+        @autorun => Meteor.subscribe 'model_docs', 'order'
+        @autorun => Meteor.subscribe 'model_docs', 'meal'
+        @autorun => Meteor.subscribe 'model_docs', 'dish'
+        @autorun => Meteor.subscribe 'model_docs', 'order_stats'
 
-        # @autorun => Meteor.subscribe 'model_docs', 'order'
 
     # Template.order_view.onCreated ->
     #     @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
@@ -40,19 +42,11 @@ if Meteor.isClient
     #
 
 
-    Template.orders.onCreated ->
-        @autorun => Meteor.subscribe 'asset_orders', Router.current().params.doc_id
-        @editing = new ReactiveVar false
-    Template.orders.events
-        'click .new_order': ->
-            Docs.insert
-                model:'order'
-                parent_id:Router.current().params.doc_id
-
-        'click .toggle_editing': (e,t)->
-            t.editing.set !t.editing.get()
 
     Template.orders.helpers
+        order_stats_doc: ->
+            Docs.findOne
+                model:'order_stats'
         taken_slots: ->
             asset = Docs.findOne Router.current().params.doc_id
             order_count = Docs.find(model:'order').count()

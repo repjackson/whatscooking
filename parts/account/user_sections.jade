@@ -17,6 +17,14 @@ template(name='user_tribes')
         | tribes
 
 
+template(name='user_orders')
+    .ui.center.aligned.header 
+        i.list.icon
+        | orders
+    each orders
+        .ui.header #{when}
+
+
 
 template(name='user_friends')
     .ui.center.aligned.header 
@@ -77,111 +85,3 @@ template(name='user_bookmarks_small')
         each bookmarks
             a.item(href="/#{model}/#{_id}/view") #{title} [#{model}]
         
-
-
-template(name='user_credit')  
-    .ui.grid      
-        .three.column.row
-            .column
-                .ui.segment
-                    .ui.small.header 
-                        strong $#{ssd.total_credit_amount}
-                        small total weekly income
-                    .ui.small.header
-                        strong #{ssd.credit_count}
-                        small credits
-            .column
-                .ui.segment
-                    .ui.small.header
-                        strong $#{ssd.total_debit_amount}
-                        small total weekly expenses
-                    .ui.small.header
-                        strong #{ssd.debit_count}
-                        small debits
-            .column
-                .ui.segment
-                    .ui.small.header
-                        |growth from last week
-        .two.column.row
-            .column
-                .ui.segment
-                    .ui.header 
-                        |weekly credits
-                    //- .ui.bulleted.list
-                    //-     each user_credits
-                    //-         .item 
-                    //-             |#{amount}
-                    //-             if icon
-                    //-                 +i name=icon
-                    //-             strong #{text}
-                    //-             small #{when}
-                    .ui.feed.mediumscroll
-                        each user_credits
-                            .event 
-                                .label
-                                    if is_credit
-                                        i.grey.chevron.up.icon
-                                    if is_debit
-                                        i.grey.chevron.down.icon
-                                    else if icon
-                                        i.grey.icon(class=icon)
-                                .content
-                                    .summary
-                                        a.user(href="/user/#{target_user.username}")
-                                            |#{target_user.name}
-                                        |#{text}
-                                        .date #{when}
-                                    .meta
-                                        +voting_small
-                                        //- a.like
-                                        //-     i.like.icon 
-                                        //-     |4 likes
-                                        a.remove
-                                            i.grey.undo.icon
-                                        //- if is_dev
-                                        //-     +remove_button
-            .column
-                .ui.segment
-                    .ui.header 
-                        i.chevron.down.icon
-                        |weekly debits
-                    .ui.feed.mediumscroll
-                        each user_debits
-                            .event 
-                                .label
-                                    if is_credit
-                                        i.chevron.up.icon
-                                    if is_debit
-                                        i.chevron.down.icon
-                                    else if icon
-                                        i.icon(class=icon)
-                                .content
-                                    .summary
-                                        a.user(href="/user/#{target_user.username}")
-                                            |#{target_user.name}
-                                        |#{text}
-                                        .date #{when}
-                                    .meta
-                                        +voting_small
-                                        //- a.like
-                                        //-     i.like.icon 
-                                        //-     |4 likes
-                                        a.remove
-                                            i.grey.undo.icon
-                                        //- if is_dev
-                                        //-     +remove_button
-                        //- +range_edit                
-            .column
-                +user_tutor_sessions
-            .column
-                .ui.segment
-                    .ui.header
-                        i.shield.icon
-                        |admin 
-                    +number_edit key='credit' label='edit credit' direct=true
-                
-                +buy_now_button
-                
-template(name='user_tutor_sessions')
-    .ui.header 
-        |tutor sessions

@@ -7,66 +7,6 @@ if Meteor.isClient
         @layout 'profile_layout'
         @render 'user_dashboard'
         ), name:'profile_layout'
-    Router.route '/user/:username/profile', (->
-        @layout 'profile_layout'
-        @render 'user_profile'
-        ), name:'user_profile'
-    Router.route '/user/:username/credit', (->
-        @layout 'profile_layout'
-        @render 'user_credit'
-        ), name:'user_credit'
-    Router.route '/user/:username/tribes', (->
-        @layout 'profile_layout'
-        @render 'user_tribes'
-        ), name:'user_tribes'
-    Router.route '/user/:username/upvotes', (->
-        @layout 'profile_layout'
-        @render 'user_upvotes'
-        ), name:'user_upvotes'
-    Router.route '/user/:username/downvotes', (->
-        @layout 'profile_layout'
-        @render 'user_downvotes'
-        ), name:'user_downvotes'
-    Router.route '/user/:username/karma', (->
-        @layout 'profile_layout'
-        @render 'user_karma'
-        ), name:'user_karma'
-    Router.route '/user/:username/payment', (->
-        @layout 'profile_layout'
-        @render 'user_payment'
-        ), name:'user_payment'
-    Router.route '/user/:username/contact', (->
-        @layout 'profile_layout'
-        @render 'user_contact'
-        ), name:'user_contact'
-    Router.route '/user/:username/stats', (->
-        @layout 'profile_layout'
-        @render 'user_stats'
-        ), name:'user_stats'
-    Router.route '/user/:username/votes', (->
-        @layout 'profile_layout'
-        @render 'user_votes'
-        ), name:'user_votes'
-    Router.route '/user/:username/transactions', (->
-        @layout 'profile_layout'
-        @render 'user_transactions'
-        ), name:'user_transactions'
-    Router.route '/user/:username/messages', (->
-        @layout 'profile_layout'
-        @render 'user_messages'
-        ), name:'user_messages'
-    Router.route '/user/:username/bookmarks', (->
-        @layout 'profile_layout'
-        @render 'user_bookmarks'
-        ), name:'user_bookmarks'
-    Router.route '/user/:username/social', (->
-        @layout 'profile_layout'
-        @render 'user_social'
-        ), name:'user_social'
-    Router.route '/user/:username/friends', (->
-        @layout 'profile_layout'
-        @render 'user_friends'
-        ), name:'user_friends'
 
 
     Template.profile_layout.onCreated ->

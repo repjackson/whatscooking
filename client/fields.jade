@@ -731,7 +731,7 @@ template(name='signature_view')
 
 template(name='boolean_edit')
     //- div
-    .ui.circular.button.toggle_boolean(class="#{boolean_toggle_class} #{classes}" title=tooltip)
+    .ui.circular.compact.button.toggle_boolean(class="#{boolean_toggle_class} #{classes}" title=tooltip)
         if field_value
             if color_icon
                 +icolor name=color_icon classes='ui mini inline image'

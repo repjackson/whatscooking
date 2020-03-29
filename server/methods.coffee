@@ -14,41 +14,68 @@ Meteor.methods
 #             # console.log 'result doc', Docs.findOne doc._id
 # #
 
-    calc_redditor_tag_cloud: (handle)->
-        redditor = Redditors.findOne handle
-
-    calc_leaders: (selected_tags)->
-        # console.log selected_tags
-        match = {}
-        match.model = 'reddit'
-
-        if selected_tags.length > 0 then match.tags = $all: selected_tags
-        # match.tags = $all: selected_tags
-        # console.log 'match for tags', match
-        tag_cloud = Docs.aggregate [
-            { $match: match }
-            { $project: "tags": 1 }
-            { $unwind: "$tags" }
-            { $group: _id: "$tags", count: $sum: 1 }
-            { $match: _id: $nin: selected_tags }
-            # { $match: _id: {$regex:"#{current_query}", $options: 'i'} }
-            { $sort: count: -1, _id: 1 }
-            { $limit: 10 }
-            { $project: _id: 0, name: '$_id', count: 1 }
-        ], {
-            allowDiskUse: true
-        }
-        res = []
-        # tag_cloud.toArray()
-        res = tag_cloud.toArray()
-        # tag_cloud.forEach (tag, i)=>
-        #     console.log tag
-        #     res.push tag
-        res
+    # calc_leaders: (selected_tags)->
+    #     # console.log selected_tags
+    #     match = {}
+    #     match.model = 'reddit'
+    #
+    #     if selected_tags.length > 0 then match.tags = $all: selected_tags
+    #     # match.tags = $all: selected_tags
+    #     # console.log 'match for tags', match
+    #     tag_cloud = Docs.aggregate [
+    #         { $match: match }
+    #         { $project: "tags": 1 }
+    #         { $unwind: "$tags" }
+    #         { $group: _id: "$tags", count: $sum: 1 }
+    #         { $match: _id: $nin: selected_tags }
+    #         # { $match: _id: {$regex:"#{current_query}", $options: 'i'} }
+    #         { $sort: count: -1, _id: 1 }
+    #         { $limit: 10 }
+    #         { $project: _id: 0, name: '$_id', count: 1 }
+    #     ], {
+    #         allowDiskUse: true
+    #     }
+    #     res = []
+    #     # tag_cloud.toArray()
+    #     res = tag_cloud.toArray()
+    #     # tag_cloud.forEach (tag, i)=>
+    #     #     console.log tag
+    #     #     res.push tag
+    #     res
 
 
 
+    calc_meal_data: (meal_id)->
+        meal = Docs.findOne meal_id
+        console.log meal
+        order_count =
+            Docs.find(
+                model:'order'
+                meal_id:meal_id
+            ).count()
+        console.log 'order count', order_count
+        servings_left = meal.servings_amount-order_count
+        console.log 'servings left', servings_left
 
+        meal_dish =
+            Docs.findOne meal.dish_id
+        console.log 'meal_dish', meal_dish
+        meal_ingredients =
+            Docs.find(
+                model:'ingredient'
+                _id: $in:meal_dish.ingredient_ids
+            ).fetch()
+
+        ingredient_titles = []
+        for ingredient in meal_ingredients
+            console.log ingredient.title
+            ingredient_titles.push ingredient.title
+
+        Docs.update meal_id,
+            $set:
+                order_count:order_count
+                servings_left:servings_left
+                ingredient_titles:ingredient_titles
 
     calc_doc_count: ->
         if Meteor.user()

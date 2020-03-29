@@ -33,7 +33,7 @@ template(name='dishes')
 
 
 
-template(name='dish_card_template')
+template(name='dish_card')
     .ui.stackable.grid.segment
         .four.wide.column
             //- img.ui.fluid.image(src="{{c.url image }}")
@@ -79,9 +79,11 @@ template(name='dish_reviews')
 template(name='dish_view')
     with cd
         .ui.stackable.padded.grid
+            .centered.row
+                .ten.wide.column
+                    .ui.header #{title}
             .four.wide.column
                 .ui.small.header viewing dish
-                .ui.header #{title}
                 +array_view key='tags' direct=true
                 +array_view key='dishes' direct=true
                 +array_view key='location_tags' direct=true
@@ -90,21 +92,18 @@ template(name='dish_view')
                 .ui.header meals used in
                 each dish_meals
                     .ui.small.header #{title}
-                .ui.small.header
-                    |date available
-                    |#{available_date}
-                .ui.small.header
-                    |time available
-                    |#{time_available}
-                .ui.dividing.header
-                    |rules
-                .ui.header
-                    |signup before 24 hours
-                .ui.header
-                    |payment before 24 hours
             .eight.wide.column
                 img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
                 +html_view key='description' direct=true
+                .ui.header ingredients
+                .ui.large.link.selectable.list
+                    each ingredients
+                        a.item(href="/ingredient/#{_id}/view" title='view ingredient')
+                            .content
+                                if image_id
+                                    img.ui.avatar.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+                                .ui.header 
+                                    |#{title}
                 +comments
             .four.wide.column
                 a.ui.large.basic.fluid.button(href="/dish/#{_id}/edit")
@@ -115,7 +114,7 @@ template(name='dish_view')
                 with _author_id
                     +user_card
                 with cd
-                    +voting
+                    +voting_full
                     .ui.header similar dishes
                     .ui.header alerts
                     |alergen alert

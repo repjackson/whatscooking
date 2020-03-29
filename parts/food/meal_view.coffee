@@ -15,23 +15,23 @@ if Meteor.isClient
         'click .cancel_order': ->
             if confirm 'cancel?'
                 Docs.remove @_id
+
+
     Template.meal_view.helpers
         can_order: ->
-            unless @_author_id is Meteor.userId()
-                order_count =
-                    Docs.find(
-                        model:'order'
-                        meal_id:@_id
-                    ).count()
-                if order_count is @servings_amount
-                    false
-                else
-                    true
-
-        meal_orders: ->
-            Docs.find
-                model:'order'
-                meal_id:@_id
+            if StripeCheckout
+                unless @_author_id is Meteor.userId()
+                    order_count =
+                        Docs.find(
+                            model:'order'
+                            meal_id:@_id
+                        ).count()
+                    if order_count is @servings_amount
+                        false
+                    else
+                        true
+            else
+                false
 
 
     Template.order_button.onCreated ->
@@ -39,30 +39,31 @@ if Meteor.isClient
             pub_key = Meteor.settings.public.stripe_test_publishable
         else if Meteor.isProduction
             pub_key = Meteor.settings.public.stripe_live_publishable
-        Template.instance().checkout = StripeCheckout.configure(
-            key: pub_key
-            image: 'https://res.cloudinary.com/facet/image/upload/v1585357133/wc_logo.png'
-            locale: 'auto'
-            # zipCode: true
-            token: (token) ->
-                product = Docs.findOne Router.current().params.doc_id
-                charge =
-                    amount: 1*100
-                    currency: 'usd'
-                    source: token.id
-                    description: token.description
-                    # receipt_email: token.email
-                Meteor.call 'STRIPE_single_charge', charge, product, (error, response) =>
-                    if error then alert error.reason, 'danger'
-                    else
-                        alert 'Payment received.', 'success'
-                        Docs.insert
-                            model:'transaction'
-                            # product_id:product._id
-                        Meteor.users.update Meteor.userId(),
-                            $inc: credit:10
+        if StripeCheckout
+            Template.instance().checkout = StripeCheckout.configure(
+                key: pub_key
+                image: 'https://res.cloudinary.com/facet/image/upload/v1585357133/wc_logo.png'
+                locale: 'auto'
+                # zipCode: true
+                token: (token) ->
+                    product = Docs.findOne Router.current().params.doc_id
+                    charge =
+                        amount: 1*100
+                        currency: 'usd'
+                        source: token.id
+                        description: token.description
+                        # receipt_email: token.email
+                    Meteor.call 'STRIPE_single_charge', charge, product, (error, response) =>
+                        if error then alert error.reason, 'danger'
+                        else
+                            alert 'Payment received.', 'success'
+                            Docs.insert
+                                model:'transaction'
+                                # product_id:product._id
+                            Meteor.users.update Meteor.userId(),
+                                $inc: credit:10
 
-    	)
+        	)
 
     Template.order_button.events
         'click .order_meal': ->
@@ -99,3 +100,4 @@ if Meteor.isServer
                 $inc:credit:-meal.price_per_serving
             Meteor.users.update meal._author_id,
                 $inc:credit:meal.price_per_serving
+            Meteor.call 'calc_meal_data', meal_id, ->

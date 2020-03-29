@@ -2,7 +2,13 @@ Docs.allow
     insert: (userId, doc) -> true
     update: (userId, doc) -> true
     # userId is doc._author_id
-    remove: (userId, doc) -> userId is doc._author_id
+    remove: (userId, doc) ->
+        user = Meteor.users.findOne userId
+        if user.roles
+            if 'admin' in user.roles
+                true
+        else
+            userId is doc._author_id
 
 Meteor.users.allow
     insert: (user_id, doc, fields, modifier) ->
