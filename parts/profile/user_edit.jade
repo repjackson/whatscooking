@@ -10,33 +10,33 @@ template(name='user_edit_layout')
                     //- +i name='pencil'
                     .ui.small.inline.header @#{current_user.username}
                     a.ui.fluid.basic.circular.large.button(href="/user/#{current_user.username}/") 
-                        i.grey.checkmark.icon
+                        i.green.checkmark.icon
                         strong save
                     .ui.vertical.fluid.pointing.menu(class="{{currentUser.nav_color}}")
                         a.item(href="/user/#{current_user.username}/edit/info" class="{{isActiveRoute regex='user_edit_info'}}") 
                             |info
-                            i.grey.info.icon 
+                            i.icon 
+                                +ismall name='info'
                         a.item(href="/user/#{current_user.username}/edit/account" class="{{isActiveRoute regex='user_edit_account'}}") 
                             |account
-                            i.grey.cog.icon 
-                        //- a.item(href="/user/#{current_user.username}/edit/friends" class="{{isActiveRoute regex='user_edit_friends'}}") 
-                        //-     |friends
-                        //-     i.grey.users.icon 
-                        a.item(href="/user/#{current_user.username}/edit/tutoring" class="{{isActiveRoute regex='user_edit_tutoring'}}") 
-                            |tutoring
-                            i.grey.chalkboard.icon 
-                        //- a.item(href="/user/#{current_user.username}/edit/alerts" class="{{isActiveRoute regex='user_edit_alerts'}}") 
-                        //-     |alerts
-                        //-     i.grey.bell.icon 
-                        //- a.item(href="/user/#{current_user.username}/edit/privacy" class="{{isActiveRoute regex='user_edit_privacy'}}") 
-                        //-     | privacy
-                        //-     i.grey.lock.icon 
-                        //- a.item(href="/user/#{current_user.username}/edit/membership" class="{{isActiveRoute regex='user_edit_membership'}}") 
-                        //-     | membership
-                        //-     i.grey.shield.icon 
-                        //- a.item(href="/user/#{current_user.username}/edit/ads" class="{{isActiveRoute regex='user_edit_ads'}}") 
-                        //-     |ads
-                        //-     i.grey.bullhorn.icon 
+                            i.icon 
+                                +ismall name='settings'
+                        a.item(href="/user/#{current_user.username}/edit/food" class="{{isActiveRoute regex='user_edit_food'}}") 
+                            |food
+                            i.icon 
+                                +ismall name='food'
+                        a.item(href="/user/#{current_user.username}/edit/finance" class="{{isActiveRoute regex='user_edit_finance'}}") 
+                            |finance
+                            i.icon 
+                                +ismall name='coins'
+                        a.item(href="/user/#{current_user.username}/edit/alerts" class="{{isActiveRoute regex='user_edit_alerts'}}") 
+                            |alerts
+                            i.icon 
+                                +ismall name='appointment-reminders'
+                        a.item(href="/user/#{current_user.username}/edit/privacy" class="{{isActiveRoute regex='user_edit_privacy'}}") 
+                            | privacy
+                            i.icon 
+                                +ismall name='lock'
                 .twelve.wide.column
                     +yield
 
@@ -52,18 +52,9 @@ template(name='user_edit_info')
                 |emails
             +emails_edit
             +number_edit key='hourly_rate' label='hourly rate ($)' direct=true
-        .column
-            //- if is_admin
-            //-     .ui.segment 
-            //-         .ui.small.header 
-            //-             i.grey.shield.icon 
-            //-             |admin
-            //-         +text_edit key='student_code' label='student code' direct=true
-            //-         +text_edit key='parent_code' label='parent code' direct=true
-            //-         +number_edit key='credit' label='credit' icon='money' direct=true
-            //- div
             +phone_edit key='phone' label='phone' icon='phone' direct=true
             +array_edit key='tags' label='tags' direct=true
+            +textarea_edit key='bio' label='bio' direct=true
 
      
 template(name='phone_editor')
@@ -150,14 +141,20 @@ template(name='user_edit_friends')
     
     
     
-template(name='user_edit_tutoring')
+template(name='user_edit_food')
     .ui.header
-        i.chalkboard.icon
-        | tutoring
-    +boolean_edit key='accepting_students' label='accepting students' direct=true
-    each user_students
-        .ui.header #{name}
+        +icolor name='food'
+        | food
+    .ui.header allergens
+    .ui.header settings
     
+    
+template(name='user_edit_alerts')
+    .ui.header
+        +icolor name='appointment-reminders'
+        | alerts
+    .ui.header allergens
+    .ui.header settings
     
     
     

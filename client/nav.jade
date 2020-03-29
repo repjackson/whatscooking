@@ -48,9 +48,9 @@ template(name='nav')
             
             if currentUser
                 a.icon.item(href='/alerts' class="{{isActivePath '/alerts'}}" title='alerts') 
-                    i.bell.icon(class=alert_icon_class)
+                    i.bell.large.yellow.icon(class=alert_icon_class)
                 a.item(href="/user/#{currentUser.username}/credit" title='your credit')
-                    .ui.circular.green.basic.label
+                    .ui.green.header
                         |#{currentUser.credit}
                 a.item(href="/user/#{currentUser.username}") 
                     if currentUser.profile_image_id

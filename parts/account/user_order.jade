@@ -1,0 +1,26 @@
+template(name='user_orders')
+    .ui.center.aligned.header 
+        i.list.icon
+        | orders
+    .ui.divided.items
+        each user_orders
+            .ui.item 
+                .image
+                    img.ui.image(src="{{c.url meal_dish.image_id width=400 height=400}}")
+                .content
+                    .ui.header #{order_meal.meal_dish.title}
+                    .meta 
+                        |#{when}
+                    .description
+                        |$#{order_price}
+                        a.ui.basic.button(href="/meal/#{order_meal._id}/view")
+                            |view order
+                        a.ui.basic.button(href="/meal/#{order_meal._id}/view")
+                            |view meal
+                        a.ui.basic.button(href="/dish/#{order_meal.meal_dish._id}/view")
+                            |view dish
+                        .ui.basic.button(href="/dish/#")
+                            |view tribe
+                        .ui.button
+                            i.remove.icon
+                            |cancel

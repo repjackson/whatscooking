@@ -2,8 +2,8 @@ template(name='tribes')
     .ui.stackable.padded.grid
         .row
             .six.wide.column
+                +icolor name='log-cabin' classes='ui inline mini image'
                 .ui.inline.header 
-                    +i name='elections' classes='ui avatar image'
                     |tribes
                 if currentUser
                     .ui.basic.cricular.icon.button.add_tribe(title='add tribe')
@@ -20,7 +20,7 @@ template(name='tribe_card')
     .ui.fluid.segment.stackable.grid
         a.four.wide.column(href="/tribe/#{_id}/view")
             if image_id
-                img.ui.small.inline.image(src="{{c.url image_id}}")
+                img.ui.fluid.image(src="{{c.url image_id}}")
         .twelve.wide.column
             a.ui.header(href="/tribe/#{_id}/view")
                 |#{title}
@@ -45,7 +45,7 @@ template(name='tribe_edit')
                         if icon
                             +i name=icon
                         |#{title}
-                    a.ui.big.fluid.button(href="/tribe/#{_id}/view" title='save')
+                    a.ui.big.fluid.basic.button(href="/tribe/#{_id}/view" title='save')
                         i.green.checkmark.icon
                         |save
                     +remove_button
@@ -54,18 +54,10 @@ template(name='tribe_edit')
                     +link_edit key='link' label='link' icon='link' direct=true
                 .six.wide.column 
                     +text_edit key='title' label='title' icon='title' direct=true
+                    .spacer
                     +image_edit key='image_id' label='image' icon='image' direct=true
-                    +html_edit key='description' label='description' icon='content' direct=true
                 .six.wide.column
-                    +boolean_edit key='true_false' label='true/false' direct=true 
-                    unless true_false
-                        .ui.header options
-                        .ui.button.add_option
-                            |add option
-                        each options
-                            .ui.segment 
-                                +text_edit key='title' direct=true
-                                +remove_button
+                    +html_edit key='description' label='description' icon='content' direct=true
                      
                      
                      
@@ -74,23 +66,25 @@ template(name='tribe_view')
         .ui.stackable.padded.grid
             .row
                 .sixteen.wide.column 
-                    .ui.inline.header
+                    .ui.center.aligned.header
                         if icon
                             +i name=icon
                         .ui.header #{title}
             .row
                 .four.wide.column 
                     if can_edit
-                        a.ui.big.button(href="/tribe/#{_id}/edit")
-                            i.pencil.icon
+                        a.ui.fluid.basic.button(href="/tribe/#{_id}/edit")
+                            i.pencil.blue.icon
                             |edit
                     +array_view key='tags' label='tags' icon='tags' direct=true
-                    +html_view key='description' icon='content' label='description' direct=true
+                    .spacer
                     +link_view key='link' label='link' icon='link' direct=true
-                    +image_view key='image' icon='image' label='image' direct=true
+                    .spacer
+                    +image_view key='image_id' icon='image' label='image' direct=true
                     div
                     +viewing
                 .six.wide.column
+                    +html_view key='description' icon='content' label='description' direct=true
                     .ui.header #{members.count} members
                     each members 
                         .ui.small.header #{username}

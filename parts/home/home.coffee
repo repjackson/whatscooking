@@ -28,13 +28,17 @@ if Meteor.isClient
         #     Session.get('meal_limit')
         #     Session.get('meal_sort_key')
         #     Session.get('meal_sort_direction')
-        @autorun => @subscribe 'meals',
-            selected_tags.array()
+        @autorun => @subscribe 'meal_facets',
+            selected_ingredients.array()
             Session.get('meal_limit')
             Session.get('meal_sort_key')
             Session.get('meal_sort_direction')
 
-        # @autorun => @subscribe 'all_redditors'
+        @autorun => @subscribe 'meal_results',
+            selected_ingredients.array()
+            Session.get('meal_limit')
+            Session.get('meal_sort_key')
+            Session.get('meal_sort_direction')
 
 
 
@@ -54,27 +58,27 @@ if Meteor.isClient
         'click .toggle_videos': -> Session.set('view_videos', !Session.get('view_videos'))
         'click .toggle_articles': -> Session.set('view_articles', !Session.get('view_articles'))
 
-        'click .result': (event,template)->
-            # console.log @
-            Meteor.call 'log_term', @title, ->
-            selected_tags.push @title
-            $('#search').val('')
-            Session.set('current_query', null)
-            Session.set('searching', false)
-            Meteor.call 'search_reddit', selected_tags.array(), ->
-        'click .select_query': -> queries.push @title
-        'click .unselect_tag': ->
-            selected_tags.remove @valueOf()
-            # console.log selected_tags.array()
-            if selected_tags.array().length is 1
-                Meteor.call 'call_wiki', search, ->
+        # 'click .result': (event,template)->
+        #     # console.log @
+        #     Meteor.call 'log_term', @title, ->
+        #     selected_tags.push @title
+        #     $('#search').val('')
+        #     Session.set('current_query', null)
+        #     Session.set('searching', false)
+        #     Meteor.call 'search_reddit', selected_tags.array(), ->
+        'click .ingredient_result': -> selected_ingredients.push @title
+        'click .unselect_ingredient': ->
+            selected_ingredients.remove @valueOf()
+            # console.log selected_ingredients.array()
+            # if selected_ingredients.array().length is 1
+                # Meteor.call 'call_wiki', search, ->
 
-            if selected_tags.array().length > 0
-                Meteor.call 'search_reddit', selected_tags.array(), ->
+            # if selected_ingredients.array().length > 0
+                # Meteor.call 'search_reddit', selected_ingredients.array(), ->
 
-        'click .clear_selected_tags': ->
+        'click .clear_selected_ingredients': ->
             Session.set('current_query',null)
-            selected_tags.clear()
+            selected_ingredients.clear()
 
         'keyup #search': _.throttle((e,t)->
             query = $('#search').val()
@@ -163,20 +167,31 @@ if Meteor.isClient
             else
                 Tags.find()
 
+        ingredients: ->
+            # if Session.get('current_query') and Session.get('current_query').length > 1
+            #     Terms.find({}, sort:count:-1)
+            # else
+            meal_count = Docs.find().count()
+            # console.log 'meal count', meal_count
+            if meal_count < 3
+                Ingredients.find({count: $lt: meal_count})
+            else
+                Ingredients.find()
+
         result_class: ->
             if Template.instance().subscriptionsReady()
                 ''
             else
                 'disabled'
 
-        selected_tags: -> selected_tags.array()
-        selected_tags_plural: -> selected_tags.array().length > 1
+        selected_ingredients: -> selected_ingredients.array()
+        selected_ingredients_plural: -> selected_ingredients.array().length > 1
         searching: -> Session.get('searching')
 
         one_post: ->
             Docs.find().count() is 1
         meals: ->
-            # if selected_tags.array().length > 0
+            # if selected_ingredients.array().length > 0
             Docs.find {
                 model:'meal'
             },
@@ -192,7 +207,7 @@ if Meteor.isClient
             else
                 Session.set('global_subs_ready', false)
 
-        user_leaders: ->
+        users: ->
             # if selected_tags.array().length > 0
             Meteor.users.find {
             },
@@ -207,6 +222,8 @@ if Meteor.isClient
             },
                 sort: count:-1
                 # limit:1
+
+
 
 
         meal_limit: ->

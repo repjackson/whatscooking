@@ -8,30 +8,27 @@ template(name='meal_card')
             |#{_author.username}
             i.yellow.star.icon
             |3.4
-        a.image(href="/meal/#{_id}/view")
+        //- a.image(href="/meal/#{_id}/view")
+        .image
             //- img.ui.fluid.image(src="{{c.url image }}")
-            img.ui.fluid.rounded.image(src="{{c.url meal_dish.image_id width=400 height=600 crop='fit'}}")
+            img.ui.fluid.rounded.zoom.pointer.goto_meal.image(src="{{c.url meal_dish.image_id width=400 height=600 crop='fit'}}")
         //- if is_quickbuying
         //-     .content
         //-         +quickbuying
         //- else
         .content
             a.ui.header(href="/meal/#{_id}/view") #{meal_dish.title}
-            //- .ui.inline.small.header ingredients
-            //- each ingredients
-            //-     .ui.basic.label #{this}
+            +ismall name='ingredients'
+            each ingredient_titles
+                .ui.basic.label #{this}
             //- .ui.inline.small.header tags
-            //- each tags
-            //-     .ui.basic.label #{this}
-            //- .ui.inline.small.header location_tags
-            //- each location_tags
-            //-     .ui.basic.label #{this}
-            .ui.header 
+        .content    
+            .ui.inline.header 
                 |#{servings_left}/#{servings_amount}
                 small servings left
-        .content    
-            .ui.header $#{price_per_serving}
+            .ui.inline.right.aligned.header $#{price_per_serving}
                 small /serving
+            div
             if delivery
                 +icolor name='deliver-food'
             if pickup

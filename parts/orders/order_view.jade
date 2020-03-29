@@ -1,0 +1,73 @@
+template(name='order_view')
+    with cd
+        .ui.stackable.padded.grid
+            .row
+                .sixteen.wide.center.aligned.column
+                    .ui.header #{order_dish.title}
+            .three.column.row
+                .column
+                    //- a.ui.fluid.basic.button(href="/orders")
+                    //-     +icolor name='order' classes='ui mini inline image'
+                    //-     |orders
+                    if can_edit
+                        a.ui.large.basic.button(href="/order/#{_id}/edit")
+                            i.pencil.icon
+                            |edit
+                    img.ui.image(src="{{c.url order_dish.image_id width=400 height=400}}")
+                            
+                    +array_view key='tags' direct=true
+                    //- +array_view key='ingredients' direct=true
+                    //- +array_view key='location_tags' direct=true
+                    div
+                    .ui.inline.header 
+                        small available 
+                        |{{from_now datetime_available}}:
+                    +html_view key='description' direct=true
+                    .ui.small.inline.header {{long_date datetime_available}}
+                    .ui.header ingredients
+                    each ingredient_titles
+                        .ui.label #{this}
+                    .ui.dividing.header
+                        |rules
+                    .ui.header #{servings_amount} total servings amount
+                    .ui.header $#{price_per_serving}/serving
+                    .ui.header #{servings_available} servings available
+                    .ui.header
+                        if pickup
+                            i.checkmark.icon
+                        else 
+                            |no
+                        |pickup
+                    .ui.header 
+                        if delivery
+                            i.checkmark.icon
+                        else 
+                            |no
+                        |delivery
+                .column
+                    .ui.header #{servings_left} servings left
+                    .ui.header 
+                        |order
+                    if can_order
+                        +order_button
+                    .ui.header 
+                        |orders
+                    each order_orders
+                        .ui.segment 
+                            |#{when} #{_author.username}
+                            if can_edit
+                                .ui.small.compact.basic.button.cancel_order
+                                    i.remove.icon
+                                    |cancel
+                    .ui.hidden.divider
+                    +comments
+                .column
+                    .ui.header cook #{_author_username}
+                    with _author
+                        +user_card
+                    with cd
+                        +voting_full
+                        .ui.header similar orders
+                        .ui.header alerts
+                        |alergen alert
+                        |#{alergen_alert}

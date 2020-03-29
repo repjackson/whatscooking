@@ -69,7 +69,7 @@ template(name='profile_layout')
                         |friends
                     a.item(href="/user/#{username}/messages" class="{{isActiveRoute regex='user_messages'}}")
                         i.icon 
-                            +ismall name='mailbox'
+                            +ismall name='inbox'
                         |messages
                 if is_current_user
                     a.ui.large.fluid.basic.button(href="/user/#{username}/edit")

@@ -1,6 +1,6 @@
 if Meteor.isClient
     Template.meal_card.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'meal'
+        # @autorun => Meteor.subscribe 'model_docs', 'meal'
     Template.meal_card.events
         'click .quickbuy': ->
             console.log @
@@ -15,7 +15,12 @@ if Meteor.isClient
             $('.ui.modal')
               .modal('show')
 
-
+        'click .goto_meal': (e,t)->
+            $(e.currentTarget).closest('.card').transition('fade',1000)
+            # $('.global_container').transition('scale', 500)
+            Meteor.setTimeout =>
+                Router.go("/meal/#{@_id}/view")
+            , 300
 
         'click .view_card': ->
             $('.container_')

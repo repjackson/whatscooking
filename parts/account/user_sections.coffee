@@ -35,10 +35,6 @@ if Meteor.isClient
         @layout 'profile_layout'
         @render 'user_votes'
         ), name:'user_votes'
-    Router.route '/user/:username/orders', (->
-        @layout 'profile_layout'
-        @render 'user_orders'
-        ), name:'user_orders'
     Router.route '/user/:username/transactions', (->
         @layout 'profile_layout'
         @render 'user_transactions'
@@ -63,6 +59,7 @@ if Meteor.isClient
 
     Template.profile_layout.onCreated ->
         @autorun => Meteor.subscribe 'docs', selected_tags.array(), 'thought'
+
 
 
 

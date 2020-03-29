@@ -39,7 +39,7 @@ template(name='ingredient_view')
             .centered.row
                 .ten.wide.column
                     .ui.center.aligned.header #{title}
-            .four.wide.column
+            .five.wide.column
                 a.ui.basic.button(href="/ingredients")
                     i.left.chevron.icon
                     |ingredients
@@ -58,11 +58,11 @@ template(name='ingredient_view')
                 each ingredient_dishes
                     a.ui.small.header(href="/dish/#{_id}/view")
                         |#{title}
-            .eight.wide.column
+            .six.wide.column
                 img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
                 +textarea_view key='description' direct=true
                 +comments
-            .four.wide.column
+            .five.wide.column
                 with cd
                     +voting_full
                     .ui.header similar ingredients
@@ -75,16 +75,16 @@ template(name='ingredient_view')
 template(name='ingredient_edit')
     with cd
         .ui.stackable.padded.grid
-            .four.wide.column
+            .five.wide.column
                 .ui.header edit ingredient
                 .ui.header #{title}
                 +text_edit key='title' direct=true
                 +array_edit key='tags' direct=true
                 +image_edit key='image_id' direct=true
-            .eight.wide.column
+            .six.wide.column
                 img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
                 +textarea_edit key='description' direct=true
-            .four.wide.column
-                a.ui.large.fluid.button(href="/ingredient/#{_id}/view")
-                    i.checkmark.icon
+            .five.wide.column
+                a.ui.large.fluid.basic.button(href="/ingredient/#{_id}/view")
+                    i.checkmark.green.icon
                     |save        

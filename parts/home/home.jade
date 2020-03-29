@@ -14,81 +14,88 @@ template(name='home')
                 //-     i.video.circular.link.icon.toggle_videos(title='toggle video' class=view_videos_class)
                 //-     i.twitter.circular.link.icon.toggle_tweets(title='toggle tweets' class=view_tweets_class)
                 //-     i.list.circular.link.icon.toggle_articles(title='toggle articles' class=view_articles_class)
-                .ui.left.icon.large.search.input
-                    if template_subs_ready
-                        i.grey.tags.icon
-                        //- i.icons.refresh_tags
-                            //- i.search.corner.icon
-                    else
-                        i.fire.loading.large.icon
-                    input#search.prompt(type='text' autofocus='' autocomplete="off")
+                //- .ui.left.icon.search.input
+                //-     if template_subs_ready
+                //-         i.grey.tags.icon
+                //-         //- i.icons.refresh_tags
+                //-             //- i.search.corner.icon
+                //-     else
+                //-         i.fire.loading.large.icon
+                //-     input#search.prompt(type='text' autofocus='' autocomplete="off")
                 if selected_tags_plural
-                    .ui.icon.circular.black.compact.large.button.clear_selected_tags
+                    .ui.icon.circular.black.compact.button.clear_selected_tags
                         i.remove.icon
                 each selected_tags
-                    button.ui.black.compact.circular.large.button.unselect_tag(tabindex='0')
+                    button.ui.black.compact.circular.button.unselect_tag(tabindex='0')
                         //- i.remove.icon
                         | #{this}
                 each tags
-                    button.ui.basic.circular.compact.large.button.result(tabindex="0" class=result_class title=count) #{title}
+                    button.ui.basic.circular.compact.button.result(tabindex="0" class=result_class title=count) #{title}
                         //- small #{count}
                 .spacer
                 //- +session_toggle_button key='view_user_filter' title='toggle user filter' icon='user outline'
                 //- if session_is 'view_user_filter' true
-                .ui.left.icon.large.search.input
+                .ui.left.icon.search.input
                     i.search.icon.refresh_tags
                     //- if template_subs_ready
                     //- else
                     //-     i.users.loading.large.icon
-                    input#search_user.prompt(type='text' autofocus='' autocomplete="off" placeholder='search usernames')
+                    input#search_user.prompt(type='text' autofocus='' autocomplete="off" placeholder='usernames')
                 if selected_users_plural
-                    .ui.icon.circular.black.compact.large.button.clear_selected_users
+                    .ui.icon.circular.black.compact.button.clear_selected_users
                         i.remove.icon
                 each selected_users
-                    button.ui.black.compact.circular.large.button.unselect_user(tabindex='0')
+                    button.ui.black.compact.circular.button.unselect_user(tabindex='0')
                         //- i.remove.icon
                         | #{this}
-                each user_leaders
-                    button.ui.basic.circular.compact.large.button.result(tabindex="0" class=result_class title=count) #{title}
+                each users
+                    button.ui.basic.circular.compact.button.result(tabindex="0" class=result_class title=count) #{username}
                 .spacer
                 //- +session_toggle_button key='view_ingredient_filter' title='toggle ingredient filter' icon='hot pepper'
                 //- if session_is 'view_ingredient_filter' true
-                .ui.left.icon.large.search.input
+                .ui.left.icon.search.input
                     i.search.icon.refresh_tags
                     //- if template_subs_ready
                     //- else
                     //-     i.reddit.loading.large.icon
-                    input#search_ingredient.prompt(type='text' autofocus='' autocomplete="off" placeholder='search ingredients')
-                if selected_ingredient_results
-                    .ui.icon.circular.black.compact.large.button.clear_selected_ingredients
+                    input#search_ingredient.prompt(type='text' autofocus='' autocomplete="off" placeholder='ingredients')
+                if selected_ingredient_plural
+                    .ui.icon.circular.black.compact.button.clear_selected_ingredients
                         i.remove.icon
                 each selected_ingredients
-                    button.ui.black.compact.circular.large.button.unselect_ingredient(tabindex='0')
+                    button.ui.blue.compact.circular.button.unselect_ingredient(tabindex='0')
                         //- i.remove.icon
                         | #{this}
-                each ingredient_results
-                    button.ui.basic.circular.compact.large.button.ingredient_result(tabindex="0" class=result_class title=count) #{title}
+                each ingredients
+                    button.ui.basic.circular.compact.button.ingredient_result(tabindex="0" class=result_class title=count) #{title}
                         //- small #{count}
                 .spacer
+                .ui.circular.basic.button.toggle_delivery
+                    +icolor name='deliver-food' classes='ui inline mini image' 
+                    |delivery
+                .ui.circular.basic.button.toggle_pickup
+                    +icolor name='doormat' classes='ui inline mini image'
+                    |pickup
+                    
                 //- timestamp tags
                 //- +session_toggle_button key='view_timestamp_tags' title='toggle time tags' icon='clock'
                 //- i.large.grey.clock.icon
                 //- if session_is 'view_timestamp_tags' true
-                //- .ui.left.icon.large.search.input
+                //- .ui.left.icon.search.input
                 //-     i.search.icon
                     //- if template_subs_ready
                     //- else
                     //-     i.clock.loading.large.icon
                     //- input#search_food_preference.prompt(type='text' autofocus='' autocomplete="off")
                 if selected_food_preferences
-                    .ui.icon.circular.black.compact.large.button.clear_selected_food_preferences
+                    .ui.icon.circular.black.compact.button.clear_selected_food_preferences
                         i.remove.icon
                 each selected_food_preferences
-                    button.ui.black.compact.circular.large.button.unselect_food_preference(tabindex='0')
+                    button.ui.black.compact.circular.button.unselect_food_preference(tabindex='0')
                         //- i.remove.icon
                         | #{this}
                 each food_preferences
-                    button.ui.basic.circular.compact.large.button.food_preference_result(tabindex="0" class=result_class title=count) #{title}
+                    button.ui.basic.circular.compact.button.food_preference_result(tabindex="0" class=result_class title=count) #{title}
                         //- small #{count}
                 div
                 .ui.small.inline.header meal

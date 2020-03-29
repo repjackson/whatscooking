@@ -12,15 +12,14 @@ if Meteor.isClient
     Template.profile_layout.onCreated ->
         @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
         @autorun -> Meteor.subscribe 'user_events', Router.current().params.username
-        @autorun -> Meteor.subscribe 'model_docs', 'test'
         # @autorun -> Meteor.subscribe 'student_stats', Router.current().params.username
     Template.profile_layout.onRendered ->
-        Meteor.setTimeout ->
-            $('.button').popup()
-        , 2000
-        Meteor.setTimeout ->
-            $('.progress').progress();
-        , 2000
+        # Meteor.setTimeout ->
+        #     $('.button').popup()
+        # , 2000
+        # Meteor.setTimeout ->
+        #     $('.progress').progress();
+        # , 2000
 
 
     Template.profile_layout.helpers

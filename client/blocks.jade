@@ -4,7 +4,7 @@ template(name='session_toggle_button')
 
 template(name='comments')
     .ui.inline.grey.header
-        i.chat.outline.small.icon
+        +icolor name='chat' classes='ui mini inline image'
         |comments
     div
     if currentUser
@@ -17,23 +17,23 @@ template(name='comments')
                 .content
                     .ui.header #{body}
                     .meta #{when}
-                        unless is_frontdesk
-                            |by 
-                            a(href="/user/#{author.username}") #{author.first_name} #{author.last_name}
+                        |by 
+                        a(href="/user/#{_author.username}") #{_author.name}
                         if currentUser
                             +voting_small
                             if can_edit
-                                +remove_button
+                                i.remove.link.icon
+                                //- +remove_button
 
 
 template(name='viewing')
     if currentUser
         unless viewed_by
-            .ui.icon.button.mark_read(title='mark read')
+            .ui.icon.basic.button.mark_read(title='mark read')
                 i.eye.icon
         else 
             //- if is_dev
-            .ui.icon.button.mark_unread(title='mark unread')
+            .ui.icon.basic.button.mark_unread(title='mark unread')
                 i.eye.slash.icon
     else 
         i.eye.icon
@@ -332,7 +332,7 @@ template(name='view_button')
 
 
 template(name='remove_button')
-    .ui.icon.button.remove_doc(title='delete')
+    .ui.icon.basic.button.remove_doc(title='delete')
         i.red.remove.icon
         |delete
 

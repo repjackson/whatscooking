@@ -25,14 +25,16 @@ template(name='admin')
                         .item
                             .ui.header #{sender_username} to #{recipient_username} #{when} for #{amount} credit
                             +author_info
-                        
             .column
-                a.button(href='/ingredients' class="{{isActivePath '/ingredients'}}" title='ingredients')
+                a.ui.button(href='/ingredients' class="{{isActivePath '/ingredients'}}" title='ingredients')
                     i.pepper.hot.icon
                     |ingredients
-                a.icon.button(href="/stats")
+                a.ui.button(href="/stats")
                     i.line.chart.icon
                     |stats
+                a.ui.button(href="/orders")
+                    i.cart.icon
+                    |orders
                 a.ui.button(href='/recipes' class="{{isActivePath '/recipes'}}" title='recipes')
                     i.blog.icon
                     |recipes

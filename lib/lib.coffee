@@ -1,6 +1,9 @@
 @Docs = new Meteor.Collection 'docs'
 @Tags = new Meteor.Collection 'tags'
 
+
+
+@Ingredients = new Meteor.Collection 'ingredients'
 @Timestamp_tags = new Meteor.Collection 'timestamp_tags'
 
 Router.configure
@@ -59,17 +62,27 @@ Docs.helpers
     when: -> moment(@_timestamp).fromNow()
     ten_tags: -> if @tags then @tags[..10]
     five_tags: -> if @tags then @tags[..4]
-    three_tags: -> if @tags then @tags[..2]
+    # three_tags: -> if @tags then @tags[..2]
     is_visible: -> @published in [0,1]
-    is_published: -> @published is 1
-    is_anonymous: -> @published is 0
-    is_private: -> @published is -1
+    # is_published: -> @published is 1
+    # is_anonymous: -> @published is 0
+    # is_private: -> @published is -1
     from_user: ->
         if @from_user_id
             Meteor.users.findOne @from_user_id
     to_user: ->
         if @to_user_id
             Meteor.users.findOne @to_user_id
+
+
+
+    order_meal: ->
+        Docs.findOne
+            model:'meal'
+            _id:@meal_id
+
+
+
 
     order: ->
         Docs.findOne
@@ -129,6 +142,15 @@ Meteor.users.helpers
             "#{@first_name} #{@last_name}"
         else
             "#{@username}"
+    user_orders: (user_id)->
+        if user_id
+            Docs.find
+                model:'order'
+                _author_id: user_id
+        else
+            Docs.find
+                model:'order'
+                _author_id: Meteor.userId()
     # is_current_student: ->
     #     if @roles
     #         if 'admin' in @roles

@@ -20,9 +20,8 @@ template(name='dishes')
                     each dishes
                         .ui.card
                             if image_id
-                                img.ui.image(src="{{c.url image_id width=400 height=400}}")
-                            else
-                                img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                a.image(href="/dish/#{_id}/view")
+                                    img.ui.zoom.image(src="{{c.url image_id width=400 height=400}}")
                             .content
                                 a.ui.header(href="/dish/#{_id}/view") #{title}
                                 div created {{from_now _timestamp}}
@@ -80,8 +79,8 @@ template(name='dish_view')
     with cd
         .ui.stackable.padded.grid
             .centered.row
-                .ten.wide.column
-                    .ui.header #{title}
+                .sixteen.wide.column
+                    .ui.center.aligned.header #{title}
             .four.wide.column
                 .ui.small.header viewing dish
                 +array_view key='tags' direct=true

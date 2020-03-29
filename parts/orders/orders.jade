@@ -11,8 +11,8 @@ template(name='orders')
                 .ui.segments
                     each orders 
                         .ui.segment
-                            .ui.header
-                                |#{meal.dish.title}
+                            a.ui.header(href="/order/#{_id}/view")
+                                |#{order_meal.meal_dish.title}
                             | #{_author.username} #{when}
                             .ui.green.inline.header
                                 |$#{order_price}
