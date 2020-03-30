@@ -11,7 +11,7 @@ template(name='ingredients')
                 .ui.small.inline.header filter
                 +cloud filter='ingredient'
             .thirteen.wide.column
-                .ui.stackable.centered.cards
+                .ui.stackable.centered.four.cards
                     each ingredients
                         +ingredient_card
 
@@ -24,7 +24,7 @@ template(name='ingredient_card')
                 img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
         .content
             a.ui.header(href="/ingredient/#{_id}/view") #{title}
-            div created {{from_now _timestamp}}
+            div created {{from_now _timestamp}} by #{_author_username}
             //- |available servings: #{available_servings}
             
 

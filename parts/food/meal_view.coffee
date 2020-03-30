@@ -13,26 +13,30 @@ if Meteor.isClient
 
     Template.meal_view.events
         'click .cancel_order': ->
-            if confirm 'cancel?'
-                Docs.remove @_id
+            Swal.fire({
+                title: 'confirm cancel'
+                text: "this will refund you #{@order_price} credits"
+                icon: 'question'
+                showCancelButton: true,
+                confirmButtonText: 'confirm'
+                cancelButtonText: 'cancel'
+            }).then((result) =>
+                if result.value
+                    Docs.remove @_id
+                    Meteor.users.update @_author_id,
+                        $inc:@order_price
+                    Swal.fire(
+                        'refund processed',
+                        'success'
+                    )
+            )
 
 
     Template.meal_view.helpers
-        can_order: ->
-            if StripeCheckout
-                unless @_author_id is Meteor.userId()
-                    order_count =
-                        Docs.find(
-                            model:'order'
-                            meal_id:@_id
-                        ).count()
-                    if order_count is @servings_amount
-                        false
-                    else
-                        true
-            else
-                false
+        can_order: -> @_author_id isnt Meteor.userId()
 
+        meal_order_class: ->
+            if @waitlist then 'blue' else 'green'
 
     Template.order_button.onCreated ->
         if Meteor.isDevelopment
@@ -65,13 +69,55 @@ if Meteor.isClient
 
         	)
 
+    Template.order_button.helpers
+
     Template.order_button.events
+        'click .join_waitlist': ->
+            Swal.fire({
+                title: 'confirm wait list join',
+                text: 'this will charge your account if orders cancel'
+                icon: 'question'
+                showCancelButton: true,
+                confirmButtonText: 'confirm'
+                cancelButtonText: 'cancel'
+            }).then((result) =>
+                if result.value
+                    Docs.insert
+                        model:'order'
+                        waitlist:true
+                        meal_id: Router.current().params.doc_id
+                    Swal.fire(
+                        'wait list joined',
+                        "you'll be alerted if accepted"
+                        'success'
+                    )
+            )
+
         'click .order_meal': ->
             if Meteor.user().credit >= @price_per_serving
-                if confirm 'confirm buy serving?'
-                    Meteor.call 'order_meal', @_id, (err, res)->
-                        if res
-                            alert 'order processed'
+                Swal.fire({
+                    title: 'confirm buy serving'
+                    text: "this will charge you #{@price_per_serving} credits"
+                    icon: 'question'
+                    showCancelButton: true,
+                    confirmButtonText: 'confirm'
+                    cancelButtonText: 'cancel'
+                }).then((result) =>
+                    if result.value
+                        Meteor.call 'order_meal', @_id, (err, res)->
+                            if err
+                                Swal.fire(
+                                    'err',
+                                    'error'
+                                )
+                                console.log err
+                            else
+                                Swal.fire(
+                                    'order and payment processed'
+                                    ''
+                                    'success'
+                                )
+                )
             else
                 alert 'need more credit'
                 # deposit_amount = Math.abs(parseFloat($('.adding_credit').val()))

@@ -1,10 +1,14 @@
 template(name='meal_view')
     with cd
         .ui.stackable.padded.grid
-            .row
+            .middle.aligned.row
                 .four.wide.center.aligned.column
+                    a.ui.basic.circular.button(href="/meals")
+                        i.large.left.chevron.icon
+                        |meals
+
                 .eight.wide.center.aligned.column
-                    .ui.header 
+                    .ui.large.header 
                         small viewing
                         |'#{meal_dish.title}'
                         small meal
@@ -58,19 +62,17 @@ template(name='meal_view')
                         else 
                             |servings
                         | left
-                    .ui.header 
-                        |order
                     if can_order
                         +order_button
                     .ui.header 
                         |orders
                     each meal_orders
-                        .ui.segment 
+                        .ui.segment(class=meal_order_class)
                             .ui.inline.green.header
                                 |$#{order_price}
                             a.ui.small.inline.header(href="/user/#{_author.username}" title='view profile')
-                                if _author.image_id
-                                    img.ui.avatar.image(src="{{c.url _author.image_id width=100 height=100 gravity='face' crop='fill'}}")
+                                if _author.profile_image_id
+                                    img.ui.avatar.image(src="{{c.url _author.profile_image_id width=100 height=100 gravity='face' crop='fill'}}")
                                 |#{_author.username}
                             div
                             .ui.small.inline.header
@@ -97,5 +99,12 @@ template(name='meal_view')
 
 
 template(name='order_button')
-    .ui.green.button.order_meal
-        |order
+    if servings_left
+        .ui.green.fluid.large.button.order_meal
+            i.cart.plus.icon
+            |order #{serving_unit}
+    else 
+        .ui.teal.large.fluid.button.join_waitlist
+            i.clock.icon
+            |join wait list
+        

@@ -10,8 +10,8 @@ template(name='meal_card')
             |3.4
         //- a.image(href="/meal/#{_id}/view")
         .image
+            img.ui.pointer.goto_meal.image(src="{{c.url meal_dish.image_id width=400 height=300 crop='pad'}}")
             //- img.ui.fluid.image(src="{{c.url image }}")
-            img.ui.fluid.rounded.zoom.pointer.goto_meal.image(src="{{c.url meal_dish.image_id width=400 height=600 crop='fit'}}")
         //- if is_quickbuying
         //-     .content
         //-         +quickbuying
@@ -39,7 +39,6 @@ template(name='meal_card')
                         |#{serving_unit}
                     else 
                         |serving
-                
             div
             if delivery
                 +icolor name='deliver-food'

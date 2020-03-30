@@ -4,10 +4,10 @@ template(name='meal_edit')
             .five.wide.column
                 .ui.header editing meal
                 .ui.header #{title}
-                +number_edit key='servings_amount' label='servings available' direct=true
-                +text_edit key='serving_unit' label='serving unit' direct=true
-                +number_edit key='price_per_serving' label='price per serving' direct=true
-                //- +array_edit key='location_tags' direct=true
+                +number_edit key='servings_amount' label='servings available'
+                +text_edit key='serving_unit' label='serving unit'
+                +number_edit key='price_per_serving' label='price per serving'
+                //- +array_edit key='location_tags'
                 .ui.header $#{total_potential_revenue} 
                     small total potential revenue
                 .ui.header
@@ -23,9 +23,9 @@ template(name='meal_edit')
                         .ui.button.select_dish #{title}
             .six.wide.column
                 //- .ui.small.header
-                //- +date_edit key='date_available' label='date available' direct=true
+                //- +date_edit key='date_available' label='date available'
                 //- //- .ui.small.header
-                //- +time_edit key='time_available' label='time available' direct=true
+                //- +time_edit key='time_available' label='time available'
                 .mobile.hidden
                     #availability.ui.calendar
                         .ui.fluid.input
@@ -34,10 +34,10 @@ template(name='meal_edit')
                         i.checkmark.icon
                         |save
                 .mobile.only
-                    +datetime_edit key='datetime_available' label='date/time available' direct=true
+                    +datetime_edit key='datetime_available' label='date/time available'
                 .ui.small.header #{datetime_available}
                 img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
-                +html_edit key='description' direct=true
+                +html_edit key='description'
             .five.wide.column
                 .ui.large.fluid.green.button.save_meal
                     i.checkmark.icon   
@@ -51,13 +51,14 @@ template(name='meal_edit')
                         i.remove.icon   
                         | can't cancel  
                 .ui.segment
-                    +boolean_edit key='delivery' label='delivery' color_icon='deliver-food' direct=true
+                    +boolean_edit key='delivery' label='delivery' color_icon='deliver-food'
                     if delivery
                         .ui.header delivery
-                        +text_edit key='delivery_notes' label='delivery notes' direct=true
+                        +text_edit key='delivery_notes' label='delivery notes'
+                        +number_edit key='delivery_fee' label='delivery fee'
                 .ui.segment
-                    +boolean_edit key='pickup' label='pickup' color_icon='doormat' direct=true
+                    +boolean_edit key='pickup' label='pickup' color_icon='doormat'
                     if pickup
                         .ui.header pickup
-                        +text_edit key='pickup_notes' label='pickup notes' direct=true
-                        +time_edit key='pickup_cutoff' label='pickup cutoff' direct=true
+                        +text_edit key='pickup_notes' label='pickup notes'
+                        +time_edit key='pickup_cutoff' label='pickup cutoff'
