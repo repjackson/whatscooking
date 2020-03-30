@@ -83,6 +83,9 @@ Docs.helpers
 
 
 
+    order_total_transaction_amount: ->
+        @serving_purchase_price+@cook_tip
+
 
     order: ->
         Docs.findOne
@@ -109,9 +112,10 @@ Docs.helpers
         #     []
 
     meal_dish: ->
-        Docs.findOne
-            model:'dish'
-            _id:@dish_id
+        if @dish_id
+            Docs.findOne
+                model:'dish'
+                _id:@dish_id
 
     dish_ingredients: ->
         if @ingredient_ids
@@ -165,52 +169,6 @@ Meteor.users.helpers
     last_name_initial: -> if @last_name then @last_name.charAt 0
 
 Meteor.methods
-    add_facet_filter: (delta_id, key, filter)->
-        if key is '_keys'
-            new_facet_ob = {
-                key:filter
-                filters:[]
-                res:[]
-            }
-            Docs.update { _id:delta_id },
-                $addToSet: facets: new_facet_ob
-        Docs.update { _id:delta_id, "facets.key":key},
-            $addToSet: "facets.$.filters": filter
-
-        Meteor.call 'fum', delta_id, (err,res)->
-
-
-    remove_facet_filter: (delta_id, key, filter)->
-        if key is '_keys'
-            Docs.update { _id:delta_id },
-                $pull:facets: {key:filter}
-        Docs.update { _id:delta_id, "facets.key":key},
-            $pull: "facets.$.filters": filter
-        Meteor.call 'fum', delta_id, (err,res)->
-
-
-
-    pin: (doc)->
-        if doc.pinned_ids and Meteor.userId() in doc.pinned_ids
-            Docs.update doc._id,
-                $pull: pinned_ids: Meteor.userId()
-                $inc: pinned_count: -1
-        else
-            Docs.update doc._id,
-                $addToSet: pinned_ids: Meteor.userId()
-                $inc: pinned_count: 1
-
-    subscribe: (doc)->
-        if doc.subscribed_ids and Meteor.userId() in doc.subscribed_ids
-            Docs.update doc._id,
-                $pull: subscribed_ids: Meteor.userId()
-                $inc: subscribed_count: -1
-        else
-            Docs.update doc._id,
-                $addToSet: subscribed_ids: Meteor.userId()
-                $inc: subscribed_count: 1
-
-
     upvote: (doc)->
         if Meteor.userId()
             if doc.downvoter_ids and Meteor.userId() in doc.downvoter_ids

@@ -3,7 +3,7 @@ template(name='order_view')
         .ui.stackable.padded.grid
             .row
                 .sixteen.wide.center.aligned.column
-                    .ui.header #{order_dish.title}
+                    .ui.header #{order_meal.meal_dish.title}
             .three.column.row
                 .column
                     //- a.ui.fluid.basic.button(href="/orders")
@@ -14,24 +14,21 @@ template(name='order_view')
                             i.pencil.icon
                             |edit
                     img.ui.image(src="{{c.url order_dish.image_id width=400 height=400}}")
-                            
-                    +array_view key='tags' direct=true
-                    //- +array_view key='ingredients' direct=true
-                    //- +array_view key='location_tags' direct=true
+                    .ui.header ordered #{when}
+                    +array_view key='tags' 
+                    +float_view key='serving_purchase_price' label='serving purchase price' prefix='$'
+                    +float_view key='cook_tip' label='cook tip' prefix='$'
+                    .ui.header $#{order_total_transaction_amount} 
+                        small total transaction amount
                     div
                     .ui.inline.header 
                         small available 
                         |{{from_now datetime_available}}:
-                    +html_view key='description' direct=true
+                    +html_view key='description'
                     .ui.small.inline.header {{long_date datetime_available}}
                     .ui.header ingredients
                     each ingredient_titles
                         .ui.label #{this}
-                    .ui.dividing.header
-                        |rules
-                    .ui.header #{servings_amount} total servings amount
-                    .ui.header $#{price_per_serving}/serving
-                    .ui.header #{servings_available} servings available
                     .ui.header
                         if pickup
                             i.checkmark.icon
@@ -62,12 +59,9 @@ template(name='order_view')
                     .ui.hidden.divider
                     +comments
                 .column
-                    .ui.header cook #{_author_username}
+                    .ui.header author #{_author_username}
                     with _author
                         +user_card
-                    with cd
-                        +voting_full
-                        .ui.header similar orders
-                        .ui.header alerts
-                        |alergen alert
-                        |#{alergen_alert}
+                    .ui.header author #{_author_username}
+                    with _author
+                        +user_card

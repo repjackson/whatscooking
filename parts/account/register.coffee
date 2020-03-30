@@ -71,10 +71,11 @@ if Meteor.isClient
                         #     Session.set 'enter_mode', 'register'
                         #     Session.set 'username', "#{username}"
                     else
-                        # Meteor.users.update Meteor.userId(),
-                        #     $set:
-                        #         first_name: Session.get('first_name')
-                        #         last_name: Session.get('last_name')
+                        Meteor.users.update Meteor.userId(),
+                            $set:
+                                credit: 5
+                                first_name: Session.get('first_name')
+                                last_name: Session.get('last_name')
                         # new_classroom_id = Docs.insert
                         #     model: 'classroom'
                         #     teacher_id: Meteor.userId()
@@ -83,7 +84,7 @@ if Meteor.isClient
                         #     fines_amount: 1
                         # Router.go "/build_classroom/#{new_classroom_id}/info"
                         # Meteor.call 'generate_transaction_types', new_classroom_id, ->
-                        Router.go '/'
+                        Router.go "/user/#{Meteor.user().username}/"
             # else
             #     Meteor.loginWithPassword username, password, (err,res)=>
             #         if err

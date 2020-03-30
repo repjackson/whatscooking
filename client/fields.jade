@@ -380,7 +380,7 @@ template(name='number_view')
             //- else
             //-     |#{this}
         .ui.inline.header &nbsp;
-            if unit
+            if prefix
                 span #{prefix}
             |#{field_value}
 
@@ -450,7 +450,11 @@ template(name='float_view')
                 |#{key}
             else
                 |#{this}
-        .ui.inline.large.header &nbsp; #{field_value}
+        .ui.inline.large.header &nbsp; 
+            if prefix
+                span #{prefix}
+
+            |#{field_value}
 
 
 

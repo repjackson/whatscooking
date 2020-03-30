@@ -15,3 +15,8 @@ if Meteor.isClient
 
     Template.user_orders.helpers
     Template.user_orders.events
+        'click .create_order': ->
+            new_order_id =
+                Docs.insert
+                    model:'order'
+            Router.go("/order/#{new_order_id}/edit")

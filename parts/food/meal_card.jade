@@ -25,9 +25,21 @@ template(name='meal_card')
         .content    
             .ui.inline.header 
                 |#{servings_left}/#{servings_amount}
-                small servings left
+                small
+                    if serving_unit
+                        |#{serving_unit}s
+                    else 
+                        |servings
+                    
+                    | left
             .ui.inline.right.aligned.header $#{price_per_serving}
-                small /serving
+                small
+                    |/
+                    if serving_unit
+                        |#{serving_unit}
+                    else 
+                        |serving
+                
             div
             if delivery
                 +icolor name='deliver-food'

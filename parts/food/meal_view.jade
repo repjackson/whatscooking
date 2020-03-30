@@ -2,17 +2,22 @@ template(name='meal_view')
     with cd
         .ui.stackable.padded.grid
             .row
-                .sixteen.wide.center.aligned.column
-                    .ui.header #{meal_dish.title}
+                .four.wide.center.aligned.column
+                .eight.wide.center.aligned.column
+                    .ui.header 
+                        small viewing
+                        |'#{meal_dish.title}'
+                        small meal
+                .four.wide.center.aligned.column
+                    if can_edit
+                        a.ui.large.basic.circular.button(href="/meal/#{_id}/edit")
+                            i.pencil.blue.icon
+                            |edit
             .three.column.row
                 .column
                     //- a.ui.fluid.basic.button(href="/meals")
                     //-     +icolor name='meal' classes='ui mini inline image'
                     //-     |meals
-                    if can_edit
-                        a.ui.large.basic.button(href="/meal/#{_id}/edit")
-                            i.pencil.icon
-                            |edit
                     img.ui.image(src="{{c.url meal_dish.image_id width=400 height=400}}")
                             
                     +array_view key='tags' direct=true
@@ -24,9 +29,11 @@ template(name='meal_view')
                         |{{from_now datetime_available}}:
                     +html_view key='description' direct=true
                     .ui.small.inline.header {{long_date datetime_available}}
-                    .ui.header ingredients
+                    .ui.header 
+                        +icolor name='ingredients'
+                        |ingredients
                     each ingredient_titles
-                        .ui.label #{this}
+                        .ui.large.basic.circular.label #{this}
                     .ui.dividing.header
                         |rules
                     .ui.header #{servings_amount} total servings amount
@@ -45,7 +52,12 @@ template(name='meal_view')
                             |no
                         |delivery
                 .column
-                    .ui.header #{servings_left} servings left
+                    .ui.header #{servings_left} 
+                        if serving_unit
+                            |#{serving_unit}s
+                        else 
+                            |servings
+                        | left
                     .ui.header 
                         |order
                     if can_order
@@ -54,10 +66,21 @@ template(name='meal_view')
                         |orders
                     each meal_orders
                         .ui.segment 
-                            |#{when} #{_author.username}
+                            .ui.inline.green.header
+                                |$#{order_price}
+                            a.ui.small.inline.header(href="/user/#{_author.username}" title='view profile')
+                                if _author.image_id
+                                    img.ui.avatar.image(src="{{c.url _author.image_id width=100 height=100 gravity='face' crop='fill'}}")
+                                |#{_author.username}
+                            div
+                            .ui.small.inline.header
+                                | #{when} ({{long_date _timestamp}})
+                            a.ui.compact.circular.basic.button(href="/order/#{_id}/view")
+                                |view details
+                                i.right.chevron.icon
                             if can_edit
                                 .ui.small.compact.basic.button.cancel_order
-                                    i.remove.icon
+                                    i.remove.red.icon
                                     |cancel
                     .ui.hidden.divider
                     +comments

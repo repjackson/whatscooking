@@ -167,6 +167,9 @@ Template.registerHelper 'total_potential_revenue', () ->
 Template.registerHelper 'session_is', (key, value)->
     Session.equals(key, value)
 
+Template.registerHelper 'key_value_is', (key, value)->
+    @["#{key}"] is value
+
 Template.registerHelper 'is_loading', -> Session.get 'loading'
 Template.registerHelper 'dev', -> Meteor.isDevelopment
 Template.registerHelper 'to_percent', (number)->

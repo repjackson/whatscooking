@@ -17,11 +17,11 @@ template(name='grid')
                         a.icon.header(href="/ingredients")
                             +icolor name='ingredients'
                             |ingredients
-                .ui.card
-                    .content 
-                        a.icon.header(href="/recipes")
-                            +icolor name='beer-recipe'
-                            |recipes
+                //- .ui.card
+                //-     .content 
+                //-         a.icon.header(href="/recipes")
+                //-             +icolor name='beer-recipe'
+                //-             |recipes
                 .ui.card
                     .content 
                         a.icon.header(href="/dishes")
@@ -32,3 +32,8 @@ template(name='grid')
                         a.icon.header(href="/tribes")
                             +icolor name='log-cabin'
                             |tribes
+                .ui.card
+                    .content 
+                        a.icon.header(href="/tribes")
+                            +icolor name='order-history'
+                            |orders

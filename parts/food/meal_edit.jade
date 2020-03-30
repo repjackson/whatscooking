@@ -1,31 +1,45 @@
 template(name='meal_edit')
     with cd
         .ui.stackable.padded.grid
-            .four.wide.column
+            .five.wide.column
                 .ui.header editing meal
                 .ui.header #{title}
                 +number_edit key='servings_amount' label='servings available' direct=true
+                +text_edit key='serving_unit' label='serving unit' direct=true
                 +number_edit key='price_per_serving' label='price per serving' direct=true
                 //- +array_edit key='location_tags' direct=true
                 .ui.header $#{total_potential_revenue} 
                     small total potential revenue
-                .ui.header dish
-                if meal_dish
-                    .ui.small.header #{meal_dish.title}
+                .ui.header
+                    +icolor name='meal'
+                    | dish
+                if dish_id
+                    .ui.header 
+                        |#{meal_dish.title}
+                        i.remove.red.link.icon.clear_dish
                 else 
                     .ui.small.header select dish
                     each all_dishes
                         .ui.button.select_dish #{title}
-            .eight.wide.column
+            .six.wide.column
                 //- .ui.small.header
                 //- +date_edit key='date_available' label='date available' direct=true
                 //- //- .ui.small.header
                 //- +time_edit key='time_available' label='time available' direct=true
-                +datetime_edit key='datetime_available' label='date/time available' direct=true
+                .mobile.hidden
+                    #availability.ui.calendar
+                        .ui.fluid.input
+                            input.select_available_datetime(type='text' placeholder=datetime_available)
+                    .ui.green.button.save_availability
+                        i.checkmark.icon
+                        |save
+                .mobile.only
+                    +datetime_edit key='datetime_available' label='date/time available' direct=true
+                .ui.small.header #{datetime_available}
                 img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
                 +html_edit key='description' direct=true
-            .four.wide.column
-                a.ui.large.fluid.green.button(href="/meal/#{_id}/view")
+            .five.wide.column
+                .ui.large.fluid.green.button.save_meal
                     i.checkmark.icon   
                     |save     
                 if can_delete
@@ -38,7 +52,7 @@ template(name='meal_edit')
                         | can't cancel  
                 .ui.segment
                     +boolean_edit key='delivery' label='delivery' color_icon='deliver-food' direct=true
-                    if pickup
+                    if delivery
                         .ui.header delivery
                         +text_edit key='delivery_notes' label='delivery notes' direct=true
                 .ui.segment
@@ -46,4 +60,4 @@ template(name='meal_edit')
                     if pickup
                         .ui.header pickup
                         +text_edit key='pickup_notes' label='pickup notes' direct=true
-                        +time_edit key='pickup_cutoff' direct=true
+                        +time_edit key='pickup_cutoff' label='pickup cutoff' direct=true

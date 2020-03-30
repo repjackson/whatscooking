@@ -10,6 +10,16 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'model_docs', 'dish'
 
+    Template.meal_edit.onRendered ->
+        Meteor.setTimeout ->
+            today = new Date()
+            $('#availability')
+                .calendar({
+                    minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 5),
+                    maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 5)
+                })
+        , 2000
+
     Template.meal_edit.helpers
         all_dishes: ->
             Docs.find
@@ -26,10 +36,39 @@ if Meteor.isClient
 
 
     Template.meal_edit.events
+        'click .save_meal': ->
+            meal_id = Router.current().params.doc_id
+            Meteor.call 'calc_meal_data', meal_id, ->
+            Router.go "/meal/#{meal_id}/view"
+
+
+        'click .save_availability': ->
+            doc_id = Router.current().params.doc_id
+            availability = $('.ui.calendar').calendar('get date')[0]
+            console.log availability
+            formatted = moment(availability).format("YYYY-MM-DD[T]HH:mm")
+            console.log formatted
+            # console.log moment(@end_datetime).diff(moment(@start_datetime),'minutes',true)
+            # console.log moment(@end_datetime).diff(moment(@start_datetime),'hours',true)
+            Docs.update doc_id,
+                $set:datetime_available:formatted
+
+
+
+
+
         'click .select_dish': ->
             Docs.update Router.current().params.doc_id,
                 $set:
                     dish_id: @_id
+
+
+        'click .clear_dish': ->
+            if confirm 'clear dish?'
+                Docs.update Router.current().params.doc_id,
+                    $set:
+                        dish_id: null
+
 
 
         'click .delete_meal': ->
