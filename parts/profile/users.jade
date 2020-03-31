@@ -3,10 +3,15 @@ template(name='users')
         .one.column.row
             .column
                 .ui.center.aligned.header
-                    i.users.icon
+                    +icolor name='groups'
                     |users
-        .one.column.row 
-            .column
+        .row 
+            .four.wide.column
+                .ui.icon.input
+                    i.search.icon
+                    input.ingredient_search(type='text' placeholder='search username')
+
+            .twelve.wide.column
                 .ui.stackable.centered.five.cards 
                     each users 
                         +user_card
@@ -19,7 +24,12 @@ template(name='user_card')
         .content
             a.ui.header(href="/user/#{username}") #{username}
             .ui.list
+                .item #{meal_count} meals
+                .item #{order_count} orders
+                .item #{sales_count} sales
+                .item #{dishes} dishes
+                .item #{authored_ingredient_count} authored ingredients
                 .item #{karma} karma
-            a.ui.fluid.circular.button(href="/user/#{username}")
-                //- |view
+            a.ui.fluid.basic.circular.button(href="/user/#{username}")
+                |view
                 i.chevron.right.icon

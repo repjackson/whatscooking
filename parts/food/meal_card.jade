@@ -10,7 +10,7 @@ template(name='meal_card')
             |3.4
         //- a.image(href="/meal/#{_id}/view")
         .image
-            img.ui.pointer.goto_meal.image(src="{{c.url meal_dish.image_id width=400 height=300 crop='pad'}}")
+            img.ui.zoom.pointer.goto_meal.image(src="{{c.url meal_dish.image_id width=400 height=300 crop='pad'}}")
             //- img.ui.fluid.image(src="{{c.url image }}")
         //- if is_quickbuying
         //-     .content

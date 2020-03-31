@@ -95,8 +95,12 @@ if Meteor.isClient
 
         'click .order_meal': ->
             if Meteor.user().credit >= @price_per_serving
+                if @serving_unit
+                    serving_text = @serving_unit
+                else
+                    serving_text = 'serving'
                 Swal.fire({
-                    title: 'confirm buy serving'
+                    title: "confirm buy #{serving_text}"
                     text: "this will charge you #{@price_per_serving} credits"
                     icon: 'question'
                     showCancelButton: true,
@@ -107,7 +111,7 @@ if Meteor.isClient
                         Meteor.call 'order_meal', @_id, (err, res)->
                             if err
                                 Swal.fire(
-                                    'err',
+                                    'err'
                                     'error'
                                 )
                                 console.log err

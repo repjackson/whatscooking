@@ -1,6 +1,6 @@
 # Router.route '/tasks', -> @render 'tasks'
 Router.route '/tribes/', -> @render 'tribes'
-Router.route '/tribe/:doc_id/view', -> @render 'tribe_view'
+Router.route '/tribe/:tribe_slug/view', -> @render 'tribe_view'
 Router.route '/tribe/:doc_id/edit', -> @render 'tribe_edit'
 
 
@@ -9,7 +9,8 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'model_docs', 'tribe'
 
     Template.tribe_view.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'tribe_by_slug', Router.current().params.tribe_slug
+        # @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     # Template.tribe_card.onRendered ->
     #     Meteor.setTimeout ->
     #         $('.accordion').accordion()
@@ -30,10 +31,10 @@ if Meteor.isClient
         options: ->
             Docs.find
                 model:'tribe_option'
-        tribes: ->
-            Docs.find
+        current_tribe: ->
+            Docs.findOne
                 model:'tribe'
-                ballot_id: Router.current().params.doc_id
+                slug: Router.current().params.tribe_slug
 
     Template.tribe_view.events
         'click .join': ->
@@ -112,3 +113,8 @@ if Meteor.isServer
     Meteor.publish 'members', (tribe_id)->
         Meteor.users.find
             _id:$in:@member_ids
+
+    Meteor.publish 'tribe_by_slug', (tribe_slug)->
+        Docs.find
+            model:'tribe'
+            slug:tribe_slug

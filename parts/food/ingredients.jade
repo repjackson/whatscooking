@@ -11,6 +11,10 @@ template(name='ingredients')
                 .ui.small.inline.header filter
                 +cloud filter='ingredient'
             .thirteen.wide.column
+                .ui.icon.input
+                    i.search.icon
+                    input.ingredient_search(type='text' placeholder='search...')
+                .spacer
                 .ui.stackable.centered.four.cards
                     each ingredients
                         +ingredient_card

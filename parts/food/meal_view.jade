@@ -22,7 +22,7 @@ template(name='meal_view')
                     //- a.ui.fluid.basic.button(href="/meals")
                     //-     +icolor name='meal' classes='ui mini inline image'
                     //-     |meals
-                    img.ui.image(src="{{c.url meal_dish.image_id width=400 height=400}}")
+                    img.ui.fluid.image(src="{{c.url meal_dish.image_id width=400 height=400}}")
                             
                     +array_view key='tags' direct=true
                     //- +array_view key='ingredients' direct=true
@@ -36,8 +36,9 @@ template(name='meal_view')
                     .ui.header 
                         +icolor name='ingredients'
                         |ingredients
-                    each ingredient_titles
-                        .ui.large.basic.circular.label #{this}
+                    each meal_ingredients
+                        .ui.large.basic.circular.label
+                            |#{title}
                     .ui.dividing.header
                         |rules
                     .ui.header #{servings_amount} total servings amount

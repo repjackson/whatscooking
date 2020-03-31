@@ -14,10 +14,9 @@ if Meteor.isClient
 
 
     Template.ingredients.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'ingredient'
-    Template.ingredients.onCreated ->
-
-        # @autorun => Meteor.subscribe 'model_docs', 'ingredient'
+        @autorun => Meteor.subscribe 'ingredients',
+            selected_tags.array()
+            Session.get('ingredient_query')
 
     Template.ingredient_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
@@ -30,6 +29,7 @@ if Meteor.isClient
             Docs.find
                 model:'meal'
                 ingredient_ids: $in: [@_id]
+
     Template.ingredients.helpers
         ingredients: ->
             # console.log Meteor.user().roles
@@ -38,6 +38,14 @@ if Meteor.isClient
             }, sort:title:1
 
     Template.ingredients.events
+        'keyup .ingredient_search': _.throttle((e,t)->
+            query = $('.ingredient_search').val()
+            Session.set('ingredient_query', query)
+            # console.log Session.get('current_query')
+        , 1000)
+
+
+
         'click .add_ingredient': ->
             new_ingredient_id =
                 Docs.insert
@@ -48,14 +56,14 @@ if Meteor.isClient
 
 
 
-# if Meteor.isServer
-#     Meteor.publish 'asset_reservations', (asset_id)->
-#         asset = Docs.findOne asset_id
-#         Docs.find
-#             model:'reservation'
-#             parent_id:asset_id
-#     #     # console.log model
-#     #     # console.log skip
-#     #     Docs.find {
-#     #         model:model
-#     #     }
+if Meteor.isServer
+    Meteor.publish 'ingredients', (
+        selected_tags
+        query
+    )->
+        match = {model:'ingredient'}
+
+        if query
+            match.title = $regex:"#{query}", $options: 'i'
+
+        Docs.find match

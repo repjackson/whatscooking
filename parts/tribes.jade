@@ -18,11 +18,11 @@ template(name='tribes')
                     
 template(name='tribe_card')
     .ui.fluid.segment.stackable.grid
-        a.four.wide.column(href="/tribe/#{_id}/view")
+        a.four.wide.column(href="/tribe/#{slug}/view")
             if image_id
                 img.ui.fluid.image(src="{{c.url image_id}}")
         .twelve.wide.column
-            a.ui.header(href="/tribe/#{_id}/view")
+            a.ui.header(href="/tribe/#{slug}/view")
                 |#{title}
             |#{member_ids.length} members
             |!{description}
@@ -30,6 +30,11 @@ template(name='tribe_card')
             each tags
                 .ui.basic.label #{this}
             div
+            if is_admin
+                .ui.small.header slug: #{slug}
+            if can_edit
+                a.ui.circular.basic.icon.button(href="/tribe/#{_id}/edit")
+                    i.pencil.blue.icon
 
 
 
@@ -45,11 +50,12 @@ template(name='tribe_edit')
                         if icon
                             +i name=icon
                         |#{title}
-                    a.ui.big.fluid.basic.button(href="/tribe/#{_id}/view" title='save')
+                    a.ui.big.fluid.basic.button(href="/tribe/#{slug}/view" title='save')
                         i.green.checkmark.icon
                         |save
                     +remove_button
                     +icon_edit key='icon' label='icon' direct=true
+                    +text_edit key='slug' label='tribe slug' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     +link_edit key='link' label='link' icon='link' direct=true
                 .six.wide.column 
@@ -62,20 +68,22 @@ template(name='tribe_edit')
                      
                      
 template(name='tribe_view')
-    with cd
+    with current_tribe
         .ui.stackable.padded.grid
             .row
-                .sixteen.wide.column 
+                .four.wide.column 
                     .ui.center.aligned.header
                         if icon
                             +i name=icon
-                        .ui.header #{title}
-            .row
+                .eight.wide.column 
+                    .ui.header #{title}
                 .four.wide.column 
                     if can_edit
-                        a.ui.fluid.basic.button(href="/tribe/#{_id}/edit")
+                        a.ui.circular.basic.button(href="/tribe/#{_id}/edit")
                             i.pencil.blue.icon
                             |edit
+            .row
+                .four.wide.column 
                     +array_view key='tags' label='tags' icon='tags' direct=true
                     .spacer
                     +link_view key='link' label='link' icon='link' direct=true
@@ -101,7 +109,7 @@ template(name='tribe_view')
                         |activity
                     each log_items
                         +log_item
-                    +comments
+                    //- +comments
 
 
 template(name='latest_tribe_updates')

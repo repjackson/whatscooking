@@ -9,19 +9,6 @@ template(name='home')
                 unless connected
                     .ui.inline.header disconnected
                     .ui.green.basic.circular.button.reconnect reconnect
-                //- else 
-                //-     i.image.circular.link.icon.toggle_images(title='toggle images' class=view_images_class)
-                //-     i.video.circular.link.icon.toggle_videos(title='toggle video' class=view_videos_class)
-                //-     i.twitter.circular.link.icon.toggle_tweets(title='toggle tweets' class=view_tweets_class)
-                //-     i.list.circular.link.icon.toggle_articles(title='toggle articles' class=view_articles_class)
-                //- .ui.left.icon.search.input
-                //-     if template_subs_ready
-                //-         i.grey.tags.icon
-                //-         //- i.icons.refresh_tags
-                //-             //- i.search.corner.icon
-                //-     else
-                //-         i.fire.loading.large.icon
-                //-     input#search.prompt(type='text' autofocus='' autocomplete="off")
                 if selected_tags_plural
                     .ui.icon.circular.black.compact.button.clear_selected_tags
                         i.remove.icon
@@ -33,13 +20,8 @@ template(name='home')
                     button.ui.basic.circular.compact.button.result(tabindex="0" class=result_class title=count) #{title}
                         //- small #{count}
                 .spacer
-                //- +session_toggle_button key='view_user_filter' title='toggle user filter' icon='user outline'
-                //- if session_is 'view_user_filter' true
                 .ui.left.icon.search.input
-                    i.search.icon.refresh_tags
-                    //- if template_subs_ready
-                    //- else
-                    //-     i.users.loading.large.icon
+                    i.search.icon
                     input#search_user.prompt(type='text' autofocus='' autocomplete="off" placeholder='usernames')
                 if selected_users_plural
                     .ui.icon.circular.black.compact.button.clear_selected_users
@@ -51,13 +33,8 @@ template(name='home')
                 each users
                     button.ui.basic.circular.compact.button.result(tabindex="0" class=result_class title=count) #{username}
                 .spacer
-                //- +session_toggle_button key='view_ingredient_filter' title='toggle ingredient filter' icon='hot pepper'
-                //- if session_is 'view_ingredient_filter' true
                 .ui.left.icon.search.input
                     i.search.icon.refresh_tags
-                    //- if template_subs_ready
-                    //- else
-                    //-     i.reddit.loading.large.icon
                     input#search_ingredient.prompt(type='text' autofocus='' autocomplete="off" placeholder='ingredients')
                 if selected_ingredient_plural
                     .ui.icon.circular.black.compact.button.clear_selected_ingredients
@@ -76,23 +53,11 @@ template(name='home')
                 .ui.circular.basic.button.toggle_pickup
                     +icolor name='doormat' classes='ui inline mini image'
                     |pickup
-                    
-                //- timestamp tags
-                //- +session_toggle_button key='view_timestamp_tags' title='toggle time tags' icon='clock'
-                //- i.large.grey.clock.icon
-                //- if session_is 'view_timestamp_tags' true
-                //- .ui.left.icon.search.input
-                //-     i.search.icon
-                    //- if template_subs_ready
-                    //- else
-                    //-     i.clock.loading.large.icon
-                    //- input#search_food_preference.prompt(type='text' autofocus='' autocomplete="off")
                 if selected_food_preferences
                     .ui.icon.circular.black.compact.button.clear_selected_food_preferences
                         i.remove.icon
                 each selected_food_preferences
                     button.ui.black.compact.circular.button.unselect_food_preference(tabindex='0')
-                        //- i.remove.icon
                         | #{this}
                 each food_preferences
                     button.ui.basic.circular.compact.button.food_preference_result(tabindex="0" class=result_class title=count) #{title}
@@ -119,17 +84,12 @@ template(name='home')
                 .ui.circular.basic.compact.small.button
                     +icolor name='date-to' classes='ui mini inline image'
                     |tomorrow
-                //- +boolean_edit label='paleo' color_icon='caveman' direct=true key='paleo'
-                //- +boolean_edit label='vegan' color_icon='vegan-symbol' direct=true key='vegan'
-                //- +boolean_edit label='keto' color_icon='carbohydrates' direct=true key='paleo'
-                //- +boolean_edit label='vegetarian' color_icon='vegetarian-mark' direct=true key='vegetarian'
-                //- +boolean_edit label='sugar free' color_icon='sugar' direct=true key='sugar free'
-                //- +boolean_edit label='heart healthy' color_icon='heart-health' direct=true key='heart_healthy'
-                //- +boolean_edit label='dairy free' color_icon='no-milk' direct=true key='dairy_free'
-                //- +boolean_edit label='nut free' color_icon='no-nut' direct=true key='nut_free'
-                //- +boolean_edit label='no shellfish' color_icon='no-shellfish' direct=true key='shellfish_free'
             .twelve.wide.column
                 .sorting_row
+                    .ui.icon.input
+                        i.search.icon
+                        input.ingredient_search(type='text' placeholder='search...')
+                
                     |sort by
                     .ui.compact.small.menu
                         .ui.simple.dropdown.item
@@ -159,29 +119,29 @@ template(name='home')
                                 +set_meal_limit amount=10
                                 +set_meal_limit amount=20
                 .spacer 
-                .ui.stackable.cards
+                .ui.stackable.four.cards
                     each meals
                         +meal_card
-        .ui.modal 
-            i.close.icon
-            with quickbuying_meal
-                .ui.header buy '#{meal_dish.title}' serving
-                .image.content
-                    .image
-                        img.ui.fluid.rounded.image(src="{{c.url meal_dish.image_id width=400 height=600 crop='fit'}}")
-                .content
-                    .ui.header servings available #{servings_available}
-                    .ui.header $#{price_per_serving}/serving
-                    .ui.header total cost #{total_cost}
-                    .ui.header available credit #{currentUser.credit}
-                    .ui.header credit needed #{credit_needed}
-                .actions
-                    .ui.green.button.confirm
-                        i.checkmark.icon
-                        |confirm
-                    .ui.red.button.cancel.cancel_quickbuying
-                        i.remove.icon
-                        |cancel
+        //- .ui.modal 
+        //-     i.close.icon
+        //-     with quickbuying_meal
+        //-         .ui.header buy '#{meal_dish.title}' serving
+        //-         .image.content
+        //-             .image
+        //-                 img.ui.fluid.rounded.image(src="{{c.url meal_dish.image_id width=400 height=600 crop='fit'}}")
+        //-         .content
+        //-             .ui.header servings available #{servings_available}
+        //-             .ui.header $#{price_per_serving}/serving
+        //-             .ui.header total cost #{total_cost}
+        //-             .ui.header available credit #{currentUser.credit}
+        //-             .ui.header credit needed #{credit_needed}
+        //-         .actions
+        //-             .ui.green.button.confirm
+        //-                 i.checkmark.icon
+        //-                 |confirm
+        //-             .ui.red.button.cancel.cancel_quickbuying
+        //-                 i.remove.icon
+        //-                 |cancel
 
                         
 template(name='session_edit_value_button')

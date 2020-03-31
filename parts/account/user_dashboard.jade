@@ -20,40 +20,13 @@ template(name='user_dashboard')
                     |meals consumed
         .three.column.row
             .column
-                //- i.recalc_user_act_stats.refresh.link.icon
-                //- i.recalc_user_cloud.refresh.link.icon
-                //- .ui.header upvote cloud 
-                //-     each current_user.upvote_tag_cloud
-                //-         .ui.basic.large.label 
-                //-             |#{tag}
-                //-             small #{count}
-                //- .ui.header downvote cloud 
-                //-     each current_user.downvote_tag_cloud
-                //-         .ui.basic.large.label 
-                //-             |#{tag}
-                //-             small #{count}
-                //- .ui.header upvote tag list
-                //- each current_user.upvote_tag_list
-                //-     .ui.label #{this}
-                //- .ui.header downvote tag list
-                //- each current_user.downvote_tag_list
-                //-     .ui.label #{this}
+                .ui.header liked ingredients
+                .ui.header disliked ingredients
             .column
-                //- .ui.header karma
-                //- .ui.header #{current_user.karma} karma
-                //- .ui.button.send_karma
-                //-     |send karma
-                //- .ui.button.request_karma
-                //-     |request
-            .column
+                .ui.header dishes
         .three.column.row
             .column
-                //- .ui.header 
-                //-     |hourly rate: $#{hourly_rate}
                 +user_alerts_small
-            .column
-                +user_bookmarks_small
-            //-     +user_answered_questions_small
             .column
                 .ui.small.header meals
                 .ui.list 
@@ -61,16 +34,6 @@ template(name='user_dashboard')
                     .item from last week
                     .item from last month
             .column
-                //- .ui.header #{site_percent_complete}% site complete
-                //- .ui.header #{session_count} sessions
-                //- .ui.indicating.tiny.progress(data-percent=global_section_average)
-                //-     .bar 
-                    //- .label 
-                    //-     |#{global_section_average}% total
-                .ui.teal.label(title='global rank')
-                    |#{global_section_average_rank}
-                .ui.blue.label(title='group rank')
-                    |#{global_section_average_rank}
             
         .three.column.row
             .column

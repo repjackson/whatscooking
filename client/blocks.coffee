@@ -16,6 +16,7 @@ if Meteor.isClient
         if Router.current().params.doc_id
             parent = Docs.findOne Router.current().params.doc_id
         else
+            console.log Template.parentData()
             parent = Docs.findOne Template.parentData()._id
         if parent
             @autorun => Meteor.subscribe 'children', 'comment', parent._id
