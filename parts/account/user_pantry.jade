@@ -1,1 +1,5 @@
 template(name='user_pantry')
+    .ui.header 
+        |pantry
+    each pantry_items
+        .ui.header #{pantry_product.title}

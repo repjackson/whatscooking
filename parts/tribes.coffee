@@ -1,6 +1,6 @@
 # Router.route '/tasks', -> @render 'tasks'
 Router.route '/tribes/', -> @render 'tribes'
-Router.route '/tribe/:tribe_slug/view', -> @render 'tribe_view'
+Router.route '/tribe/:tribe_slug', -> @render 'tribe_view'
 Router.route '/tribe/:doc_id/edit', -> @render 'tribe_edit'
 
 

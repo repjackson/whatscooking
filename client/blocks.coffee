@@ -423,10 +423,22 @@ if Meteor.isClient
 
 
     Template.doc_array_togggle.helpers
+        in_list: ->
+            parent = Template.parentData()
+            # console.log 'hi'
+            if parent["#{@key}"]
+                if @value in parent["#{@key}"]
+                    true
+                else
+                    false
+            else
+                false
+
         doc_array_toggle_class: ->
             parent = Template.parentData()
             # user = Meteor.users.findOne Router.current().params.username
-            if parent["#{@key}"] and @value in parent["#{@key}"] then 'active' else ''
+            if parent["#{@key}"] and @value in parent["#{@key}"] then 'active' else 'basic'
+
     Template.doc_array_togggle.events
         'click .toggle': (e,t)->
             parent = Template.parentData()

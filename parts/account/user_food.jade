@@ -3,28 +3,28 @@ template(name='user_dishes')
         .row
             .twelve.wide.column
                 .ui.center.aligned.header 
-                    +icolor name='meal' 
+                    +icolor name='real-food-for-meals' 
                     | user dishes
         .row
             .eight.wide.column
                 .ui.header 
                     i.thumbs.up.outline.icon
                     |liked dishes
-                .ui.list
+                .ui.link.list
                     each user_liked_dishes
                         .item #{title}
             .eight.wide.column
                 .ui.header 
                     i.thumbs.down.outline.icon
                     |disliked dishes
-                .ui.list
+                .ui.link.list
                     each user_disliked_dishes
                         .item #{title}
             .eight.wide.column
                 .ui.header 
                     i.pencil.icon
                     |authored dishes
-                .ui.list
+                .ui.link.list
                     each user_authored_dishes
                         .item #{title}
             .eight.wide.column
@@ -45,24 +45,34 @@ template(name='user_ingredients')
                 .ui.header 
                     i.thumbs.up.outline.icon
                     |liked ingredients
-                .ui.list
+                .ui.link.list
                     each user_liked_ingredients
-                        .item #{title}
+                        a.item(href="/ingredient/#{_id}/view")
+                            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                            | #{title}
+                .spacer
             .eight.wide.column
                 .ui.header 
                     i.thumbs.down.outline.icon
                     |disliked ingredients
-                .ui.list
+                .ui.link.list
                     each user_disliked_ingredients
-                        .item #{title}
+                        a.item(href="/ingredient/#{_id}/view") 
+                            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                            |#{title}
+
+                .spacer
             .eight.wide.column
                 .ui.header 
                     i.pencil.icon
                     |authored ingredients
-                .ui.list
+                .ui.link.list
                     each user_authored_ingredients
-                        .item #{title}
-            .eight.wide.column
-                .ui.header ingredient karma 
-                .ui.button.convert_karma
-                    |convert karma into credit
+                        a.item(href="/ingredient/#{_id}/view")
+                            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                            | #{title}
+            //- .eight.wide.column
+            //-     .ui.header ingredient karma 
+            //-     .ui.button.convert_karma
+            //-         |convert karma into credit
+            //-     .spacer

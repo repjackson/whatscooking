@@ -41,18 +41,20 @@ template(name='ingredient_view')
     with cd
         .ui.stackable.padded.grid
             .centered.row
-                .ten.wide.column
+                .four.wide.column
+                    a.ui.basic.button(href="/ingredients")
+                        i.left.chevron.icon
+                        |ingredients
+                .eight.wide.column
                     .ui.center.aligned.header #{title}
+                .four.wide.column
+                    a.ui.basic.circular.button(href="/ingredient/#{_id}/edit")
+                        i.blue.pencil.icon
+                        |edit        
             .five.wide.column
-                a.ui.basic.button(href="/ingredients")
-                    i.left.chevron.icon
-                    |ingredients
                 +image_view key='image_id' direct=true
                 
                 +array_view key='tags' direct=true
-                a.ui.basic.fluid.button(href="/ingredient/#{_id}/edit")
-                    i.pencil.icon
-                    |edit        
                 
                 .ui.header meals included in
                 each meal_inclusions
@@ -79,8 +81,15 @@ template(name='ingredient_view')
 template(name='ingredient_edit')
     with cd
         .ui.stackable.padded.grid
+            .row
+                .four.wide.column
+                .eight.wide.column
+                    .ui.header edit '#{title}' ingredient
+                .four.wide.column
+                    a.ui.large.circular.basic.button(href="/ingredient/#{_id}/view")
+                        i.checkmark.green.icon
+                        |save        
             .five.wide.column
-                .ui.header edit ingredient
                 .ui.header #{title}
                 +text_edit key='title' direct=true
                 +array_edit key='tags' direct=true
@@ -88,7 +97,3 @@ template(name='ingredient_edit')
             .six.wide.column
                 img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
                 +textarea_edit key='description' direct=true
-            .five.wide.column
-                a.ui.large.fluid.basic.button(href="/ingredient/#{_id}/view")
-                    i.checkmark.green.icon
-                    |save        

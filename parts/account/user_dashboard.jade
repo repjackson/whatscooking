@@ -5,30 +5,44 @@ template(name='user_dashboard')
     .ui.stackable.padded.grid
         .row
             .eight.wide.column
-                .ui.header 
+                .ui.inline.header 
                     +icolor name='food-receiver'
                     |meals offered
                 if is_current_user
-                    .ui.basic.button.offer_new_meal
-                        i.green.plus.icon
-                        |offer new meal
+                    .ui.basic.icon.circular.button.offer_new_meal(title='add new offered meal')
+                        i.plus.icon
+                div
                 each offered_meals
                     .ui.small.header #{title}
             .eight.wide.column
-                .ui.header 
+                .ui.inline.header 
                     +icolor name='food-donor'
                     |meals consumed
+                if is_current_user
+                    .ui.basic.icon.circular.button.add_consumed_meal(title='add new consumed meal')
+                        i.plus.icon
+                div
+                each consumed_meals
+                    .ui.small.header #{title}
         .three.column.row
             .column
-                .ui.header liked ingredients
-                .ui.header disliked ingredients
+                .ui.header
+                    +icolor name='filled-like'
+                    |liked ingredients
+                .ui.header 
+                    +icolor name='dislike'
+                    |disliked ingredients
             .column
-                .ui.header dishes
+                .ui.header 
+                    +icolor name='real-food-for-meals'
+                    |dishes
         .three.column.row
             .column
                 +user_alerts_small
             .column
-                .ui.small.header meals
+                .ui.header 
+                    +icolor name='meal'
+                    |meals
                 .ui.list 
                     .item from yesterday
                     .item from last week

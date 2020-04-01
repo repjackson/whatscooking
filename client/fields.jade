@@ -897,9 +897,9 @@ template(name='single_user_edit')
     .ui.inline.small.header 
         |#{label} #{title}
     if field_value
+        .ui.inline.header #{field_value}
         .pull_user.ui.icon.compact.button(title='remove user')
             i.remove.icon
-            //- |clear #{field_value}
     unless field_value
         .ui.input
             input#single_user_select_input(type='text' placeholder='lookup user..')

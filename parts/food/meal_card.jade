@@ -23,7 +23,7 @@ template(name='meal_card')
                 .ui.basic.label #{this}
             //- .ui.inline.small.header tags
         .content    
-            .ui.inline.header 
+            .ui.inline.header
                 |#{servings_left}/#{servings_amount}
                 small
                     if serving_unit
@@ -47,10 +47,10 @@ template(name='meal_card')
             if can_edit
                 a.ui.large.basic.icon.button(href="/meal/#{_id}/edit")
                     i.pencil.icon
-        .ui.bottom.attached.buttons        
-            .ui.green.button.quickbuy
-                i.lightning.icon
-                |buy
-            a.ui.basic.button(href="/meal/#{_id}/view")
-                |view
-                i.right.chevron.icon
+        //- .ui.bottom.attached.buttons        
+        //-     .ui.green.button.quickbuy
+        //-         i.lightning.icon
+        //-         |buy
+        //-     a.ui.basic.button(href="/meal/#{_id}/view")
+        //-         |view
+        //-         i.right.chevron.icon

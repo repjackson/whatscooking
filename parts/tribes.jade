@@ -18,11 +18,11 @@ template(name='tribes')
                     
 template(name='tribe_card')
     .ui.fluid.segment.stackable.grid
-        a.four.wide.column(href="/tribe/#{slug}/view")
+        a.four.wide.column(href="/tribe/#{slug}")
             if image_id
                 img.ui.fluid.image(src="{{c.url image_id}}")
         .twelve.wide.column
-            a.ui.header(href="/tribe/#{slug}/view")
+            a.ui.header(href="/tribe/#{slug}")
                 |#{title}
             |#{member_ids.length} members
             |!{description}
@@ -42,28 +42,34 @@ template(name='tribe_edit')
     with cd
         .ui.stackable.padded.grid
             .row
-                .four.wide.column 
+                .four.wide.column
+                .eight.wide.column
                     .ui.header 
                         i.pencil.icon
-                        |edit tribe
+                        |edit '#{title}' tribe
+                .four.wide.column
+                    a.ui.big.circular.basic.button(href="/tribe/#{slug}" title='save')
+                        i.green.checkmark.icon
+                        |save
+            .row
+                .four.wide.column 
                     .ui.header
                         if icon
                             +i name=icon
                         |#{title}
-                    a.ui.big.fluid.basic.button(href="/tribe/#{slug}/view" title='save')
-                        i.green.checkmark.icon
-                        |save
                     +remove_button
-                    +icon_edit key='icon' label='icon' direct=true
-                    +text_edit key='slug' label='tribe slug' direct=true
-                    +array_edit key='tags' label='tags' icon='tags' direct=true
-                    +link_edit key='link' label='link' icon='link' direct=true
+                    +icon_edit key='icon' label='icon'
+                    div
+                    +slug_edit key='slug' label='tribe slug'
+                    +array_edit key='tags' label='tags' icon='tags'
+                    +link_edit key='link' label='link' icon='link'
+                    +single_user_edit key='chief' label='chief'
                 .six.wide.column 
-                    +text_edit key='title' label='title' icon='title' direct=true
+                    +text_edit key='title' label='title' icon='title'
                     .spacer
-                    +image_edit key='image_id' label='image' icon='image' direct=true
+                    +image_edit key='image_id' label='image' icon='image'
                 .six.wide.column
-                    +html_edit key='description' label='description' icon='content' direct=true
+                    +html_edit key='description' label='description' icon='content'
                      
                      
                      
@@ -84,15 +90,15 @@ template(name='tribe_view')
                             |edit
             .row
                 .four.wide.column 
-                    +array_view key='tags' label='tags' icon='tags' direct=true
+                    +array_view key='tags' label='tags' icon='tags'
                     .spacer
-                    +link_view key='link' label='link' icon='link' direct=true
+                    +link_view key='link' label='link' icon='link'
                     .spacer
-                    +image_view key='image_id' icon='image' label='image' direct=true
+                    +image_view key='image_id' icon='image' label='image'
                     div
                     +viewing
                 .six.wide.column
-                    +html_view key='description' icon='content' label='description' direct=true
+                    +html_view key='description' icon='content' label='description'
                     .ui.header #{members.count} members
                     each members 
                         .ui.small.header #{username}
@@ -103,7 +109,7 @@ template(name='tribe_view')
                     each upcoming_tribe_meals
                         .ui.small.header #{dish.title}
                 .six.wide.column 
-                    +doc_array_togggle key='member_ids' value=currentUser._id add_label='join' remove_label='leave'
+                    +doc_array_togggle key='member_ids' value=currentUser._id add_label='join' remove_label='joined'
                     .ui.header 
                         +i name='rss'
                         |activity
