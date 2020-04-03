@@ -2,24 +2,33 @@ template(name='order_view')
     with cd
         .ui.stackable.padded.grid
             .row
-                .sixteen.wide.center.aligned.column
-                    .ui.header #{order_meal.meal_dish.title}
-            .three.column.row
-                .column
-                    //- a.ui.fluid.basic.button(href="/orders")
-                    //-     +icolor name='order' classes='ui mini inline image'
-                    //-     |orders
+                .four.wide.center.aligned.column
+                    a.ui.circular.compact.basic.button(href="/orders")
+                        +icolor name='order' classes='ui mini inline image'
+                        |orders
+                .eight.wide.center.aligned.column
+                    .ui.header view '#{order_meal.meal_dish.title}' order
+                .four.wide.center.aligned.column
                     if can_edit
-                        a.ui.large.basic.button(href="/order/#{_id}/edit")
+                        a.ui.large.circular.basic.button(href="/order/#{_id}/edit")
                             i.pencil.icon
                             |edit
-                    img.ui.image(src="{{c.url order_dish.image_id width=400 height=400}}")
+            .three.column.row
+                .column
+                    img.ui.image(src="{{c.url order_meal.meal_dish.image_id width=400 height=400}}")
                     .ui.header ordered #{when}
-                    +array_view key='tags' 
-                    +float_view key='serving_purchase_price' label='serving purchase price' prefix='$'
-                    +float_view key='cook_tip' label='cook tip' prefix='$'
-                    .ui.header $#{order_total_transaction_amount} 
-                        small total transaction amount
+                    .ui.header order price #{order_price}
+                    
+                    .ui.segment 
+                        a.ui.basic.circular.button(href="/meal/#{meal_id}/view")
+                            | view meal
+                        with order_meal
+                            .ui.header #{meal_dish.title} meal title
+                            .ui.header meal
+                            .ui.header #{serving_purchase_price} serving perchase price
+                            .ui.header #{cook_tip} cook tip
+                            .ui.header $#{order_total_transaction_amount} 
+                                small total transaction amount
                     div
                     .ui.inline.header 
                         small available 

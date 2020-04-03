@@ -44,6 +44,18 @@ Meteor.methods
     #     res
 
 
+    order_meal: (meal_id)->
+        meal = Docs.findOne meal_id
+        Docs.insert
+            model:'order'
+            meal_id: meal._id
+            order_price: meal.price_per_serving
+            buyer_id: Meteor.userId()
+        Meteor.users.update Meteor.userId(),
+            $inc:credit:-meal.price_per_serving
+        Meteor.users.update meal._author_id,
+            $inc:credit:meal.price_per_serving
+        Meteor.call 'calc_meal_data', meal_id, ->
 
     calc_meal_data: (meal_id)->
         meal = Docs.findOne meal_id
@@ -60,22 +72,25 @@ Meteor.methods
         meal_dish =
             Docs.findOne meal.dish_id
         console.log 'meal_dish', meal_dish
-        meal_ingredients =
-            Docs.find(
-                model:'ingredient'
-                _id: $in:meal_dish.ingredient_ids
-            ).fetch()
+        if meal_dish.ingredient_ids
+            meal_ingredients =
+                Docs.find(
+                    model:'ingredient'
+                    _id: $in:meal_dish.ingredient_ids
+                ).fetch()
 
-        ingredient_titles = []
-        for ingredient in meal_ingredients
-            console.log ingredient.title
-            ingredient_titles.push ingredient.title
+            ingredient_titles = []
+            for ingredient in meal_ingredients
+                console.log ingredient.title
+                ingredient_titles.push ingredient.title
+            Docs.update meal_id,
+                $set:
+                    ingredient_titles:ingredient_titles
 
         Docs.update meal_id,
             $set:
                 order_count:order_count
                 servings_left:servings_left
-                ingredient_titles:ingredient_titles
 
     calc_doc_count: ->
         if Meteor.user()

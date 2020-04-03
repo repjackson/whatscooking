@@ -4,7 +4,7 @@ template(name='view_chats')
         .row
             .four.wide.column
                 .ui.header
-                    i.chat.outline.small.icon
+                    i.chat.outline.large.blue.icon
                     | chat
                 //- .ui.label(title='Unread') #{unread_message_count} Unread
                 .unread_icon(data-tooltip='unread messages' data-position='bottom center')
@@ -113,14 +113,14 @@ template(name='private_chat_item')
             
             
 template(name='chat_message')
-    // .ui.segment.message_segment(class=message_segment_class)
-        // .ui.comments
+    //- // .ui.segment.message_segment(class=message_segment_class)
+    //-     // .ui.comments
     .comment
-        a.avatar(href="/user/#{author.username}")
-            img.ui.avatar.image(src="{{c.url author.profile_image_id width=400 height=400 gravity='face' crop='fill'}}")
+        a.avatar(href="/user/#{_author.username}")
+            img.ui.avatar.image(src="{{c.url _author.profile_image_id width=400 height=400 gravity='face' crop='fill'}}")
         .content
-            a.author(href="/user/#{author.username}") 
-                |#{author.username}
+            a.author(href="/user/#{_author.username}") 
+                |#{_author.username}
                 +user_status author
             .metadata
                 span.date #{when}
@@ -141,7 +141,8 @@ template(name='chat_message')
                 each readers
                     .ui.tiny.label(title="read by #{username}") #{username}
                     // img.ui.avatar.image(src="{{c.url image_id width=50 height=50 gravity='face' crop='fill'}}")
-                                                
+                if can_edit
+                    +remove_button
 
                                                         
                                                         
@@ -201,6 +202,6 @@ template(name='view_chat')
                 //- +resonates_list
                 if can_edit
                     +boolean_edit key='private' label='private' direct=true
-                .ui.header started by 
-                    img.ui.avatar.image(src="{{c.url author.profile_image_id width=400 height=400 gravity='face' crop='fill'}}")
-                    |#{author.username} #{when}
+                .ui.small.header started by 
+                    img.ui.avatar.image(src="{{c.url _author.profile_image_id width=400 height=400 gravity='face' crop='fill'}}")
+                    |#{_author.username} #{when}

@@ -1,9 +1,17 @@
 template(name='meal_edit')
     with cd
         .ui.stackable.padded.grid
+            .middle.aligned.row
+                .four.wide.column
+                .eight.wide.column
+                    .ui.header editing meal
+                    .ui.header #{title}
+                .four.wide.column
+                    .ui.large.circular.green.button.save_meal
+                        i.checkmark.icon   
+                        |save     
+
             .five.wide.column
-                .ui.header editing meal
-                .ui.header #{title}
                 +number_edit key='servings_amount' label='servings available'
                 +text_edit key='serving_unit' label='serving unit'
                 +number_edit key='price_per_serving' label='price per serving'
@@ -39,9 +47,6 @@ template(name='meal_edit')
                 img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
                 +html_edit key='description'
             .five.wide.column
-                .ui.large.fluid.green.button.save_meal
-                    i.checkmark.icon   
-                    |save     
                 if can_delete
                     .ui.red.button.delete_meal
                         i.remove.icon   

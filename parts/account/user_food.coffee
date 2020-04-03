@@ -11,6 +11,7 @@ if Meteor.isClient
 
 
     Template.user_ingredients.onCreated ->
+        @autorun -> Meteor.subscribe 'model_docs', 'meal'
         @autorun -> Meteor.subscribe 'user_authored_ingredients', Router.current().params.username
         @autorun -> Meteor.subscribe 'user_liked_ingredients', Router.current().params.username
         @autorun -> Meteor.subscribe 'user_disliked_ingredients', Router.current().params.username

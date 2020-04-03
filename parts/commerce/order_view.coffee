@@ -9,6 +9,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'model_docs', 'dish'
         @autorun => Meteor.subscribe 'model_docs', 'order'
+        @autorun => Meteor.subscribe 'meal_by_order_id', Router.current().params.doc_id
 
 
     Template.order_view.events
@@ -37,6 +38,11 @@ if Meteor.isClient
 
 
 if Meteor.isServer
+    Meteor.publish 'meal_by_order_id', (order_id)->
+        order = Docs.findOne order_id
+        Docs.find
+            _id: order.meal_id
+
     Meteor.methods
         order_order: (order_id)->
             order = Docs.findOne order_id

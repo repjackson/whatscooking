@@ -4,8 +4,11 @@ if Meteor.isClient
         @render 'user_dashboard'
         ), name:'user_dashboard'
 
-    Template.user_ingredients.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'meal'
+
+    Template.user_dashboard.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'meal'
+        @autorun => Meteor.subscribe 'model_docs', 'ingredient'
+        @autorun => Meteor.subscribe 'model_docs', 'dish'
 
     Template.user_dashboard.events
         'click .offer_new_meal': ->
@@ -28,7 +31,7 @@ if Meteor.isClient
             Docs.find
                 model:'meal'
                 _author_id:user._author_id
-                
+
         bought_meals: ->
             user = Meteor.users.findOne username:Router.current().params.username
             Docs.find

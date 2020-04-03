@@ -46,6 +46,8 @@ template(name='nav')
             //-     i.chat.outline.icon
                 //- i.rss.icon
             
+            a.icon.item.mobile.hidden(href='/chat' class="{{isActivePath '/chat'}}" title='chat') 
+                i.chat.outline.blue.large.icon
             if currentUser
                 a.icon.item(href='/alerts' class="{{isActivePath '/alerts'}}" title='alerts') 
                     i.bell.large.yellow.icon(class=alert_icon_class)
@@ -65,50 +67,55 @@ template(name='nav')
 
 
 template(name='footer')
-    .ui.stackable.padded.grid.basic.segment
+    .ui.stackable.padded.grid.secondary.segment.mobile.hidden
         .row
             .four.wide.column
-                //- .ui.link.list
-                //-     a.icon.item(href='/p/about')
-                //-         | what is dao?
-                //-     //- a.icon.item(href='/prime')
-                //-     //-     | forest prime
-                //-     a.icon.item(href="/p/terms") 
-                //-         | terms of service
-                //-     a.icon.item(href="/p/privacy") 
-                //-         | privacy policy
-                //-     //- a.icon.item(href='/sponsor') 
-                //-     //-     | sponsor
-            //- .four.wide.column
-            //-     .ui.link.list
-            //-         a.icon.item(href='/blog')
-            //-             i.blog.icon
-            //-             | blog
-            //-         a.icon.item(href='/m/model' class="{{isActivePath '/m/model'}}")
-            //-             i.database.icon
-            //-             |models
-            //-         a.icon.item(href='/events' class="{{isActivePath '/events'}}")
-            //-             i.calendar.icon
-            //-             |events
-            //-         a.icon.item(href='/chat' class="{{isActivePath '/chat'}}")
-            //-             i.chat.outline.icon
-            //-             |chat
-            //-         a.icon.item(href='/alerts' class="{{isActivePath '/alerts'}}")
-            //-             //- i.bell.icon(class=alert_icon_class)
-            //-             i.rss.icon
-            //-             |alerts
-            //-     if currentUser
-            //-         .ui.link.list
-            //-             a.icon.item(href='/users')
-            //-                 i.users.icon
-            //-                 | users
-            //-             a.icon.item(href='/stats')
-            //-                 i.line.chart.icon
-            //-                 | stats
-            //-     unless currentUser
-            //-         .ui.link.list
-            //-             a.icon.item(href='/login')
-            //-                 |login
+                .ui.link.list
+                    a.icon.item(href='/p/about')
+                        | about
+                    //- a.icon.item(href='/prime')
+                    //-     | forest prime
+                    a.icon.item(href="/p/terms") 
+                        | terms of service
+                    a.icon.item(href="/p/privacy") 
+                        | privacy policy
+                    a.icon.item(href='/sponsor') 
+                        | sponsor
+                        
+                        
+            .four.wide.column
+                .ui.link.list
+                    a.icon.item(href='/blog')
+                        i.blog.icon
+                        | blog
+                    a.icon.item(href='/meals' class="{{isActivePath '/meals'}}")
+                        i.database.icon
+                        |meals
+                    a.icon.item(href='/ingredients' class="{{isActivePath '/ingredients'}}")
+                        i.calendar.icon
+                        |ingredients
+                    a.icon.item(href='/dishes' class="{{isActivePath '/dishes'}}")
+                        i.calendar.icon
+                        |dishes
+                    a.icon.item(href='/chat' class="{{isActivePath '/chat'}}")
+                        i.chat.outline.icon
+                        |chat
+                    a.icon.item(href='/alerts' class="{{isActivePath '/alerts'}}")
+                        //- i.bell.icon(class=alert_icon_class)
+                        i.rss.icon
+                        |alerts
+                if currentUser
+                    .ui.link.list
+                        a.icon.item(href='/users')
+                            i.users.icon
+                            | users
+                        a.icon.item(href='/stats')
+                            i.line.chart.icon
+                            | stats
+                unless currentUser
+                    .ui.link.list
+                        a.icon.item(href='/login')
+                            |login
 
 
 
@@ -122,8 +129,11 @@ template(name='footer')
                 +bug_reporter 
                 .ui.grey.small.header    
                     i.copyright.outline.icon 
-                    |2020 whats cookin
-            //- 
+                    |2020 whats cookin llc
+            
+            
+            
+            
 template(name='footer_chat')
     a.ui.grey.header(href="/chat")
         i.chat.outline.small.icon

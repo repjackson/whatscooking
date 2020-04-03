@@ -1,8 +1,8 @@
 template(name='profile_layout')
-    //- img.ui.fluid.image.home_banner(src="{{c.url 'nightbg' width=1000 height=1000 crop='crop'}}")    
+    //- img.ui.image.home_banner(src="{{c.url 'nightbg' width=1000 height=1000 crop='crop'}}")    
     +nav
     with user
-        .ui.stackable.padded.grid
+        .ui.stackable.grid
             .three.wide.column
                 img.ui.centered.small.rounded.profile_image.image(src="{{c.url profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
                 .ui.center.aligned.basic.segment
@@ -11,78 +11,18 @@ template(name='profile_layout')
                             .ui.center.aligned.inline.header
                                 | #{user.first_name} #{user.last_name}
                         div
-                        .ui.inline.header @#{user.username}        
-                .ui.fluid.vertical.pointing.large.menu(class="{{currentUser.nav_color}}")
-                    a.item(href="/user/#{username}/dashboard" class="{{isActiveRoute regex='user_dashboard'}}")
-                        i.icon 
-                            +ismall name='dashboard'
-                        |dashboard
-                    a.item(href="/user/#{username}/profile" class="{{isActiveRoute regex='user_profile'}}")
-                        i.icon 
-                            +ismall name='info'
-                        |profile
-                    a.item(href="/user/#{username}/credit" class="{{isActiveRoute regex='user_credit'}}")
-                        i.icon 
-                            +ismall name='coins'
-                        |credit
-                    //- a.item(href="/user/#{username}/events" class="{{isActiveRoute regex='user_events'}}")
-                    //-     i.icon 
-                    //-         +ismall name='calendar'
-                    //-     //- i.grey.calendar.icon
-                    //-     |calendar
-
-                    //- if is_admin
-                    //- a.item(href="/user/#{username}/karma" class="{{isActiveRoute regex=user_karma}}")
-                    //-     i.grey.yin.yang.icon
-                    //-     |karma
-                    //- a.item(href="/user/#{username}/upvoted" class="{{isActiveRoute regex=user_upvoted}}")
-                    //-     i.grey.thumbs.up.icon
-                    //-     |upvoted
-                    //- a.item(href="/user/#{username}/downvoted" class="{{isActiveRoute regex=user_downvoted}}")
-                    //-     i.grey.thumbs.down.icon
-                    //-     |downvoted
-                .ui.fluid.vertical.pointing.large.menu(class="{{currentUser.nav_color}}")
-                    a.item(href="/user/#{username}/orders" class="{{isActiveRoute regex='user_orders'}}")
-                        i.icon 
-                            +ismall name='order-history'
-                        |orders
-                    a.item(href="/user/#{username}/ingredients" class="{{isActiveRoute regex='user_ingredients'}}")
-                        i.icon 
-                            +ismall name='ingredients'
-                        |ingredients
-                    a.item(href="/user/#{username}/dishes" class="{{isActiveRoute regex='user_dishes'}}")
-                        i.icon 
-                            +ismall name='meal'
-                        |dishes
-                    a.item(href="/user/#{username}/tribes" class="{{isActiveRoute regex='user_tribes'}}")
-                        i.icon 
-                            +ismall name='group'
-                        |tribes
-                    a.item(href="/user/#{username}/pantry" class="{{isActiveRoute regex='user_pantry'}}")
-                        i.icon 
-                            +ismall name='kitchen'
-                        |pantry
-                .ui.fluid.vertical.pointing.large.menu(class="{{currentUser.nav_color}}")
-                    a.item(href="/user/#{username}/friends" class="{{isActiveRoute regex='user_friends'}}")
-                        i.icon 
-                            +ismall name='groups'
-                        |friends
-                    a.item(href="/user/#{username}/messages" class="{{isActiveRoute regex='user_messages'}}")
-                        i.icon 
-                            +ismall name='inbox'
-                        |messages
+                        .ui.inline.header @#{user.username}
                 if is_current_user
-                    a.ui.large.fluid.basic.button(href="/user/#{username}/edit")
-                        //- i.cog.icon
-                        +ismall name='settings' classes='ui inline image'
+                    a.ui.large.basic.circular.button(href="/user/#{username}/edit")
+                        +ismall name='settings' classes='ui inline image' classes='ui inline image'
                         |account
-                    a.ui.fluid.basic.button.logout(href="#")
+                    a.ui.basic.circular.button.logout(href="#")
                         //- i.sign.out.alternate.icon
-                        +ismall name='exit' classes='ui inline image'
+                        +ismall name='exit' classes='ui inline image' classes='ui inline image'
                         |log out
-                    //- a.ui.fluid.button.logout_other_clients(href="#" title='logout other clients')
-                    //-     //- i.globe.icon
-                    //-     |log out other clients
+                    a.ui.basic.circular.button.logout_other_clients(href="#" title='logout other clients')
+                        i.globe.icon
+                        |log out other clients
                 if is_admin
                     .ui.basic.segment
                         .ui.header 
@@ -90,14 +30,56 @@ template(name='profile_layout')
                             |roles
                         each roles
                             .ui.basic.label #{this}
-                //- +user_friend_button            
+                +user_friend_button            
+                              
             .thirteen.wide.column
-                //- each user_sections
-                //-     a.ui.button(href="/user/#{username}/#{slug}")
-                //-         i.icon(class=icon)
-                //-         |#{title}
+                a.ui.basic.circular.button(href="/user/#{username}/dashboard" class="{{isActiveRoute regex='user_dashboard'}}")
+                    +ismall name='dashboard' classes='ui inline image'
+                    |dashboard
+                a.ui.basic.circular.button(href="/user/#{username}/profile" class="{{isActiveRoute regex='user_profile'}}")
+                    +ismall name='info' classes='ui inline image'
+                    |profile
+                a.ui.basic.circular.button(href="/user/#{username}/credit" class="{{isActiveRoute regex='user_credit'}}")
+                    +ismall name='coins' classes='ui inline image'
+                    |credit
+                //- a.ui.basic.circular.button(href="/user/#{username}/events" class="{{isActiveRoute regex='user_events'}}")
+                //-     +ismall name='calendar' classes='ui inline image'
+                //-     //- i.grey.calendar.icon
+                //-     |calendar
+                //- 
+                //- //- if is_admin
+                //- a.ui.basic.circular.button(href="/user/#{username}/karma" class="{{isActiveRoute regex=user_karma}}")
+                //-     i.grey.yin.yang.icon
+                //-     |karma
+                //- a.ui.basic.circular.button(href="/user/#{username}/upvoted" class="{{isActiveRoute regex=user_upvoted}}")
+                //-     i.grey.thumbs.up.icon
+                //-     |upvoted
+                //- a.ui.basic.circular.button(href="/user/#{username}/downvoted" class="{{isActiveRoute regex=user_downvoted}}")
+                //-     i.grey.thumbs.down.icon
+                //-     |downvoted
+                a.ui.basic.circular.button(href="/user/#{username}/orders" class="{{isActiveRoute regex='user_orders'}}")
+                    +ismall name='order-history' classes='ui inline image'
+                    |orders
+                a.ui.basic.circular.button(href="/user/#{username}/ingredients" class="{{isActiveRoute regex='user_ingredients'}}")
+                    +ismall name='ingredients' classes='ui inline image'
+                    |ingredients
+                a.ui.basic.circular.button(href="/user/#{username}/dishes" class="{{isActiveRoute regex='user_dishes'}}")
+                    +ismall name='meal' classes='ui inline image'
+                    |dishes
+                a.ui.basic.circular.button(href="/user/#{username}/tribes" class="{{isActiveRoute regex='user_tribes'}}")
+                    +ismall name='group' classes='ui inline image'
+                    |tribes
+                a.ui.basic.circular.button(href="/user/#{username}/pantry" class="{{isActiveRoute regex='user_pantry'}}")
+                    +ismall name='kitchen' classes='ui inline image'
+                    |pantry
+                a.ui.basic.circular.button(href="/user/#{username}/friends" class="{{isActiveRoute regex='user_friends'}}")
+                    +ismall name='groups' classes='ui inline image'
+                    |friends
+                a.ui.basic.circular.button(href="/user/#{username}/messages" class="{{isActiveRoute regex='user_messages'}}")
+                    +ismall name='inbox' classes='ui inline image'
+                    |messages
                 +yield    
-    //- +footer
+    +footer
 
 
 

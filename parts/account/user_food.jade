@@ -12,21 +12,29 @@ template(name='user_dishes')
                     |liked dishes
                 .ui.link.list
                     each user_liked_dishes
-                        .item #{title}
+                        a.item(href="/dish/#{_id}/view") 
+                            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                            |#{title}
             .eight.wide.column
                 .ui.header 
                     i.thumbs.down.outline.icon
                     |disliked dishes
                 .ui.link.list
                     each user_disliked_dishes
-                        .item #{title}
+                        a.item(href="/dish/#{_id}/view") 
+                            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                            |#{title}
+                        
             .eight.wide.column
                 .ui.header 
                     i.pencil.icon
                     |authored dishes
                 .ui.link.list
                     each user_authored_dishes
-                        .item #{title}
+                        a.item(href="/dish/#{_id}/view") 
+                            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                            |#{title}
+                        
             .eight.wide.column
                 .ui.header dish karma 
                 .ui.button.convert_karma

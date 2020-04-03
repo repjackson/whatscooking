@@ -79,9 +79,15 @@ template(name='dish_view')
     with cd
         .ui.stackable.padded.grid
             .centered.row
-                .sixteen.wide.column
+                .four.wide.column
+                .eight.wide.column
                     .ui.center.aligned.header #{title}
-            .four.wide.column
+                .four.wide.column
+                    a.ui.large.basic.circular.button(href="/dish/#{_id}/edit")
+                        i.pencil.blue.icon
+                        |edit
+                    
+            .five.wide.column
                 .ui.small.header viewing dish
                 +array_view key='tags' direct=true
                 +array_view key='dishes' direct=true
@@ -89,25 +95,25 @@ template(name='dish_view')
                 +image_view key='image_id' direct=true
 
                 .ui.header meals used in
-                each dish_meals
-                    .ui.small.header #{title}
-            .eight.wide.column
+                .ui.large.selection.animated.list
+                    each dish_meals
+                        a.item(href="/meal/#{_id}/view") {{long_date datetime_available}} by #{_author_username}
+            .six.wide.column
                 img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
                 +html_view key='description' direct=true
-                .ui.header ingredients
-                .ui.large.link.selectable.list
-                    each ingredients
+                .ui.header 
+                    +icolor name='ingredients'
+                    |ingredients
+                .ui.large.selection.animated.list
+                    each dish_ingredients
                         a.item(href="/ingredient/#{_id}/view" title='view ingredient')
+                            if image_id
+                                img.ui.avatar.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
                             .content
-                                if image_id
-                                    img.ui.avatar.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
-                                .ui.header 
+                                .header 
                                     |#{title}
                 +comments
-            .four.wide.column
-                a.ui.large.basic.fluid.button(href="/dish/#{_id}/edit")
-                    i.pencil.icon
-                    |edit
+            .five.wide.column
                 //- +reservations
                 .ui.header cook #{_author_username}
                 with _author_id

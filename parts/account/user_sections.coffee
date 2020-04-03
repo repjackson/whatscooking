@@ -64,8 +64,6 @@ if Meteor.isClient
 
 
 
-
-
 if Meteor.isServer
     Meteor.methods
         accept_request: (request)->

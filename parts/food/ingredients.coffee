@@ -65,5 +65,6 @@ if Meteor.isServer
 
         if query
             match.title = $regex:"#{query}", $options: 'i'
-
+        if selected_tags.length > 0
+            match.tags = $all: selected_tags
         Docs.find match

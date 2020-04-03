@@ -12,31 +12,24 @@ template(name='user_edit_layout')
                     a.ui.fluid.basic.circular.large.button(href="/user/#{current_user.username}/") 
                         i.green.checkmark.icon
                         strong save
-                    .ui.vertical.fluid.pointing.menu(class="{{currentUser.nav_color}}")
-                        a.item(href="/user/#{current_user.username}/edit/info" class="{{isActiveRoute regex='user_edit_info'}}") 
-                            |info
-                            i.icon 
-                                +ismall name='info'
-                        a.item(href="/user/#{current_user.username}/edit/account" class="{{isActiveRoute regex='user_edit_account'}}") 
-                            |account
-                            i.icon 
-                                +ismall name='settings'
-                        a.item(href="/user/#{current_user.username}/edit/food" class="{{isActiveRoute regex='user_edit_food'}}") 
-                            |food
-                            i.icon 
-                                +ismall name='food'
-                        a.item(href="/user/#{current_user.username}/edit/finance" class="{{isActiveRoute regex='user_edit_finance'}}") 
-                            |finance
-                            i.icon 
-                                +ismall name='coins'
-                        a.item(href="/user/#{current_user.username}/edit/alerts" class="{{isActiveRoute regex='user_edit_alerts'}}") 
-                            |alerts
-                            i.icon 
-                                +ismall name='appointment-reminders'
-                        a.item(href="/user/#{current_user.username}/edit/privacy" class="{{isActiveRoute regex='user_edit_privacy'}}") 
-                            | privacy
-                            i.icon 
-                                +ismall name='lock'
+                    a.ui.circular.basic.button(href="/user/#{current_user.username}/edit/info" class="{{isActiveRoute regex='user_edit_info'}}") 
+                        +ismall name='info' classes='ui inline image'
+                        |info
+                    a.ui.circular.basic.button(href="/user/#{current_user.username}/edit/account" class="{{isActiveRoute regex='user_edit_account'}}") 
+                        +ismall name='settings' classes='ui inline image'
+                        |account
+                    a.ui.circular.basic.button(href="/user/#{current_user.username}/edit/food" class="{{isActiveRoute regex='user_edit_food'}}") 
+                        +ismall name='food' classes='ui inline image'
+                        |food
+                    a.ui.circular.basic.button(href="/user/#{current_user.username}/edit/finance" class="{{isActiveRoute regex='user_edit_finance'}}") 
+                        +ismall name='coins' classes='ui inline image'
+                        |finance
+                    a.ui.circular.basic.button(href="/user/#{current_user.username}/edit/alerts" class="{{isActiveRoute regex='user_edit_alerts'}}") 
+                        +ismall name='appointment-reminders' classes='ui inline image'
+                        |alerts
+                    a.ui.circular.basic.button(href="/user/#{current_user.username}/edit/privacy" class="{{isActiveRoute regex='user_edit_privacy'}}") 
+                        +ismall name='lock' classes='ui inline image'
+                        | privacy
                 .twelve.wide.column
                     +yield
 
@@ -51,9 +44,11 @@ template(name='user_edit_info')
                 i.envelope.outline.icon
                 |emails
             +emails_edit
-            +number_edit key='hourly_rate' label='hourly rate ($)' direct=true
+            .spacer
             +phone_edit key='phone' label='phone' icon='phone' direct=true
+            .spacer
             +array_edit key='tags' label='tags' direct=true
+            .spacer
             +textarea_edit key='bio' label='bio' direct=true
 
      
@@ -146,6 +141,14 @@ template(name='user_edit_food')
         +icolor name='food'
         | food
     .ui.header allergens
+    .ui.header settings
+    
+    
+template(name='user_edit_finance')
+    .ui.header
+        +icolor name='money'
+        | finance
+    .ui.header 
     .ui.header settings
     
     

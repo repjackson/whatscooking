@@ -7,8 +7,9 @@ if Meteor.isClient
 
     Template.meal_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'model_docs', 'dish'
-        @autorun => Meteor.subscribe 'model_docs', 'order'
+        @autorun => Meteor.subscribe 'dish_from_meal_id', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'orders_from_meal_id', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'ingredients_from_meal_id', Router.current().params.doc_id
 
 
     Template.meal_view.events
@@ -22,12 +23,14 @@ if Meteor.isClient
                 cancelButtonText: 'cancel'
             }).then((result) =>
                 if result.value
-                    Docs.remove @_id
                     Meteor.users.update @_author_id,
-                        $inc:@order_price
+                        $inc:credit:@order_price
                     Swal.fire(
                         'refund processed',
+                        ''
                         'success'
+                    Meteor.call 'calc_meal_data', @meal_id
+                    Docs.remove @_id
                     )
             )
 
@@ -121,7 +124,7 @@ if Meteor.isClient
                                     ''
                                     'success'
                                 )
-                )
+            )
             else
                 alert 'need more credit'
                 # deposit_amount = Math.abs(parseFloat($('.adding_credit').val()))
@@ -138,16 +141,21 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.methods
-        order_meal: (meal_id)->
-            meal = Docs.findOne meal_id
-            Docs.insert
-                model:'order'
-                meal_id: meal._id
-                order_price: meal.price_per_serving
-                buyer_id: Meteor.userId()
-            Meteor.users.update Meteor.userId(),
-                $inc:credit:-meal.price_per_serving
-            Meteor.users.update meal._author_id,
-                $inc:credit:meal.price_per_serving
-            Meteor.call 'calc_meal_data', meal_id, ->
+    Meteor.publish 'dish_from_meal_id', (meal_id)->
+        meal = Docs.findOne meal_id
+        Docs.find
+            model:'dish'
+            _id:meal.dish_id
+
+    Meteor.publish 'orders_from_meal_id', (meal_id)->
+        # meal = Docs.findOne meal_id
+        Docs.find
+            model:'order'
+            meal_id:meal_id
+
+    Meteor.publish 'ingredients_from_meal_id', (meal_id)->
+        meal = Docs.findOne meal_id
+        dish = Docs.findOne meal.dish_id
+        Docs.find
+            model:'ingredient'
+            _id:$in:dish.ingredient_ids

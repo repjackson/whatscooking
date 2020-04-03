@@ -1,7 +1,7 @@
 template(name='ingredients')
     .ui.stackable.padded.grid
         .row
-            .three.wide.column
+            .four.wide.column
                 .ui.inline.header 
                     |ingredients
                 if currentUser
@@ -10,9 +10,12 @@ template(name='ingredients')
                 .spacer
                 .ui.small.inline.header filter
                 +cloud filter='ingredient'
-            .thirteen.wide.column
+            .twelve.wide.column
                 .ui.icon.input
-                    i.search.icon
+                    if query
+                        i.remove.icon
+                    else
+                        i.search.icon
                     input.ingredient_search(type='text' placeholder='search...')
                 .spacer
                 .ui.stackable.centered.four.cards
@@ -29,8 +32,10 @@ template(name='ingredient_card')
         .content
             a.ui.header(href="/ingredient/#{_id}/view") #{title}
             div created {{from_now _timestamp}} by #{_author_username}
-            //- |available servings: #{available_servings}
-            
+            each tags
+                .ui.basic.circular.label #{this}
+            .ui.large.basic.label 
+                |#{points} points
 
             
             
@@ -40,14 +45,15 @@ template(name='ingredient_card')
 template(name='ingredient_view')
     with cd
         .ui.stackable.padded.grid
-            .centered.row
-                .four.wide.column
-                    a.ui.basic.button(href="/ingredients")
+            .centered.middle.aligned.row
+                .four.wide.center.aligned.column
+                    a.ui.basic.circular.compact.button(href="/ingredients")
                         i.left.chevron.icon
+                        +icolor name='ingredients' classes='ui inline mini image'
                         |ingredients
-                .eight.wide.column
+                .eight.wide.center.aligned.column
                     .ui.center.aligned.header #{title}
-                .four.wide.column
+                .four.wide.center.aligned.column
                     a.ui.basic.circular.button(href="/ingredient/#{_id}/edit")
                         i.blue.pencil.icon
                         |edit        
@@ -55,16 +61,21 @@ template(name='ingredient_view')
                 +image_view key='image_id' direct=true
                 
                 +array_view key='tags' direct=true
+            .six.wide.column
                 
                 .ui.header meals included in
                 each meal_inclusions
                     a.ui.small.header(href="/meal/#{_id}/view")
+                        img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
                         |#{title}
                 .ui.header dishes included in
-                each ingredient_dishes
-                    a.ui.small.header(href="/dish/#{_id}/view")
-                        |#{title}
-            .six.wide.column
+                .ui.large.selection.animated.list
+                    each ingredient_dishes
+                        a.item(href="/dish/#{_id}/view")
+                            img.ui.mini.inline.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                            .content
+                                .header
+                                    |#{title}
                 img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
                 +textarea_view key='description' direct=true
                 +comments

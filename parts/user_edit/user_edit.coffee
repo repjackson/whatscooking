@@ -19,14 +19,14 @@ if Meteor.isClient
         @layout 'user_edit_layout'
         @render 'user_edit_account'
         ), name:'user_edit_account'
-    Router.route '/user/:username/edit/styles', (->
+    Router.route '/user/:username/edit/food', (->
         @layout 'user_edit_layout'
-        @render 'user_edit_styles'
-        ), name:'user_edit_styles'
-    Router.route '/user/:username/edit/tutoring', (->
+        @render 'user_edit_food'
+        ), name:'user_edit_food'
+    Router.route '/user/:username/edit/finance', (->
         @layout 'user_edit_layout'
-        @render 'user_edit_tutoring'
-        ), name:'user_edit_tutoring'
+        @render 'user_edit_finance'
+        ), name:'user_edit_finance'
     Router.route '/user/:username/edit/alerts', (->
         @layout 'user_edit_layout'
         @render 'user_edit_alerts'

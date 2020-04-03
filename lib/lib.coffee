@@ -92,10 +92,10 @@ Docs.helpers
             model:'order'
             _id:@order_id
 
-    dish_meal: ->
-        Docs.findOne
+    dish_meals: ->
+        Docs.find
             model:'meal'
-            _id:@meal_id
+            dish_id:@_id
 
     ingredient_dishes: ->
         Docs.find
@@ -138,6 +138,8 @@ Docs.helpers
                 downvoter = Meteor.users.findOne downvoter_id
                 downvoters.push downvoter
             downvoters
+
+
 Meteor.users.helpers
     name: ->
         if @nickname
@@ -161,7 +163,11 @@ Meteor.users.helpers
     #             if 'student' in @current_roles then true else false
     #         else
     #             if 'student' in @roles then true else false
-
+    user_tribes: ->
+        Docs.find
+            model:'tribe'
+            member_ids:
+                $in:[@_id]
     email_address: -> if @emails and @emails[0] then @emails[0].address
     email_verified: -> if @emails and @emails[0] then @emails[0].verified
     five_tags: -> if @tags then @tags[..4]

@@ -3,10 +3,9 @@ template(name='meal_view')
         .ui.stackable.padded.grid
             .middle.aligned.row
                 .four.wide.center.aligned.column
-                    a.ui.basic.circular.button(href="/meals")
+                    a.ui.basic.circular.button(href="/")
                         i.large.left.chevron.icon
                         |meals
-
                 .eight.wide.center.aligned.column
                     .ui.large.header 
                         small viewing
@@ -19,26 +18,31 @@ template(name='meal_view')
                             |edit
             .three.column.row
                 .column
-                    //- a.ui.fluid.basic.button(href="/meals")
-                    //-     +icolor name='real-food-for-meals' classes='ui mini inline image'
-                    //-     |meals
-                    img.ui.fluid.image(src="{{c.url meal_dish.image_id width=400 height=400}}")
-                            
-                    +array_view key='tags' direct=true
-                    //- +array_view key='ingredients' direct=true
-                    //- +array_view key='location_tags' direct=true
-                    div
-                    .ui.inline.header 
-                        small available 
-                        |{{from_now datetime_available}}:
-                    +html_view key='description' direct=true
-                    .ui.small.inline.header {{long_date datetime_available}}
-                    .ui.header 
-                        +icolor name='ingredients'
-                        |ingredients
-                    each meal_ingredients
-                        .ui.large.basic.circular.label
-                            |#{title}
+                    .ui.segment
+                        .ui.header dish
+                        //- a.ui.fluid.basic.button(href="/meals")
+                        //-     +icolor name='real-food-for-meals' classes='ui mini inline image'
+                        //-     |meals
+                        img.ui.fluid.image(src="{{c.url meal_dish.image_id width=400 height=400}}")
+                                
+                        a.ui.basic.circular.button(href="/dish/#{dish_id}/view")
+                            |view dish
+                        +array_view key='tags' direct=true
+                        //- +array_view key='ingredients' direct=true
+                        //- +array_view key='location_tags' direct=true
+                        div
+                        .ui.inline.header 
+                            small available 
+                            |{{from_now datetime_available}}:
+                        +html_view key='description' direct=true
+                        .ui.small.inline.header {{long_date datetime_available}}
+                        .ui.header 
+                            +icolor name='ingredients'
+                            |ingredients
+                        with meal_dish
+                            each dish_ingredients
+                                .ui.large.basic.circular.label
+                                    |#{title}
                     .ui.dividing.header
                         |rules
                     .ui.header #{servings_amount} total servings amount

@@ -9,6 +9,8 @@
 		"stripe_live_secret": "sk_live_p0wWIacjLHO0p2JvaVtnYv0000oCb6EnKu",
 		"cloudinary_key": "754714459692734",
 		"cloudinary_secret": "rPPXD3rZM_GCjODvh0T70XeDCSw",
+        "mailgun_key": "7829895216a5b19d67a51ea904262408-46ac6b00-ea648c22",
+        "mailgun_url": "https://api.mailgun.net/v3/mg.whatscookin.at",
 		"tone": {
             "apikey": "pIDLJyNdM8r4AB0lLmMNdGZtPSWUD3wXQfmXFBWxJ_l-",
             "iam_apikey_description": "Auto-generated for key e64fad1b-3834-4775-baab-3e1dbaa6d62f",

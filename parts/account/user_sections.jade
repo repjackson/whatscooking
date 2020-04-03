@@ -12,10 +12,12 @@ template(name='user_profile')
                         .ui.label #{this}
 
 template(name='user_tribes')
-    .ui.center.aligned.header 
-        i.users.icon
-        | tribes
-
+    with current_user
+        .ui.center.aligned.header 
+            +icolor name='log-cabin'
+            | tribes
+        each user_tribes
+            .ui.header #{title}
 
 
 

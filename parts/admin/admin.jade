@@ -5,6 +5,7 @@ template(name='admin')
                 .ui.header 
                     |admin
                 +call_method name='calculate_model_doc_count'
+                +call_method name='send_mail'
         .two.column.row
             .column
                 .ui.header 

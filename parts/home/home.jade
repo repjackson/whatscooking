@@ -9,14 +9,16 @@ template(name='home')
                 unless connected
                     .ui.inline.header disconnected
                     .ui.green.basic.circular.button.reconnect reconnect
-                if selected_tags_plural
-                    .ui.icon.circular.black.compact.button.clear_selected_tags
+                +icolor name='log-cabin' classes='ui inline mini image'
+
+                if selected_tribes_plural
+                    .ui.icon.circular.black.compact.button.clear_selected_tribes
                         i.remove.icon
-                each selected_tags
+                each selected_tribes
                     button.ui.black.compact.circular.button.unselect_tag(tabindex='0')
                         //- i.remove.icon
                         | #{this}
-                each tags
+                each tribes
                     button.ui.basic.circular.compact.button.result(tabindex="0" class=result_class title=count) #{title}
                         //- small #{count}
                 .spacer
