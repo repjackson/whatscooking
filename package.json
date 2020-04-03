@@ -5,7 +5,7 @@
 		"mailgun-js": "^0.22.0"
 	},
 	"scripts": {
-		"start": "MONGO_URL=mongodb+srv://whatscookingadmin:whatscookingadminpassword@whatscookingcluster.jae7q.mongodb.net/whatscookingdb meteor --settings settings.json",
+		"start": "MONGO_URL=mongodb+srv://whatscookingadmin:whatscookingadminpassword@whatscookingcluster.jae7q.mongodb.net/whatscookingdb MAIL_URL=smtp://postmaster%40mg.whatscookin.at:a059db19f1be833785350d69d9c24d27-46ac6b00-86bf6762@smtp.mailgun.org:587 meteor --settings settings.json",
 		"local": "meteor --settings settings.json",
 		"bundle": "meteor --extra-packages bundle-visualizer --production --settings settings.json"
 	}

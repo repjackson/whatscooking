@@ -111,14 +111,14 @@ template(name='emails_edit')
                     if verified
                         .ui.large.basic.label(title='verified')
                             | #{address}
-                            i.grey.checkmark.icon
+                            i.green.checkmark.icon
                     else
                         .ui.large.basic.label
                             //- i.ban.icon
                             | #{address}
                         .send_verification_email.ui.basic.button 
                             |verify
-                            i.grey.caret.right.icon
+                            i.green.caret.right.icon
                     .ui.small.icon.basic.button.remove_email
                         i.grey.remove.icon
     .ui.action.large.fluid.icon.action.input

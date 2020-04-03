@@ -3,18 +3,24 @@ mailgun = require('mailgun-js')
 
 
 Meteor.methods
-    send_mail:()->
+    send_mail:(to_user, subject)->
         mg = mailgun(
             apiKey: Meteor.settings.private.mailgun_key
             domain: 'mg.whatscookin.at')
         # mg = mailgun(
         #     apiKey: Meteor.settings.private.mailgun_key
         #     domain: Meteor.settings.private.mailgun_url)
+        if to_user
+            to = to_user
+        else
+            to = "repjackson"
+
+
         data =
-            from: 'Excited User <eric@whatscookin.at>'
+            from: 'whats cookin <admin@whatscookin.at>'
             to: 'repjackson@gmail.com'
             subject: 'Hello'
-            text: 'Testing some Mailgun '
+            text: ''
         mg.messages().send data, (err, body)->
             if err
                 console.log 'err', err
