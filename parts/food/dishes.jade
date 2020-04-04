@@ -83,9 +83,10 @@ template(name='dish_view')
                 .eight.wide.column
                     .ui.center.aligned.header #{title}
                 .four.wide.column
-                    a.ui.large.basic.circular.button(href="/dish/#{_id}/edit")
-                        i.pencil.blue.icon
-                        |edit
+                    if can_edit
+                        a.ui.large.basic.circular.button(href="/dish/#{_id}/edit")
+                            i.pencil.blue.icon
+                            |edit
                     
             .five.wide.column
                 .ui.small.header viewing dish

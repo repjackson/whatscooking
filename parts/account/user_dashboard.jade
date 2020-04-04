@@ -9,33 +9,60 @@ template(name='user_dashboard')
                     +icolor name='food-receiver'
                     |meals offered
                 if is_current_user
-                    .ui.basic.icon.circular.button.offer_new_meal(title='add new offered meal')
+                    .ui.basic.icon.circular.button.offer_new_meal(title='offer new meal')
                         i.plus.icon
-                div
-                each offered_meals
-                    .ui.small.header #{title}
+                .ui.selection.animated.large.list
+                    each offered_meals
+                        a.item(href="/meal/#{_id}/view")
+                            img.ui.mini.inline.image(src="{{c.url meal_dish.image_id height=200 width=200 gravity='face' crop='fill'}}")
+                            .content
+                                .header #{meal_dish.title} #{when}
             .eight.wide.column
                 .ui.inline.header 
-                    +icolor name='food-donor'
-                    |meals consumed
-                if is_current_user
-                    .ui.basic.icon.circular.button.add_consumed_meal(title='add new consumed meal')
-                        i.plus.icon
-                div
-                each consumed_meals
-                    .ui.small.header #{title}
+                    +icolor name='order-history'
+                    |recent orders
+                //- if is_current_user
+                //-     .ui.basic.icon.circular.button.add_bought_meal(title='add new bought meal')
+                //-         i.plus.icon
+                .smallscroll
+                    .ui.selection.animated.list
+                        each recent_orders
+                            a.item(href="/order/#{_id}/view")
+                                img.ui.mini.inline.image(src="{{c.url order_meal.meal_dish.image_id height=200 width=200 gravity='face' crop='fill'}}")
+                                .content
+                                    .header #{order_meal.meal_dish.title} 
+                                    .description
+                                        .ui.inline.green.small.header $#{order_price}
+                                small #{when}
+            //- .eight.wide.column
+            //-     .ui.inline.header 
+            //-         +icolor name='food-donor'
+            //-         |meals bought
+            //-     if is_current_user
+            //-         .ui.basic.icon.circular.button.add_bought_meal(title='add new bought meal')
+            //-             i.plus.icon
+            //-     div
+            //-     each bought_meals
+            //-         .ui.small.header #{meal_dish.title} 
+            //-             small #{when}
         .three.column.row
             .column
                 .ui.header
-                    +icolor name='filled-like'
+                    i.thumbs.up.outline.icon
                     |liked ingredients
                 .ui.header 
-                    +icolor name='dislike'
+                    i.thumbs.down.outline.icon
                     |disliked ingredients
             .column
                 .ui.header 
                     +icolor name='real-food-for-meals'
                     |dishes
+                .ui.selection.animated.large.list
+                    each user_dishes
+                        a.item(href="/dish/#{_id}/view")
+                            img.ui.mini.inline.image(src="{{c.url image_id height=100 width=100 gravity='face' crop='fill'}}")
+                            .content
+                                .header #{title}
         .three.column.row
             .column
                 +user_alerts_small

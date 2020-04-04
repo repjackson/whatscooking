@@ -3,10 +3,6 @@ if Meteor.isClient
         @layout 'profile_layout'
         @render 'user_profile'
         ), name:'user_profile'
-    Router.route '/user/:username/tribes', (->
-        @layout 'profile_layout'
-        @render 'user_tribes'
-        ), name:'user_tribes'
     Router.route '/user/:username/upvotes', (->
         @layout 'profile_layout'
         @render 'user_upvotes'

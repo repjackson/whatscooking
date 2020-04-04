@@ -4,7 +4,8 @@ template(name='order_view')
             .row
                 .four.wide.center.aligned.column
                     a.ui.circular.compact.basic.button(href="/orders")
-                        +icolor name='order' classes='ui mini inline image'
+                        i.left.chevron.icon
+                        +icolor name='purchase-order' classes='ui mini inline image'
                         |orders
                 .eight.wide.center.aligned.column
                     .ui.header view '#{order_meal.meal_dish.title}' order

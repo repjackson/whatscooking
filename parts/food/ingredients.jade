@@ -17,6 +17,14 @@ template(name='ingredients')
                     else
                         i.search.icon
                     input.ingredient_search(type='text' placeholder='search...')
+                .ui.button.toggle_unvoted(class=unvoted_button_class)
+                    |unvoted
+                .ui.button.toggle_upvoted(class=upvoted_button_class)
+                    i.thumbs.up.outline.icon
+                    |upvoted
+                .ui.button.toggle_downvoted(class=downvoted_button_class)
+                    i.thumbs.down.outline.icon
+                    |downvoted
                 .spacer
                 .ui.stackable.centered.four.cards
                     each ingredients
@@ -34,8 +42,10 @@ template(name='ingredient_card')
             div created {{from_now _timestamp}} by #{_author_username}
             each tags
                 .ui.basic.circular.label #{this}
-            .ui.large.basic.label 
-                |#{points} points
+            //- .ui.large.basic.label 
+            //-     |#{points} points
+        .content
+            +voting
 
             
             

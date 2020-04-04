@@ -20,11 +20,6 @@ if Meteor.isClient
 
     Template.profile_layout.helpers
         user: -> Meteor.users.findOne username:Router.current().params.username
-        user_tribes: ->
-            user = Meteor.users.findOne username:Router.current().params.username
-            Docs.find
-                model:'tribe'
-                member_ids: $in: [user._id]
         user_meals: ->
             user = Meteor.users.findOne username:Router.current().params.username
             Docs.find

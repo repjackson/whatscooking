@@ -1,34 +1,36 @@
 template(name='user_dishes')
     .ui.stackable.padded.grid 
-        .row
-            .twelve.wide.column
-                .ui.center.aligned.header 
-                    +icolor name='real-food-for-meals' 
-                    | user dishes
+        //- .row
+        //-     .twelve.wide.column
+        //-         .ui.center.aligned.header 
+        //-             +icolor name='real-food-for-meals' 
+        //-             | user dishes
         .row
             .eight.wide.column
                 .ui.header 
                     i.thumbs.up.outline.icon
-                    |liked dishes
+                    | #{user_liked_dishes.count} liked dishes
                 .ui.link.list
                     each user_liked_dishes
                         a.item(href="/dish/#{_id}/view") 
                             img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
                             |#{title}
+                .spacer
             .eight.wide.column
                 .ui.header 
                     i.thumbs.down.outline.icon
-                    |disliked dishes
+                    |#{user_disliked_dishes.count} disliked dishes
                 .ui.link.list
                     each user_disliked_dishes
                         a.item(href="/dish/#{_id}/view") 
                             img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
                             |#{title}
+                .spacer
                         
             .eight.wide.column
                 .ui.header 
                     i.pencil.icon
-                    |authored dishes
+                    | #{user_authored_dishes.count} authored dishes
                 .ui.link.list
                     each user_authored_dishes
                         a.item(href="/dish/#{_id}/view") 
@@ -43,16 +45,16 @@ template(name='user_dishes')
 
 template(name='user_ingredients')
     .ui.stackable.padded.grid 
-        .row
-            .twelve.wide.column
-                .ui.center.aligned.header 
-                    +icolor name='ingredients' 
-                    | user ingredients
+        //- .row
+        //-     .twelve.wide.column
+        //-         .ui.center.aligned.header 
+        //-             +icolor name='ingredients' 
+        //-             | user ingredients
         .row
             .eight.wide.column
                 .ui.header 
                     i.thumbs.up.outline.icon
-                    |liked ingredients
+                    |#{user_liked_ingredients.count} liked ingredients
                 .ui.link.list
                     each user_liked_ingredients
                         a.item(href="/ingredient/#{_id}/view")
@@ -62,7 +64,7 @@ template(name='user_ingredients')
             .eight.wide.column
                 .ui.header 
                     i.thumbs.down.outline.icon
-                    |disliked ingredients
+                    | #{user_disliked_ingredients.count} disliked ingredients
                 .ui.link.list
                     each user_disliked_ingredients
                         a.item(href="/ingredient/#{_id}/view") 
@@ -73,8 +75,8 @@ template(name='user_ingredients')
             .eight.wide.column
                 .ui.header 
                     i.pencil.icon
-                    |authored ingredients
-                .ui.link.list
+                    |#{user_authored_ingredients.count} authored ingredients
+                .ui.link.list.smallscroll
                     each user_authored_ingredients
                         a.item(href="/ingredient/#{_id}/view")
                             img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")

@@ -179,6 +179,19 @@ input {
 	/*padding-left: 1em;*/
 }
 
+.smallscroll{
+    /* padding: 5px !important;
+    border-radius: 10px !important;
+    border-width: 1px !important;
+    border-color: grey !important;
+    border-style: solid !important; */
+	overflow-y:scroll;
+	overflow-x:hidden;
+	max-height:50vh;
+	/* padding-top: .2em; */
+	/*padding-left: 1em;*/
+}
+
 
 .youtube_view {
     border-radius: 7px !important;

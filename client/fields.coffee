@@ -99,10 +99,27 @@ Template.image_edit.events
 Template.icon_edit.events
     'blur .icon_val': (e,t)->
         val = t.$('.icon_val').val()
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(6)
+        parent = Template.parentData()
+        # if @direct
+        # else
+        #     parent = Template.parentData(6)
+        doc = Docs.findOne parent._id
+        user = Meteor.users.findOne parent._id
+        if doc
+            Docs.update parent._id,
+                $set:"#{@key}":val
+        else if user
+            Meteor.users.update parent._id,
+                $set:"#{@key}":val
+
+
+Template.color_icon_edit.events
+    'blur .icon_val': (e,t)->
+        val = t.$('.icon_val').val()
+        parent = Template.parentData()
+        # if @direct
+        # else
+        #     parent = Template.parentData(6)
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
         if doc

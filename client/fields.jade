@@ -424,6 +424,25 @@ template(name='icon_edit')
         input.icon_val(type='text' value=field_value placeholder='icon class' autocomplete="off")
 
             
+template(name='color_icon_edit')
+    div
+    if icon
+        i.grey.small.icon(class=icon)
+        //- +ismall name=icon classes='ui middle aligned image'
+    .ui.inline.header
+        if title
+            |#{title}
+        else if key
+            |#{key}
+        else
+            |#{this}    
+    if field_value
+        //- i.large.icon(class=field_value)
+        +icolor name=field_value
+    .ui.right.icon.input
+        input.icon_val(type='text' value=field_value placeholder='icon class' autocomplete="off")
+
+            
 template(name='float_edit')
     div
     .ui.small.inline.header(title=tip)

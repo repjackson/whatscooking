@@ -54,8 +54,8 @@ Meteor.methods
 
 
 Mailer.config
-    from: 'Gold Run <goldrunreccenter@gmail.com>',     # Default 'From:' address. Required.
-    replyTo: 'Gold Run <goldrunreccenter@gmail.com>',  # Defaults to `from`.
+    from: 'whats cookin <admin@whatscookin.at>',     # Default 'From:' address. Required.
+    replyTo: 'whats cookin <admin@whatscookin.at>',  # Defaults to `from`.
     routePrefix: 'emails',              # Route prefix.
     baseUrl: "process.env.ROOT_URL",      # The base domain to build absolute link URLs from in the emails.
     testEmail: "repjackson@gmail.com",                    # Default address to send test emails to.
@@ -100,11 +100,11 @@ Meteor.methods
         # console.log user
         if user.emails and user.emails[0] then console.log user.emails[0]
         Mailer.send
-            to: ['Gold Run Rec Center <goldrunreccenter@gmail.com>',"#{user.username} <#{user.emails[0].address}>"]          # 'To: ' address. Required.
+            to: ['whats cookin admin <goldrunreccenter@gmail.com>',"#{user.username} <#{user.emails[0].address}>"]          # 'To: ' address. Required.
             subject: 'Gold Run Rules and Regulations Signature Receipt'                     # Required.
             template: 'rules_regs_receipt'               # Required.
-            replyTo: 'Gold Run Rec Center <goldrunreccenter@gmail.com>'      # Override global 'ReplyTo: ' option.
-            from: 'Gold Run Rec Center <goldrunreccenter@gmail.com>'         # Override global 'From: ' option.
+            replyTo: 'whats cookin admin <goldrunreccenter@gmail.com>'      # Override global 'ReplyTo: ' option.
+            from: 'whats cookin admin <goldrunreccenter@gmail.com>'         # Override global 'From: ' option.
             # cc: 'Name <name@domain.com>'           # Optional.
             # bcc: 'Name <name@domain.com>'          # Optional.
             data: {user:user}               # Optional. Render your email with a data object.

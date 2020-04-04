@@ -3,6 +3,7 @@
 
 
 
+@Tribes = new Meteor.Collection 'tribes'
 @Ingredients = new Meteor.Collection 'ingredients'
 @Timestamp_tags = new Meteor.Collection 'timestamp_tags'
 
