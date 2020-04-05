@@ -2,6 +2,8 @@ Template.registerHelper 'can_edit', () ->
     if Meteor.user().roles
         if 'admin' in Meteor.user().roles
             true
+        else
+            @_author_id is Meteor.userId()
     else
         @_author_id is Meteor.userId()
 

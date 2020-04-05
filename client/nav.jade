@@ -53,7 +53,7 @@ template(name='nav')
                     i.bell.large.yellow.icon(class=alert_icon_class)
                 a.item(href="/user/#{currentUser.username}/credit" title='your credit')
                     .ui.green.header
-                        |#{currentUser.credit}
+                        |#{currentUser.credit}c
                 a.item(href="/user/#{currentUser.username}") 
                     if currentUser.profile_image_id
                         img.ui.avatar.image(src="{{c.url currentUser.profile_image_id height=200 width=200 gravity='face' crop='fill'}}")

@@ -263,3 +263,24 @@ if Meteor.isClient
                 res += ' active'
             # console.log res
             res
+
+
+
+    Template.session_boolean_toggle.events
+        'click .toggle_session_key': ->
+            console.log @key
+            Session.set(@key, !Session.get(@key))
+
+    Template.session_boolean_toggle.helpers
+        calculated_class: ->
+            res = ''
+            # console.log @
+            if @classes
+                res += @classes
+            if Session.get(@key)
+                res += ' blue'
+            else
+                res += ' basic'
+
+            # console.log res
+            res

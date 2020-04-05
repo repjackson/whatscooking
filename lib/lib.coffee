@@ -84,6 +84,14 @@ Docs.helpers
 
 
 
+    # tribe
+    tribe_dishes: ->
+        # console.log 'tribe dishes'
+        if @dish_ids
+            Docs.find
+                _id:$in:@dish_ids
+
+
     order_total_transaction_amount: ->
         @serving_purchase_price+@cook_tip
 

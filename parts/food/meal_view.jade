@@ -5,7 +5,8 @@ template(name='meal_view')
                 .four.wide.center.aligned.column
                     a.ui.basic.circular.button(href="/")
                         i.large.left.chevron.icon
-                        |meals
+                        +icolor name='fire-element' classes='ui mini inline image'
+                        |whats cookin
                 .eight.wide.center.aligned.column
                     .ui.large.header 
                         small viewing
@@ -44,22 +45,36 @@ template(name='meal_view')
                                 .ui.large.basic.circular.label
                                     |#{title}
                     .ui.dividing.header
+                        +icolor name='rules'
                         |rules
-                    .ui.header #{servings_amount} total servings amount
+                .column
+                    .ui.header #{servings_amount} servings for sale
                     .ui.header $#{price_per_serving}/serving
-                    .ui.header #{servings_available} servings available
-                    .ui.header
+                    .ui.inline.header
                         if pickup
-                            i.checkmark.icon
+                            i.green.checkmark.icon
                         else 
-                            |no
+                            i.red.ban.icon
                         |pickup
-                    .ui.header 
+                    +icolor name='doormat' classes='ui mini inline image'
+                    div
+                    .ui.inline.header 
                         if delivery
-                            i.checkmark.icon
+                            i.checkmark.green.icon
                         else 
-                            |no
+                            i.red.ban.icon
                         |delivery
+                    +icolor name='delivery' classes='ui mini inline image'
+                    
+                    .ui.header cook #{_author_username}
+                    with _author
+                        +user_card
+                    with cd
+                        +voting_full
+                        .ui.header similar meals
+                        .ui.header alerts
+                        |alergen alert
+                        |#{alergen_alert}
                 .column
                     .ui.header #{servings_left} 
                         if serving_unit
@@ -69,7 +84,8 @@ template(name='meal_view')
                         | left
                     if can_order
                         +order_button
-                    .ui.header 
+                    .ui.dividing.header 
+                        +icolor name='order-history'
                         |orders
                     each meal_orders
                         .ui.segment(class=meal_order_class)
@@ -91,25 +107,16 @@ template(name='meal_view')
                                     |cancel
                     .ui.hidden.divider
                     +comments
-                .column
-                    .ui.header cook #{_author_username}
-                    with _author
-                        +user_card
-                    with cd
-                        +voting_full
-                        .ui.header similar meals
-                        .ui.header alerts
-                        |alergen alert
-                        |#{alergen_alert}
+                    
 
 
 template(name='order_button')
     if servings_left
-        .ui.green.fluid.large.button.order_meal
-            i.cart.plus.icon
+        .ui.green.fluid.large.circular.button.order_meal
+            i.cart.plus.large.icon
             |order #{serving_unit}
     else 
-        .ui.teal.large.fluid.button.join_waitlist
-            i.clock.icon
+        .ui.teal.large.fluid.circular.button.join_waitlist
+            i.clock.large.icon
             |join wait list
         

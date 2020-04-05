@@ -12,7 +12,7 @@ template(name='users')
                     input.ingredient_search(type='text' placeholder='search username')
 
             .twelve.wide.column
-                .ui.stackable.centered.five.cards 
+                .ui.stackable.centered.four.cards 
                     each users 
                         +user_card
                         
@@ -23,6 +23,9 @@ template(name='user_card')
                 img.ui.image(src="{{c.url profile_image_id}}")
         .content
             a.ui.header(href="/user/#{username}") #{username}
+            each tags
+                .ui.small.basic.circular.label
+                    |#{this}
             .ui.list
                 .item #{meal_count} meals
                 .item #{order_count} orders

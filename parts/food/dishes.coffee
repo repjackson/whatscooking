@@ -3,21 +3,11 @@ if Meteor.isClient
         @layout 'layout'
         @render 'dishes'
         ), name:'dishes'
-    Router.route '/dish/:doc_id/view', (->
-        @layout 'layout'
-        @render 'dish_view'
-        ), name:'dish_view'
-
 
     Template.dishes.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'dish'
 
         # @autorun => Meteor.subscribe 'model_docs', 'dish'
-
-    Template.dish_view.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'model_docs', 'ingredient'
-        @autorun => Meteor.subscribe 'model_docs', 'meal'
 
     Template.dishes.events
         'click .add_dish': ->

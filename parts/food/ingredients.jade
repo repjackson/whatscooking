@@ -26,9 +26,10 @@ template(name='ingredients')
                     i.thumbs.down.outline.icon
                     |downvoted
                 .spacer
-                .ui.stackable.centered.four.cards
-                    each ingredients
-                        +ingredient_card
+                .scrolling
+                    .ui.stackable.centered.four.cards
+                        each ingredients
+                            +ingredient_card
 
 
 
@@ -69,16 +70,18 @@ template(name='ingredient_view')
                         |edit        
             .five.wide.column
                 +image_view key='image_id' direct=true
-                
                 +array_view key='tags' direct=true
             .six.wide.column
-                
-                .ui.header meals included in
+                .ui.header
+                    +icolor name='meal'
+                    | meals included in
                 each meal_inclusions
                     a.ui.small.header(href="/meal/#{_id}/view")
                         img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
                         |#{title}
-                .ui.header dishes included in
+                .ui.header 
+                    +icolor name='real-food-for-meals'
+                    |dishes included in
                 .ui.large.selection.animated.list
                     each ingredient_dishes
                         a.item(href="/dish/#{_id}/view")

@@ -6,23 +6,55 @@ template(name='user_credit')
         .three.column.row
             .column
                 .ui.segment
-                    .ui.small.header 
+                    .ui.header
+                        +icolor name='deposit'
+                        |sent credit
+                    .ui.button.send_credit
+                        |send credit
+                    .ui.header
+                        |sent credits
+                    .ui.list
+                        each sent_credits
+                            a.item(href="/transaction/#{_id}/view")
+            .column
+                .ui.segment
+                    .ui.header
+                        +icolor name='withdrawal'
+                    .ui.button.request_credit
+                        | credit
+                    .ui.header
+                        |received credits
+                    .ui.selection.animated.list
+                        each received_credits
+                            a.item(href="/transaction/#{_id}/view")
+            .column
+                .ui.segment
+                    .ui.header
+                        +icolor name='change'
+                        |your balance
+        .three.column.row
+            .column
+                .ui.segment
+                    .ui.small.inline.header current credit
+                    .ui.green.inline.header #{current_user.credit}c
+                .ui.segment
+                    .ui.header 
                         strong $#{udd.total_credit_amount}
                         small total weekly income
-                    .ui.small.header
+                    .ui.header
                         strong #{udd.credit_count}
                         small sales
             .column
                 .ui.segment
-                    .ui.small.header
+                    .ui.header
                         strong $#{udd.total_debit_amount}
                         small total weekly expenses
-                    .ui.small.header
+                    .ui.header
                         strong #{udd.debit_count}
                         small debits
             .column
                 .ui.segment
-                    .ui.small.header
+                    .ui.header
                         |growth from last week
         .two.column.row
             .column

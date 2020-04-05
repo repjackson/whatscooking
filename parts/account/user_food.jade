@@ -10,7 +10,7 @@ template(name='user_dishes')
                 .ui.header 
                     i.thumbs.up.outline.icon
                     | #{user_liked_dishes.count} liked dishes
-                .ui.link.list
+                .ui.selection.animated.large.list
                     each user_liked_dishes
                         a.item(href="/dish/#{_id}/view") 
                             img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
@@ -20,7 +20,7 @@ template(name='user_dishes')
                 .ui.header 
                     i.thumbs.down.outline.icon
                     |#{user_disliked_dishes.count} disliked dishes
-                .ui.link.list
+                .ui.selection.animated.large.list
                     each user_disliked_dishes
                         a.item(href="/dish/#{_id}/view") 
                             img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
@@ -31,7 +31,7 @@ template(name='user_dishes')
                 .ui.header 
                     i.pencil.icon
                     | #{user_authored_dishes.count} authored dishes
-                .ui.link.list
+                .ui.selection.animated.large.list
                     each user_authored_dishes
                         a.item(href="/dish/#{_id}/view") 
                             img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
@@ -55,7 +55,7 @@ template(name='user_ingredients')
                 .ui.header 
                     i.thumbs.up.outline.icon
                     |#{user_liked_ingredients.count} liked ingredients
-                .ui.link.list
+                .ui.selection.animated.large.list
                     each user_liked_ingredients
                         a.item(href="/ingredient/#{_id}/view")
                             img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
@@ -65,7 +65,7 @@ template(name='user_ingredients')
                 .ui.header 
                     i.thumbs.down.outline.icon
                     | #{user_disliked_ingredients.count} disliked ingredients
-                .ui.link.list
+                .ui.selection.animated.large.list
                     each user_disliked_ingredients
                         a.item(href="/ingredient/#{_id}/view") 
                             img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
@@ -76,7 +76,7 @@ template(name='user_ingredients')
                 .ui.header 
                     i.pencil.icon
                     |#{user_authored_ingredients.count} authored ingredients
-                .ui.link.list.smallscroll
+                .ui.selection.animated.large.list.smallscroll
                     each user_authored_ingredients
                         a.item(href="/ingredient/#{_id}/view")
                             img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")

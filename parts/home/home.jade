@@ -9,59 +9,71 @@ template(name='home')
                 unless connected
                     .ui.inline.header disconnected
                     .ui.green.basic.circular.button.reconnect reconnect
-                +icolor name='log-cabin' classes='ui inline mini image'
 
-                if selected_tribes_plural
-                    .ui.icon.circular.black.compact.button.clear_selected_tribes
-                        i.remove.icon
-                each selected_tribes
-                    button.ui.black.compact.circular.button.unselect_tag(tabindex='0')
-                        //- i.remove.icon
-                        | #{this}
-                each tribes
-                    button.ui.basic.circular.compact.button.result(tabindex="0" class=result_class title=count) #{title}
-                        //- small #{count}
-                .spacer
-                .ui.left.icon.search.input
-                    i.search.icon
-                    input#search_user.prompt(type='text' autofocus='' autocomplete="off" placeholder='usernames')
-                if selected_users_plural
-                    .ui.icon.circular.black.compact.button.clear_selected_users
-                        i.remove.icon
-                each selected_users
-                    button.ui.black.compact.circular.button.unselect_user(tabindex='0')
-                        //- i.remove.icon
-                        | #{this}
-                each users
-                    button.ui.basic.circular.compact.button.result(tabindex="0" class=result_class title=count) #{username}
-                .spacer
-                .ui.left.icon.search.input
-                    i.search.icon.refresh_tags
-                    input#search_ingredient.prompt(type='text' autofocus='' autocomplete="off" placeholder='ingredients')
-                if selected_ingredient_plural
-                    .ui.icon.circular.black.compact.button.clear_selected_ingredients
-                        i.remove.icon
-                each selected_ingredients
-                    button.ui.blue.compact.circular.button.unselect_ingredient(tabindex='0')
-                        //- i.remove.icon
-                        | #{this}
-                each ingredients
-                    button.ui.basic.circular.compact.button.ingredient_result(tabindex="0" class=result_class title=count) #{title}
-                        //- small #{count}
-                .spacer
-                .ui.circular.basic.button.toggle_delivery
+                +session_boolean_toggle key='view_tribes' label='tribes' icon='log-cabin'
+                if session_is 'view_tribes' true
+                    .ui.left.icon.search.small.input
+                        i.search.icon
+                        input#search_tribe.prompt(type='text' autocomplete="off" placeholder='tribes')
+                    if selected_tribes_plural
+                        .ui.icon.circular.black.compact.button.clear_selected_tribes
+                            i.remove.icon
+                    each selected_tribes
+                        button.ui.black.compact.circular.button.unselect_tag(tabindex='0')
+                            //- i.remove.icon
+                            | #{this}
+                    each tribes
+                        button.ui.basic.circular.compact.button.result(tabindex="0" class=result_class title=count) #{title}
+                            //- small #{count}
+                    .spacer
+                +session_boolean_toggle key='view_users' label='users' icon='groups'
+                if session_is 'view_users' true
+                    .ui.left.icon.search.small.input
+                        i.search.icon
+                        input#search_user.prompt(type='text' autocomplete="off" placeholder='usernames')
+                    if selected_users_plural
+                        .ui.icon.circular.black.compact.button.clear_selected_users
+                            i.remove.icon
+                    each selected_users
+                        button.ui.black.compact.circular.button.unselect_user(tabindex='0')
+                            //- i.remove.icon
+                            | #{this}
+                    each users
+                        button.ui.basic.circular.compact.button.result(tabindex="0" class=result_class title=count) #{username}
+                    .spacer
+                    
+                +session_boolean_toggle key='view_ingredients' label='ingredients' icon='ingredients'
+                if session_is 'view_ingredients' true
+                    .ui.left.icon.search.small.input
+                        i.search.icon.refresh_tags
+                        input#search_ingredient.prompt(type='text' autocomplete="off" placeholder='ingredients')
+                    if selected_ingredient_plural
+                        .ui.icon.circular.black.compact.button.clear_selected_ingredients
+                            i.remove.icon
+                    each selected_ingredients
+                        button.ui.blue.compact.circular.button.unselect_ingredient(tabindex='0')
+                            //- i.remove.icon
+                            | #{this}
+                    each ingredients
+                        button.ui.basic.circular.compact.button.ingredient_result(tabindex="0" class=result_class title=count) #{title}
+                            //- small #{count}
+                    .spacer
+                //- +icolor name='ingredients' classes='ui inline mini image'
+                .ui.circular.basic.compact.button.toggle_delivery
                     +icolor name='deliver-food' classes='ui inline mini image' 
                     |delivery
-                .ui.circular.basic.button.toggle_pickup
+                .ui.circular.basic.compact.button.toggle_pickup
                     +icolor name='doormat' classes='ui inline mini image'
                     |pickup
-                if selected_food_preferences
-                    .ui.icon.circular.black.compact.button.clear_selected_food_preferences
+
+                +session_boolean_toggle key='view_food_tags' label='food tags' icon='no-nuts'
+                if selected_food_tags
+                    .ui.icon.circular.black.compact.button.clear_selected_food_tags
                         i.remove.icon
-                each selected_food_preferences
+                each selected_food_tags
                     button.ui.black.compact.circular.button.unselect_food_preference(tabindex='0')
                         | #{this}
-                each food_preferences
+                each food_tags
                     button.ui.basic.circular.compact.button.food_preference_result(tabindex="0" class=result_class title=count) #{title}
                         //- small #{count}
                 div
@@ -91,7 +103,6 @@ template(name='home')
                     .ui.icon.input
                         i.search.icon
                         input.ingredient_search(type='text' placeholder='search...')
-                
                     |sort by
                     .ui.compact.small.menu
                         .ui.simple.dropdown.item
@@ -124,28 +135,19 @@ template(name='home')
                 .ui.stackable.four.cards
                     each meals
                         +meal_card
-        //- .ui.modal 
-        //-     i.close.icon
-        //-     with quickbuying_meal
-        //-         .ui.header buy '#{meal_dish.title}' serving
-        //-         .image.content
-        //-             .image
-        //-                 img.ui.fluid.rounded.image(src="{{c.url meal_dish.image_id width=400 height=600 crop='fit'}}")
-        //-         .content
-        //-             .ui.header servings available #{servings_available}
-        //-             .ui.header $#{price_per_serving}/serving
-        //-             .ui.header total cost #{total_cost}
-        //-             .ui.header available credit #{currentUser.credit}
-        //-             .ui.header credit needed #{credit_needed}
-        //-         .actions
-        //-             .ui.green.button.confirm
-        //-                 i.checkmark.icon
-        //-                 |confirm
-        //-             .ui.red.button.cancel.cancel_quickbuying
-        //-                 i.remove.icon
-        //-                 |cancel
 
                         
+template(name='session_boolean_toggle')
+    .ui.circular.compact.button.toggle_session_key(class=calculated_class)
+        +icolor name=icon classes='ui avatar image'
+        |#{label}
+        //- if icon_view 
+        //- else 
+            if label
+                |#{label}
+            else 
+                |#{value}
+
 template(name='session_edit_value_button')
     .ui.button.set_session_value(class=calculated_class)
         if icon_view 

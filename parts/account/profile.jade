@@ -2,7 +2,7 @@ template(name='profile_layout')
     //- img.ui.image.home_banner(src="{{c.url 'nightbg' width=1000 height=1000 crop='crop'}}")    
     +nav
     with user
-        .ui.stackable.grid
+        .ui.stackable.padded.grid
             .three.wide.column
                 img.ui.centered.medium.rounded.profile_image.image.large.monitor.only(src="{{c.url profile_image_id height=300 width=300 gravity='face' crop='fill'}}")
                 img.ui.tiny.inline.rounded.profile_image.image.mobile.only(src="{{c.url profile_image_id height=200 width=200 gravity='face' crop='fill'}}")

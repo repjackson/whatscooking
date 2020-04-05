@@ -1,0 +1,61 @@
+template(name='dish_view')
+    with cd
+        .ui.stackable.padded.grid
+            .centered.middle.aligned.row
+                .four.wide.column
+                    a.ui.large.basic.circular.compact.button(href="/dishes")
+                        i.left.chevron.icon
+                        +icolor name='real-food-for-meals' classes='ui mini inline image'
+                        |dishes
+                    
+                .eight.wide.column
+                    .ui.center.aligned.header
+                        small viewing
+                        |'#{title}'
+                        small dish
+                .four.wide.column
+                    if can_edit
+                        a.ui.large.basic.circular.button(href="/dish/#{_id}/edit")
+                            i.pencil.blue.icon
+                            |edit
+            .six.wide.column
+                +array_view key='tags' direct=true
+                +array_view key='dishes' direct=true
+                +array_view key='location_tags' direct=true
+                img.ui.rounded.fluid.image(src="{{c.url image_id width=500 gravity='face' crop='fill'}}")
+            .six.wide.column
+                .ui.dividing.header
+                    +icolor name='meal'
+                    |meals used in
+                .ui.large.selection.animated.list
+                    each dish_meals
+                        a.item(href="/meal/#{_id}/view")
+                            img.ui.avatar.image(src="{{c.url _author.profile_image_id width=200 gravity='face' crop='fill'}}")
+                            .content
+                                .header {{long_date datetime_available}} by #{_author_username}
+                +html_view key='description' direct=true
+                .ui.dividing.header 
+                    +icolor name='ingredients'
+                    |ingredients
+                .ui.large.selection.animated.list
+                    each dish_ingredients
+                        a.item(href="/ingredient/#{_id}/view" title='view ingredient')
+                            if image_id
+                                img.ui.avatar.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+                            .content
+                                .header 
+                                    |#{title}
+                +comments
+            .four.wide.column
+                //- +reservations
+                .ui.header 
+                    +icolor name='chef-hat'
+                    |cook #{_author_username}
+                with _author
+                    +user_card
+                with cd
+                    +voting_full
+                    .ui.header similar dishes
+                    .ui.header alerts
+                    |alergen alert
+                    |#{alergen_alert}

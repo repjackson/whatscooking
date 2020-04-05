@@ -1,0 +1,21 @@
+template(name='user_edit_alerts')
+    .ui.header
+        +icolor name='appointment-reminders'
+        | alert settings
+    .ui.header notify me when
+    .ui.large.selection.list
+        a.item(class=alert_item_class)
+            if active
+                i.green.checkmark.icon
+            else 
+                i.grey.ban.icon
+            |serving is ordered
+        a.item someone subscribes to me
+        a.item someone subscribes to one of my dishes
+        a.item someone sends me a message
+        .ui.button 
+            |all
+        .ui.button 
+            |none
+    .ui.header settings
+    
