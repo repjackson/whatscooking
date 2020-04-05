@@ -2,6 +2,7 @@
 @selected_authors = new ReactiveArray []
 @selected_timestamp_tags = new ReactiveArray []
 @selected_ingredients = new ReactiveArray []
+@selected_tribe_tags = new ReactiveArray []
 
 
 Router.route '/', (->

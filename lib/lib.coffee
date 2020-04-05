@@ -1,6 +1,7 @@
 @Docs = new Meteor.Collection 'docs'
 @Tags = new Meteor.Collection 'tags'
 
+@Tribe_tags = new Meteor.Collection 'tribe_tags'
 
 
 @Tribes = new Meteor.Collection 'tribes'

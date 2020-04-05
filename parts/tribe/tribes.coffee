@@ -3,20 +3,20 @@ Router.route '/tribes/', -> @render 'tribes'
 
 if Meteor.isClient
     Template.tribes.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'tribe'
+        # @autorun => Meteor.subscribe 'model_docs', 'tribe'
         Session.setDefault 'view_mode', 'list'
         Session.setDefault 'tribe_sort_key', 'datetime_available'
         Session.setDefault 'tribe_sort_label', 'available'
         Session.setDefault 'tribe_limit', 5
         # @autorun => @subscribe 'model_docs', 'dish'
         @autorun => @subscribe 'tribe_facets',
-            selected_ingredients.array()
+            selected_tribe_tags.array()
             Session.get('tribe_limit')
             Session.get('tribe_sort_key')
             Session.get('tribe_sort_direction')
 
         @autorun => @subscribe 'tribe_results',
-            selected_ingredients.array()
+            selected_tribe_tags.array()
             Session.get('tribe_limit')
             Session.get('tribe_sort_key')
             Session.get('tribe_sort_direction')
@@ -111,9 +111,9 @@ if Meteor.isServer
             #         model:'dish'
             #         tribe_id:tribe._id
             #     ).count()
-            meal_count =
+            tribe_count =
                 Docs.find(
-                    model:'meal'
+                    model:'tribe'
                     tribe_id:tribe._id
                 ).count()
 
@@ -127,9 +127,9 @@ if Meteor.isServer
             for order in order_cursor.fetch()
                 if order.order_price
                     total_credit_exchanged += order.order_price
-            tribe_meals =
+            tribe_tribes =
                 Docs.find(
-                    model:'meal'
+                    model:'tribe'
                     tribe_id:tribe._id
                 ).fetch()
 
@@ -139,7 +139,87 @@ if Meteor.isServer
             Docs.update tribe._id,
                 $set:
                     member_count:member_count
-                    meal_count:meal_count
+                    tribe_count:tribe_count
                     dish_count:dish_count
                     total_credit_exchanged:total_credit_exchanged
                     dish_ids:dish_ids
+
+
+
+    Meteor.publish 'tribe_facets', (
+        selected_tribe_tags
+        selected_authors
+        selected_subreddits
+        selected_timestamp_tags
+        query
+        doc_limit
+        doc_sort_key
+        doc_sort_direction
+        )->
+        # console.log 'dummy', dummy
+        # console.log 'query', query
+        console.log 'selected ingredients', selected_tribe_tags
+
+        self = @
+        match = {}
+        match.model = 'tribe'
+        # if view_images
+        #     match.is_image = $ne:false
+        # if view_videos
+        #     match.is_video = $ne:false
+        if selected_tribe_tags.length > 0 then match.tags = $all: selected_tribe_tags
+        tribe_tag_cloud = Docs.aggregate [
+            { $match: match }
+            { $project: "tags": 1 }
+            { $unwind: "$tags" }
+            { $group: _id: "$tags", count: $sum: 1 }
+            { $sort: count: -1, _id: 1 }
+            { $limit: 10 }
+            { $project: _id: 0, title: '$_id', count: 1 }
+        ], {
+            allowDiskUse: true
+        }
+
+        tribe_tag_cloud.forEach (tribe_tag, i) =>
+            # console.log 'tribe_tag result ', tribe_tag
+            self.added 'tribe_tags', Random.id(),
+                title: tribe_tag.title
+                count: tribe_tag.count
+                # category:key
+                # index: i
+
+
+        self.ready()
+
+
+    Meteor.publish 'tribe_results', (
+        selected_tribe_tags
+        doc_limit
+        doc_sort_key
+        doc_sort_direction
+        )->
+        # console.log selected_tribe_tags
+        if doc_limit
+            limit = doc_limit
+        else
+            limit = 10
+        if doc_sort_key
+            sort_key = doc_sort_key
+        if doc_sort_direction
+            sort_direction = parseInt(doc_sort_direction)
+        self = @
+        match = {model:'tribe'}
+        if selected_tribe_tags.length > 0
+            match.tags = $all: selected_tribe_tags
+            sort = 'price_per_serving'
+        else
+            # match.tags = $nin: ['wikipedia']
+            sort = '_timestamp'
+            # match.source = $ne:'wikipedia'
+        console.log 'tribe match', match
+        console.log 'sort key', sort_key
+        console.log 'sort direction', sort_direction
+        Docs.find match,
+            sort:"#{sort_key}":sort_direction
+            # sort:_timestamp:-1
+            limit: limit
