@@ -5,22 +5,26 @@ template(name='user_messages')
     if currentUser
         .ui.fluid.icon.input
             i.plus.icon
-            input#new_message(type='text' placeholder='new message...')
+            input.new_message(type='text' placeholder='new message...')
     each user_messages
-        .ui.smoothed.segment
-            .ui.small.header #{body}
-            each tags
-                .ui.label #{this}
-            div
-            +notify_message
-            +user_list_toggle key='read_by_ids' label='mark read' icon='eye'
-            if can_edit
-                +remove_button
-            div
-            +author_info
-            +creation_info
-            //- +watson_view
-            
+        +user_message
+
+template(name='user_message')
+    .ui.smoothed.segment
+        .ui.small.header #{body}
+        //- each tags
+        //-     .ui.label #{this}
+        div
+        +notify_message
+        +user_list_toggle key='read_by_ids' label='mark read' icon='eye'
+        if can_edit
+            .ui.circular.basic.icon.button.remove_message
+                i.remove.red.icon
+        div
+        +author_info
+        +creation_info
+        //- +watson_view
+        
 template(name='notify_message')
     unless notified
         .ui.basic.icon.button.notify(title="notify #{to_username}")

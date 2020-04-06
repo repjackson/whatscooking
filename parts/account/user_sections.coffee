@@ -35,10 +35,6 @@ if Meteor.isClient
         @layout 'profile_layout'
         @render 'user_transactions'
         ), name:'user_transactions'
-    Router.route '/user/:username/messages', (->
-        @layout 'profile_layout'
-        @render 'user_messages'
-        ), name:'user_messages'
     Router.route '/user/:username/bookmarks', (->
         @layout 'profile_layout'
         @render 'user_bookmarks'

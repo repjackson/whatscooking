@@ -16,11 +16,11 @@ if Meteor.isClient
               .modal('show')
 
         'click .goto_meal': (e,t)->
-            $(e.currentTarget).closest('.card').transition('fade',1000)
+            # $(e.currentTarget).closest('.card').transition('zoom',200)
             # $('.global_container').transition('scale', 500)
-            Meteor.setTimeout =>
-                Router.go("/meal/#{@_id}/view")
-            , 300
+            Router.go("/meal/#{@_id}/view")
+            # Meteor.setTimeout =>
+            # , 100
 
         'click .view_card': ->
             $('.container_')

@@ -25,7 +25,7 @@ if Meteor.isClient
                 message_count =
                     Docs.find({
                         model: 'message'
-                        classroom_id: self._id }).count()
+                        conversation: self._id }).count()
                 # $('.comment').transition(
                 #     animation: 'fly right'
                 #     duration: 1000
@@ -51,7 +51,7 @@ if Meteor.isClient
         chat_messages: ->
             Docs.find {
                 model: 'message'
-                classroom_id: @_id },
+                conversation: @_id },
                 sort: timestamp: -1
 
         in_chat: -> if Meteor.userId() in @participant_ids then true else false
@@ -59,12 +59,12 @@ if Meteor.isClient
         message_count: ->
             Docs.find({
                 model: 'message'
-                classroom_id: @_id }).count()
+                conversation: @_id }).count()
 
         unread_message_count: ->
             Docs.find({
                 model: 'message'
-                classroom_id: @_id
+                conversation: @_id
                 read_ids: $nin: [Meteor.userId()]}).count()
 
 
@@ -84,7 +84,7 @@ if Meteor.isClient
         chat_messages: ->
             Docs.find {
                 model: 'message'
-                classroom_id: @_id },
+                conversation: @_id },
                 sort: _timestamp: 1
 
         chat_tag_class:-> if @valueOf() in selected_chat_tags.array() then 'black' else ''
@@ -96,10 +96,10 @@ if Meteor.isClient
         'keydown .add_message': (e,t)->
             e.preventDefault
             if e.which is 13
-                classroom_id = @_id
+                conversation = @_id
                 body = t.find('.add_message').value.trim()
                 if body.length > 0
-                    Meteor.call 'add_message', body, classroom_id, (err,res)=>
+                    Meteor.call 'add_message', body, conversation, (err,res)=>
                         if err then console.error err
                         else
                     $('.add_message').transition('bounce')
@@ -113,15 +113,15 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.methods
-        add_message: (body,classroom_id)->
+        add_message: (body,conversation)->
             new_message_id = Docs.insert
                 body: body
                 model: 'message'
-                classroom_id: classroom_id
+                conversation: conversation
                 read_ids:[Meteor.userId()]
                 tags: ['chat', 'message']
 
-            chat_doc = Docs.findOne _id: classroom_id
+            chat_doc = Docs.findOne _id: conversation
             message_doc = Docs.findOne new_message_id
             message_author = Meteor.users.findOne message_doc.author_id
 
@@ -190,7 +190,7 @@ if Meteor.isClient
         last_message: ->
             Docs.findOne {
                 model: 'message'
-                classroom_id: @_id
+                conversation: @_id
             },
                 sort: timestamp: -1
                 limit: 1

@@ -68,6 +68,9 @@ template(name='profile_layout')
                 a.ui.basic.circular.compact.button(href="/user/#{username}/tribes" class="{{isActiveRoute regex='user_tribes'}}")
                     +ismall name='log-cabin' classes='ui inline image'
                     |tribes
+                a.ui.basic.circular.compact.button(href="/user/#{username}/meals" class="{{isActiveRoute regex='user_meals'}}")
+                    +ismall name='meal' classes='ui inline image'
+                    |meals
                 a.ui.basic.circular.compact.button(href="/user/#{username}/pantry" class="{{isActiveRoute regex='user_pantry'}}")
                     +ismall name='kitchen' classes='ui inline image'
                     |pantry

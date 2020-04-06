@@ -2,7 +2,12 @@ template(name='user_friends')
     //- .ui.center.aligned.header 
     //-     i.people.carry.icon
     //-     | friends
-    +user_friend_button
+    .ui.header people you've friended
+    //- +user_friend_button
     .ui.middle.aligned.selection.animated.large.list
-        each friends
-            +user_segment
+    each users_friends
+        +user_segment
+    .ui.header people who friended you
+    .ui.middle.aligned.selection.animated.large.list
+    each friended_by
+        +user_segment

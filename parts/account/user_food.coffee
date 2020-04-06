@@ -10,6 +10,12 @@ if Meteor.isClient
         ), name:'user_dishes'
 
 
+    Router.route '/user/:username/meals', (->
+        @layout 'profile_layout'
+        @render 'user_meals'
+        ), name:'user_meals'
+
+
     Template.user_ingredients.onCreated ->
         @autorun -> Meteor.subscribe 'model_docs', 'meal'
         @autorun -> Meteor.subscribe 'user_authored_ingredients', Router.current().params.username

@@ -20,7 +20,9 @@ template(name='meal_view')
             .three.column.row
                 .column
                     .ui.segment
-                        .ui.header dish
+                        .ui.header 
+                            +icolor name='real-food-for-meals' classes='ui inline mini image'
+                            |dish
                         //- a.ui.fluid.basic.button(href="/meals")
                         //-     +icolor name='real-food-for-meals' classes='ui mini inline image'
                         //-     |meals
@@ -41,9 +43,13 @@ template(name='meal_view')
                             +icolor name='ingredients'
                             |ingredients
                         with meal_dish
-                            each dish_ingredients
-                                .ui.large.basic.circular.label
-                                    |#{title}
+                            .ui.selection.animated.list
+                                each dish_ingredients
+                                    a.item(href="/ingredient/#{_id}/view")
+                                        img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                                        .content
+                                            .header
+                                                |#{title}
                     .ui.dividing.header
                         +icolor name='rules'
                         |rules

@@ -7,6 +7,8 @@ Docs.allow
         if user.roles
             if 'admin' in user.roles
                 true
+            else
+                userId is doc._author_id
         else
             userId is doc._author_id
 
