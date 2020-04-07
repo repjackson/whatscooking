@@ -1,38 +1,3 @@
-template(name='ingredients')
-    .ui.stackable.padded.grid
-        .row
-            .four.wide.column
-                .ui.inline.header 
-                    |ingredients
-                if currentUser
-                    .ui.icon.circular.basic.button.add_ingredient
-                        i.plus.icon
-                .spacer
-                .ui.small.inline.header filter
-                +cloud filter='ingredient'
-            .twelve.wide.column
-                .ui.icon.input
-                    if query
-                        i.remove.icon
-                    else
-                        i.search.icon
-                    input.ingredient_search(type='text' placeholder='search...')
-                .ui.button.toggle_unvoted(class=unvoted_button_class)
-                    |unvoted
-                .ui.button.toggle_upvoted(class=upvoted_button_class)
-                    i.thumbs.up.outline.icon
-                    |upvoted
-                .ui.button.toggle_downvoted(class=downvoted_button_class)
-                    i.thumbs.down.outline.icon
-                    |downvoted
-                .spacer
-                .scrolling
-                    .ui.stackable.centered.four.cards
-                        each ingredients
-                            +ingredient_card
-
-
-
 template(name='ingredient_card')
     .ui.card
         if image_id
@@ -58,7 +23,7 @@ template(name='ingredient_view')
         .ui.stackable.padded.grid
             .centered.middle.aligned.row
                 .four.wide.center.aligned.column
-                    a.ui.basic.circular.compact.button(href="/ingredients")
+                    a.ui.basic.circular.compact.button(href="/m/ingredient")
                         i.left.chevron.icon
                         +icolor name='ingredients' classes='ui inline mini image'
                         |ingredients

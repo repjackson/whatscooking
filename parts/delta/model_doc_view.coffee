@@ -21,6 +21,9 @@ if Meteor.isClient
             current_model = Docs.findOne(Router.current().params.doc_id).model
             "#{current_model}_view"
 
+        model_template: ->
+            current_model = Docs.findOne(Router.current().params.doc_id).model
+
 
     Template.model_doc_view.events
         'click .back_to_model': ->

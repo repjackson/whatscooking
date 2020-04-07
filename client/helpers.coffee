@@ -59,7 +59,7 @@ Template.registerHelper 'fields', () ->
         cur
 
 Template.registerHelper 'edit_fields', () ->
-    console.log 'finding edit fields'
+    # console.log 'finding edit fields'
     model = Docs.findOne
         model:'model'
         slug:Router.current().params.model_slug

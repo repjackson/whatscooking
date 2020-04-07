@@ -209,7 +209,7 @@ if Meteor.isClient
 
     Template.set_view_mode.events
         'click .set_view_mode': ->
-            console.log @
+            # console.log @
             delta = Docs.findOne model:'delta'
             Docs.update delta._id,
                 $set:view_mode:@title
