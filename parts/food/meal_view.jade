@@ -1,5 +1,5 @@
 template(name='meal_view')
-    with cd
+    with current_doc
         .ui.stackable.padded.grid
             .middle.aligned.row
                 .four.wide.center.aligned.column
@@ -75,7 +75,7 @@ template(name='meal_view')
                     .ui.header cook #{_author_username}
                     with _author
                         +user_card
-                    with cd
+                    with current_doc
                         +voting_full
                         .ui.header similar meals
                         .ui.header alerts

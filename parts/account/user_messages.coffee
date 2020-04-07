@@ -67,8 +67,42 @@ if Meteor.isClient
                 # return
 
 
+    Template.user_message.helpers
+        message_segment_class: ->
+            # if @read_by_ids and Meteor.userId() in @read_by_ids
+            if @read
+                'basic'
+            else
+                ''
 
 
+
+    Template.mark_read_button.helpers
+        # is_read: ->
+        #     # if @read_by_ids and Meteor.userId() in @read_by_ids
+        #     if @read
+        #         true
+        #     else
+        #         false
+
+
+
+    Template.mark_read_button.events
+        'click .mark_unread': ->
+            Docs.update @_id,
+                # $pull:
+                #     read_by_ids: Meteor.userId()
+                $set:
+                    read: false
+                    read_timestamp:null
+
+        'click .mark_read': ->
+            Docs.update @_id,
+                # $addToSet:
+                #     read_by_ids: Meteor.userId()
+                $set:
+                    read:true
+                    read_timestamp:Date.now()
 
 
 if Meteor.isServer

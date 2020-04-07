@@ -21,7 +21,7 @@ template(name='dishes')
                         .ui.card
                             if image_id
                                 a.image(href="/dish/#{_id}/view")
-                                    img.ui.zoom.image(src="{{c.url image_id width=400 height=400}}")
+                                    img.ui.zoom.image(src="{{c.url image_id width=400 height=300 crop='fit'}}")
                             .content
                                 a.ui.header(href="/dish/#{_id}/view") #{title}
                                 div created {{from_now _timestamp}}

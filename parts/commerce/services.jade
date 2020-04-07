@@ -1,22 +1,23 @@
-template(name='ingredients')
+template(name='services')
     .ui.stackable.padded.grid
         .row
             .four.wide.column
                 .ui.inline.header 
-                    |ingredients
+                    +icolor name='wrench'
+                    |services
                 if currentUser
-                    .ui.icon.circular.basic.button.add_ingredient
+                    .ui.icon.circular.basic.button.add_service
                         i.plus.icon
                 .spacer
                 .ui.small.inline.header filter
-                +cloud filter='ingredient'
+                +cloud filter='service'
             .twelve.wide.column
                 .ui.icon.input
                     if query
                         i.remove.icon
                     else
                         i.search.icon
-                    input.ingredient_search(type='text' placeholder='search...')
+                    input.service_search(type='text' placeholder='search...')
                 .ui.button.toggle_unvoted(class=unvoted_button_class)
                     |unvoted
                 .ui.button.toggle_upvoted(class=upvoted_button_class)
@@ -28,18 +29,18 @@ template(name='ingredients')
                 .spacer
                 .scrolling
                     .ui.stackable.centered.four.cards
-                        each ingredients
-                            +ingredient_card
+                        each services
+                            +service_card
 
 
 
-template(name='ingredient_card')
+template(name='service_card')
     .ui.card
         if image_id
-            a(href="/ingredient/#{_id}/view")
+            a(href="/service/#{_id}/view")
                 img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
         .content
-            a.ui.header(href="/ingredient/#{_id}/view") #{title}
+            a.ui.header(href="/service/#{_id}/view") #{title}
             div created {{from_now _timestamp}} by #{_author_username}
             each tags
                 .ui.basic.circular.label #{this}
@@ -53,64 +54,46 @@ template(name='ingredient_card')
             
             
 
-template(name='ingredient_view')
+template(name='service_view')
     with current_doc
         .ui.stackable.padded.grid
             .centered.middle.aligned.row
                 .four.wide.center.aligned.column
-                    a.ui.basic.circular.compact.button(href="/ingredients")
+                    a.ui.basic.circular.compact.button(href="/services")
                         i.left.chevron.icon
-                        +icolor name='ingredients' classes='ui inline mini image'
-                        |ingredients
+                        +icolor name='services' classes='ui inline mini image'
+                        |services
                 .eight.wide.center.aligned.column
                     .ui.center.aligned.header #{title}
                 .four.wide.center.aligned.column
-                    a.ui.basic.circular.button(href="/ingredient/#{_id}/edit")
+                    a.ui.basic.circular.button(href="/service/#{_id}/edit")
                         i.blue.pencil.icon
                         |edit        
             .five.wide.column
                 +image_view key='image_id' direct=true
                 +array_view key='tags' direct=true
             .six.wide.column
-                .ui.header
-                    +icolor name='meal'
-                    | meals included in
-                each meal_inclusions
-                    a.ui.small.header(href="/meal/#{_id}/view")
-                        img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
-                        |#{title}
-                .ui.header 
-                    +icolor name='real-food-for-meals'
-                    |dishes included in
-                .ui.large.selection.animated.list
-                    each ingredient_dishes
-                        a.item(href="/dish/#{_id}/view")
-                            img.ui.mini.inline.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                            .content
-                                .header
-                                    |#{title}
                 img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
                 +textarea_view key='description' direct=true
+                .spacer
                 +comments
             .five.wide.column
                 with current_doc
                     +voting_full
-                    .ui.header similar ingredients
+                    .ui.header similar services
                     .ui.header alerts
-                    |alergen alert
-                    |#{alergen_alert}
 
 
 
-template(name='ingredient_edit')
+template(name='service_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
                 .four.wide.column
                 .eight.wide.column
-                    .ui.header edit '#{title}' ingredient
+                    .ui.header edit '#{title}' service
                 .four.wide.column
-                    a.ui.large.circular.basic.button(href="/ingredient/#{_id}/view")
+                    a.ui.large.circular.basic.button(href="/service/#{_id}/view")
                         i.checkmark.green.icon
                         |save        
             .five.wide.column
@@ -120,4 +103,4 @@ template(name='ingredient_edit')
                 +image_edit key='image_id' direct=true
             .six.wide.column
                 img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
-                +textarea_edit key='description' direct=true
+                +html_edit key='description' direct=true

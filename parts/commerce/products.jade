@@ -1,22 +1,22 @@
-template(name='ingredients')
+template(name='products')
     .ui.stackable.padded.grid
         .row
             .four.wide.column
                 .ui.inline.header 
-                    |ingredients
+                    |products
                 if currentUser
-                    .ui.icon.circular.basic.button.add_ingredient
+                    .ui.icon.circular.basic.button.add_product
                         i.plus.icon
                 .spacer
                 .ui.small.inline.header filter
-                +cloud filter='ingredient'
+                +cloud filter='product'
             .twelve.wide.column
                 .ui.icon.input
                     if query
                         i.remove.icon
                     else
                         i.search.icon
-                    input.ingredient_search(type='text' placeholder='search...')
+                    input.product_search(type='text' placeholder='search...')
                 .ui.button.toggle_unvoted(class=unvoted_button_class)
                     |unvoted
                 .ui.button.toggle_upvoted(class=upvoted_button_class)
@@ -28,18 +28,18 @@ template(name='ingredients')
                 .spacer
                 .scrolling
                     .ui.stackable.centered.four.cards
-                        each ingredients
-                            +ingredient_card
+                        each products
+                            +product_card
 
 
 
-template(name='ingredient_card')
+template(name='product_card')
     .ui.card
         if image_id
-            a(href="/ingredient/#{_id}/view")
+            a(href="/product/#{_id}/view")
                 img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
         .content
-            a.ui.header(href="/ingredient/#{_id}/view") #{title}
+            a.ui.header(href="/product/#{_id}/view") #{title}
             div created {{from_now _timestamp}} by #{_author_username}
             each tags
                 .ui.basic.circular.label #{this}
@@ -53,19 +53,19 @@ template(name='ingredient_card')
             
             
 
-template(name='ingredient_view')
+template(name='product_view')
     with current_doc
         .ui.stackable.padded.grid
             .centered.middle.aligned.row
                 .four.wide.center.aligned.column
-                    a.ui.basic.circular.compact.button(href="/ingredients")
+                    a.ui.basic.circular.compact.button(href="/products")
                         i.left.chevron.icon
-                        +icolor name='ingredients' classes='ui inline mini image'
-                        |ingredients
+                        +icolor name='product' classes='ui inline mini image'
+                        |products
                 .eight.wide.center.aligned.column
                     .ui.center.aligned.header #{title}
                 .four.wide.center.aligned.column
-                    a.ui.basic.circular.button(href="/ingredient/#{_id}/edit")
+                    a.ui.basic.circular.button(href="/product/#{_id}/edit")
                         i.blue.pencil.icon
                         |edit        
             .five.wide.column
@@ -73,17 +73,17 @@ template(name='ingredient_view')
                 +array_view key='tags' direct=true
             .six.wide.column
                 .ui.header
-                    +icolor name='meal'
-                    | meals included in
-                each meal_inclusions
+                    +icolor name='closet'
+                    | pantries included in
+                each pantry_inclusions
                     a.ui.small.header(href="/meal/#{_id}/view")
                         img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
                         |#{title}
                 .ui.header 
-                    +icolor name='real-food-for-meals'
-                    |dishes included in
+                    +icolor name='shop'
+                    |stores included in
                 .ui.large.selection.animated.list
-                    each ingredient_dishes
+                    each store_inclusions
                         a.item(href="/dish/#{_id}/view")
                             img.ui.mini.inline.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
                             .content
@@ -93,24 +93,28 @@ template(name='ingredient_view')
                 +textarea_view key='description' direct=true
                 +comments
             .five.wide.column
-                with current_doc
-                    +voting_full
-                    .ui.header similar ingredients
-                    .ui.header alerts
-                    |alergen alert
-                    |#{alergen_alert}
+                .ui.basic.button.add_to_pantry
+                    i.green.large.plus.icon
+                    |add to your pantry
+                .ui.basic.button.add_to_shop
+                    i.green.large.plus.icon
+                    |add to your shop
+                div
+                +voting_full
+                .ui.header similar products
+                .ui.header alerts
 
 
 
-template(name='ingredient_edit')
+template(name='product_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
                 .four.wide.column
                 .eight.wide.column
-                    .ui.header edit '#{title}' ingredient
+                    .ui.header edit '#{title}' product
                 .four.wide.column
-                    a.ui.large.circular.basic.button(href="/ingredient/#{_id}/view")
+                    a.ui.large.circular.basic.button(href="/product/#{_id}/view")
                         i.checkmark.green.icon
                         |save        
             .five.wide.column

@@ -37,7 +37,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'my_cart'
 
         # @autorun -> Meteor.subscribe 'current_session'
-        # @autorun -> Meteor.subscribe 'unread_messages'
+        @autorun -> Meteor.subscribe 'unread_messages'
 
     Template.nav.helpers
         subs_ready: -> Template.instance().subscriptionsReady()
@@ -106,11 +106,20 @@ if Meteor.isClient
 
 
         alert_icon_class: ->
-            unread_count = Docs.find({
+            unread_alerts_count = Docs.find({
                 model:'alert'
                 target_user_id:Meteor.userId()
             }).count()
-            if unread_count then 'yellow' else 'outline'
+
+            unread_messages_count = Docs.find({
+                model:'message'
+                to_user_id:Meteor.userId
+                read:false
+            }).count()
+
+            unread_total = unread_alerts_count+unread_messages_count
+
+            if unread_total then 'yellow' else 'outline'
 
 
         bookmarked_models: ->
@@ -298,14 +307,22 @@ if Meteor.isServer
                 model:'cart_item'
                 _author_id:Meteor.userId()
 
-    Meteor.publish 'unread_messages', (username)->
+    Meteor.publish 'unread_messages', ()->
         if Meteor.userId()
             Docs.find {
                 model:'message'
-                to_username:username
-                read_ids:$nin:[Meteor.userId()]
+                to_user_id:Meteor.userId()
+                read:false
             }, sort:_timestamp:-1
 
+    # Meteor.publish 'unread_messages', (username)->
+    #     if Meteor.userId()
+    #         Docs.find {
+    #             model:'message'
+    #             to_username:username
+    #             read_ids:$nin:[Meteor.userId()]
+    #         }, sort:_timestamp:-1
+    #
 
     Meteor.publish 'me', ->
         Meteor.users.find @userId

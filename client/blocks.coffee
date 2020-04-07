@@ -232,6 +232,7 @@ if Meteor.isClient
             else
                 Docs.update parent._id,
                     $addToSet:"#{@key}":Meteor.userId()
+
     Template.user_list_toggle.helpers
         user_list_toggle_class: ->
             if Meteor.user()
@@ -241,7 +242,12 @@ if Meteor.isClient
                 'disabled'
         in_list: ->
             parent = Template.parentData()
-            if parent["#{@key}"] and Meteor.userId() in parent["#{@key}"] then true else false
+            if parent["#{@key}"] and Meteor.userId() in parent["#{@key}"]
+                console.log 'in list'
+                true
+            else
+                console.log 'not in list'
+                false
         list_users: ->
             parent = Template.parentData()
             Meteor.users.find _id:$in:parent["#{@key}"]

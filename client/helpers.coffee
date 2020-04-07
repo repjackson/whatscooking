@@ -104,7 +104,7 @@ Template.registerHelper 'nl2br', (text)->
 
 
 
-Template.registerHelper 'cd', () ->
+Template.registerHelper 'current_doc', () ->
     # console.log 'looking for cd', Router.current().params.doc_id
     # Meteor.users.findOne username:Router.current().params.username
     Docs.findOne Router.current().params.doc_id

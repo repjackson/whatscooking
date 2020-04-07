@@ -3,3 +3,8 @@ template(name='user_pantry')
         |pantry
     each pantry_items
         .ui.header #{pantry_product.title}
+
+    .ui.button.add_product
+        |add product
+    a.ui.button(href="/products")
+        |view products

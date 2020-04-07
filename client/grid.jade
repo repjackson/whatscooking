@@ -2,43 +2,66 @@ template(name='grid')
     .ui.stackable.padded.grid
         .sixteen.wide.column
             .ui.stackable.cards
-                .ui.card
+                a.ui.link.card(href="")
                     .content 
                         a.icon.header(href="/")
                             +icolor name='campfire'
                             |home
-                .ui.card
+            .ui.header 
+                +icolor name='food' 
+                |food
+            .ui.stackable.cards
+                a.ui.link.card(href="")
                     .content 
                         a.icon.header(href="/meals")
                             +icolor name='soup-plate'
                             |meals
-                .ui.card
+                a.ui.link.card(href="/ingredients")
                     .content 
-                        a.icon.header(href="/ingredients")
+                        a.icon.header(href=)
                             +icolor name='ingredients'
                             |ingredients
-                //- .ui.card
+                //- a.ui.link.card(href="")
                 //-     .content 
                 //-         a.icon.header(href="/recipes")
                 //-             +icolor name='beer-recipe'
                 //-             |recipes
-                .ui.card
+                a.ui.link.card(href="/dishes")
                     .content 
-                        a.icon.header(href="/dishes")
+                        .icon.header
                             +icolor name='real-food-for-meals'
                             |dishes
-                .ui.card
+            .ui.header 
+                +icolor name='shopping-cart' 
+                |commerce
+            .ui.stackable.cards
+                a.ui.link.card(href="/products")
                     .content 
-                        a.icon.header(href="/tribes")
-                            +icolor name='log-cabin'
-                            |tribes
-                .ui.card
+                        .icon.header
+                            +icolor name='product'
+                            |products
+                a.ui.link.card(href="/services")
                     .content 
-                        a.icon.header(href="/tribes")
+                        .icon.header
+                            +icolor name='wrench'
+                            |services
+                a.ui.link.card(href="/orders")
+                    .content 
+                        .icon.header
                             +icolor name='order-history'
                             |orders
-                .ui.card
+                            
+            .ui.header 
+                +icolor name='chat' 
+                |social
+            .ui.stackable.cards
+                a.ui.link.card(href="/tribes")
                     .content 
-                        a.icon.header(href="/chat")
+                        .icon.header
+                            +icolor name='log-cabin'
+                            |tribes
+                a.ui.link.card(href="/chat")
+                    .content 
+                        .icon.header
                             +icolor name='chat'
                             |chat

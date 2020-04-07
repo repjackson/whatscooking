@@ -1,5 +1,5 @@
 template(name='dish_view')
-    with cd
+    with current_doc
         .ui.stackable.padded.grid
             .centered.middle.aligned.row
                 .four.wide.column
@@ -53,7 +53,7 @@ template(name='dish_view')
                     |cook #{_author_username}
                 with _author
                     +user_card
-                with cd
+                with current_doc
                     +voting_full
                     .ui.header similar dishes
                     .ui.header alerts

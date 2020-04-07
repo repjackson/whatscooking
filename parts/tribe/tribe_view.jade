@@ -3,21 +3,20 @@ template(name='tribe_layout')
     with current_tribe
         .ui.stackable.padded.grid
             .middle.aligned.row
-                .four.wide.column
+                .four.wide.center.aligned.column
                     a.ui.circular.basic.button(href="/tribes")
                         i.left.chevron.icon
                         +icolor name='log-cabin' classes='ui mini inline image'
                         |tribes
-                .eight.wide.column 
+                .eight.wide.center.aligned.column 
                     .ui.center.aligned.header 
                         if icon
                             +icolor name=icon
                         |#{title}
-                .four.wide.column 
+                .four.wide.center.aligned.column 
                     if can_edit
-                        a.ui.circular.basic.button(href="/tribe/#{_id}/edit")
-                            i.pencil.blue.icon
-                            |edit
+                        a.ui.circular.basic.icon.button(href="/tribe/#{_id}/edit")
+                            i.setting.large.icon
             .row
                 .sixteen.wide.column
                     a.ui.basic.circular.compact.button(href="/tribe/#{slug}" class="{{isActiveRoute regex='tribe_dashboard'}}")
@@ -44,9 +43,9 @@ template(name='tribe_layout')
                     a.ui.basic.circular.compact.button(href="/tribe/#{slug}/food" class="{{isActiveRoute regex='tribe_food'}}")
                         +ismall name='food' classes='ui inline image'
                         |food
-                    a.ui.basic.circular.compact.button(href="/tribe/#{slug}/settings" class="{{isActiveRoute regex='tribe_settings'}}")
-                        +ismall name='settings' classes='ui inline image'
-                        |settings
+                    //- a.ui.basic.circular.compact.button(href="/tribe/#{slug}/settings" class="{{isActiveRoute regex='tribe_settings'}}")
+                    //-     +ismall name='settings' classes='ui inline image'
+                    //-     |settings
                     a.ui.basic.circular.compact.button(href="/tribe/#{slug}/products" class="{{isActiveRoute regex='tribe_products'}}")
                         +ismall name='shopping-cart' classes='ui inline image'
                         |products

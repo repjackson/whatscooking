@@ -2,8 +2,8 @@ template(name='nav')
     .ui.attached.fluid.borderless.topnav.large.menu
         //- a.icon.item.toggle_sidebar
         //-     i.bars.icon
-        a.icon.mobile.only.item(href='/grid' class="{{isActivePath '/grid'}}" title='menu')
-            +icolor name='circled-menu'
+        a.icon.item(href='/grid' class="{{isActivePath '/grid'}}" title='menu')
+            +icolor name='circled-menu' classes='ui inline mini image'
         a.header.item(href="/" class="{{isActivePath '/'}}" title='home')
             //- unless subs_ready 
                 i.yin.yang.loading.grey.icon(title='dao')
@@ -27,12 +27,12 @@ template(name='nav')
         //- a.mobile.hidden.item(href='/recipes' class="{{isActivePath '/recipes'}}") 
         //-     +icolor name='beer-recipe'
         //-     |recipes
-        a.mobile.hidden.item(href='/dishes' class="{{isActivePath '/dishes'}}" title='dishes') 
-            +icolor name='real-food-for-meals' classes='ui inline mini image'
-            |dishes
-        a.mobile.hidden.item(href='/ingredients' class="{{isActivePath '/ingredients'}}" title='ingredients') 
-            +icolor name='ingredients' classes='ui inline mini image'
-            |ingredients
+        //- a.mobile.hidden.item(href='/dishes' class="{{isActivePath '/dishes'}}" title='dishes') 
+        //-     +icolor name='real-food-for-meals' classes='ui inline mini image'
+        //-     |dishes
+        //- a.mobile.hidden.item(href='/ingredients' class="{{isActivePath '/ingredients'}}" title='ingredients') 
+        //-     +icolor name='ingredients' classes='ui inline mini image'
+        //-     |ingredients
         .right.menu
             if is_admin 
                 a.icon.item.mobile.hidden(href='/admin' class="{{isActivePath '/admin'}}" title="admin")
