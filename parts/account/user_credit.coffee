@@ -5,6 +5,8 @@ if Meteor.isClient
         ), name:'user_credit'
 
     Template.user_credit.onCreated ->
+        @autorun => Meteor.subscribe 'user_transactions', Router.current().params.username
+
         if Meteor.isDevelopment
             pub_key = Meteor.settings.public.stripe_test_publishable
         else if Meteor.isProduction
@@ -53,6 +55,48 @@ if Meteor.isClient
                     amount: 500
 
 
+        'click .add_ten_credits': ->
+            console.log Template.instance()
+            if confirm 'add 10 credits?'
+                Session.set('topup_amount',10)
+                Template.instance().checkout.open
+                    name: 'credit deposit'
+                    # email:Meteor.user().emails[0].address
+                    description: 'wc top up'
+                    amount: 1000
+
+
+        'click .add_twenty_credits': ->
+            console.log Template.instance()
+            if confirm 'add 20 credits?'
+                Session.set('topup_amount',20)
+                Template.instance().checkout.open
+                    name: 'credit deposit'
+                    # email:Meteor.user().emails[0].address
+                    description: 'wc top up'
+                    amount: 2000
+
+
+        'click .add_fifty_credits': ->
+            console.log Template.instance()
+            if confirm 'add 50 credits?'
+                Session.set('topup_amount',50)
+                Template.instance().checkout.open
+                    name: 'credit deposit'
+                    # email:Meteor.user().emails[0].address
+                    description: 'wc top up'
+                    amount: 5000
+
+
+        'click .add_hundred_credits': ->
+            console.log Template.instance()
+            if confirm 'add 100 credits?'
+                Session.set('topup_amount',100)
+                Template.instance().checkout.open
+                    name: 'credit deposit'
+                    # email:Meteor.user().emails[0].address
+                    description: 'wc top up'
+                    amount: 10000
 
 
 
@@ -80,3 +124,18 @@ if Meteor.isClient
             #             'success'
             #         )
             # )
+
+    Template.user_credit.helpers
+        user_credits: ->
+            current_user = Meteor.users.findOne(username:Router.current().params.username)
+            Docs.find
+                model:'transaction'
+                _author_id: current_user._id
+
+
+if Meteor.isServer
+    Meteor.publish 'user_transactions', (username)->
+        current_user = Meteor.users.findOne(username:username)
+        Docs.find
+            model:'transaction'
+            _author_id: current_user._id

@@ -6,10 +6,48 @@ template(name='user_credit')
         .three.column.row
             .column
                 .ui.segment
+                    .ui.header 
+                        +icolor name='refund-2--v1'
+                        |topups
+                    .ui.bulleted.list
+                        each user_credits
+                            .item 
+                                .content
+                                    .header $#{amount}
+                                    .description
+                                        |#{transaction_type}
+                                        |#{when}
+            .column
+                .ui.segment
+                    .ui.header
+                        +icolor name='change'
+                        |your balance
+                    .ui.small.inline.header current credit
+                    .ui.green.inline.header #{current_user.credit}c
+                    +session_boolean_toggle key='adding_credit' label='add credit' icon='plus'
+                    if session_is 'adding_credit' true
+                        .ui.small.header add amount
+                        //- .ui.input
+                        //-     input.add_amount(type='number')
+                        //- .ui.horizontal.divider or
+                        .ui.circular.compact.basic.large.button.add_five_credits
+                            |5
+                        .ui.circular.compact.basic.large.button.add_ten_credits
+                            |10
+                        .ui.circular.compact.basic.large.button.add_twenty_credits
+                            |20
+                        .ui.circular.compact.basic.large.button.add_fifty_credits
+                            |50
+                        .ui.circular.compact.basic.large.button.add_hundred_credits
+                            |100
+                
+
+            .column
+                .ui.segment
                     .ui.header
                         +icolor name='deposit'
                         |sent credit
-                    .ui.button.send_credit
+                    .ui.disabled.button.send_credit
                         |send credit
                     .ui.header
                         |sent credits
@@ -20,42 +58,14 @@ template(name='user_credit')
                 .ui.segment
                     .ui.header
                         +icolor name='withdrawal'
+                        |received credits
                     .ui.button.request_credit
                         | credit
-                    .ui.header
-                        |received credits
                     .ui.selection.animated.list
                         each received_credits
                             a.item(href="/transaction/#{_id}/view")
-            .column
-                .ui.segment
-                    .ui.header
-                        +icolor name='change'
-                        |your balance
-                    .ui.small.inline.header current credit
-                    .ui.green.inline.header #{current_user.credit}c
-                    .ui.button.top_up
-                        |add credit
-                    +session_boolean_toggle key='adding_credit' label='add credit' icon='plus'
-                    if session_is 'adding_credit' true
-                        |add amount
-                        .ui.input
-                            input.add_amount(type='number')
-                        .ui.horizontal.divider or
-                        .ui.button.add_five_credits
-                            |5
-                        .ui.button.add_ten_credit
-                            |10
-                        .ui.button.add_twenty_credit
-                            |20
-                        .ui.button.add_fifty_credit
-                            |50
-                        .ui.button.add_hundred_credit
-                            |100
-                
         .three.column.row
             .column
-                .ui.segment
                 .ui.segment
                     .ui.header 
                         strong $#{udd.total_credit_amount}
@@ -76,43 +86,31 @@ template(name='user_credit')
                     .ui.header
                         |growth from last week
         .two.column.row
-            .column
-                .ui.segment
-                    .ui.header 
-                        |weekly credits
-                    //- .ui.bulleted.list
+                    //- .ui.feed.mediumscroll
                     //-     each user_credits
-                    //-         .item 
-                    //-             |#{amount}
-                    //-             if icon
-                    //-                 +i name=icon
-                    //-             strong #{text}
-                    //-             small #{when}
-                    .ui.feed.mediumscroll
-                        each user_credits
-                            .event 
-                                .label
-                                    if is_credit
-                                        i.grey.chevron.up.icon
-                                    if is_debit
-                                        i.grey.chevron.down.icon
-                                    else if icon
-                                        i.grey.icon(class=icon)
-                                .content
-                                    .summary
-                                        a.user(href="/user/#{target_user.username}")
-                                            |#{target_user.name}
-                                        |#{text}
-                                        .date #{when}
-                                    .meta
-                                        +voting_small
-                                        //- a.like
-                                        //-     i.like.icon 
-                                        //-     |4 likes
-                                        a.remove
-                                            i.grey.undo.icon
-                                        //- if is_dev
-                                        //-     +remove_button
+                    //-         .event 
+                    //-             .label
+                    //-                 if is_credit
+                    //-                     i.grey.chevron.up.icon
+                    //-                 if is_debit
+                    //-                     i.grey.chevron.down.icon
+                    //-                 else if icon
+                    //-                     i.grey.icon(class=icon)
+                    //-             .content
+                    //-                 .summary
+                    //-                     a.user(href="/user/#{target_user.username}")
+                    //-                         |#{target_user.name}
+                    //-                     |#{text}
+                    //-                     .date #{when}
+                    //-                 .meta
+                    //-                     +voting_small
+                    //-                     //- a.like
+                    //-                     //-     i.like.icon 
+                    //-                     //-     |4 likes
+                    //-                     a.remove
+                    //-                         i.grey.undo.icon
+                    //-                     //- if is_dev
+                    //-                     //-     +remove_button
             .column
                 .ui.segment
                     .ui.header 
