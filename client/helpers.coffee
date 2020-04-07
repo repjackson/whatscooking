@@ -38,6 +38,48 @@ Template.registerHelper 'global_subs_ready', () ->
 #         match[2]
 #     else
 #         console.log 'error'
+Template.registerHelper 'view_template', -> "#{@field_type}_view"
+Template.registerHelper 'edit_template', -> "#{@field_type}_edit"
+
+
+Template.registerHelper 'fields', () ->
+    model = Docs.findOne
+        model:'model'
+        slug:Router.current().params.model_slug
+    if model
+        match = {}
+        # if Meteor.user()
+        #     match.view_roles = $in:Meteor.user().roles
+        match.model = 'field'
+        match.parent_id = model._id
+        # console.log model
+        cur = Docs.find match,
+            sort:rank:1
+        # console.log cur.fetch()
+        cur
+
+Template.registerHelper 'edit_fields', () ->
+    console.log 'finding edit fields'
+    model = Docs.findOne
+        model:'model'
+        slug:Router.current().params.model_slug
+    if model
+        Docs.find {
+            model:'field'
+            parent_id:model._id
+            # edit_roles:$in:Meteor.user().roles
+        }, sort:rank:1
+
+Template.registerHelper 'sortable_fields', () ->
+    model = Docs.findOne
+        model:'model'
+        slug:Router.current().params.model_slug
+    if model
+        Docs.find {
+            model:'field'
+            parent_id:model._id
+            sortable:true
+        }, sort:rank:1
 
 
 

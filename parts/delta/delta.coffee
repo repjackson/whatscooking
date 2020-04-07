@@ -2,7 +2,6 @@ if Meteor.isClient
     Router.route '/m/:model_slug', (->
         @render 'delta'
         ), name:'delta'
-    Router.route '/m/:model_slug/:doc_id/edit', -> @render 'model_doc_edit'
 
     Template.delta.onCreated ->
         @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
@@ -280,7 +279,7 @@ if Meteor.isClient
                  'disabled'
             else if facet.filters.length > 0 and @name in facet.filters
                 'active'
-            else ''
+            else 'basic'
 
     Template.delta_result.onRendered ->
         # Meteor.setTimeout ->
@@ -294,7 +293,7 @@ if Meteor.isClient
         template_exists: ->
             current_model = Router.current().params.model_slug
             if current_model
-                if Template["#{current_model}_card_template"]
+                if Template["#{current_model}_card"]
                     # console.log 'true'
                     return true
                 else
@@ -303,7 +302,7 @@ if Meteor.isClient
 
         model_template: ->
             current_model = Router.current().params.model_slug
-            "#{current_model}_card_template"
+            "#{current_model}_card"
 
         toggle_value_class: ->
             facet = Template.parentData()

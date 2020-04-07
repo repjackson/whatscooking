@@ -36,7 +36,7 @@ template(name='dish_card')
     .ui.stackable.grid.segment
         .four.wide.column
             //- img.ui.fluid.image(src="{{c.url image }}")
-            img.ui.fluid.rounded.image(src="{{c.url image width=400 height=600 crop='fit'}}")
+            img.ui.fluid.rounded.image(src="{{c.url image_id width=400 height=600 crop='fit'}}")
         .twelve.wide.column
             .ui.header #{title}
             +ismall name='dish'

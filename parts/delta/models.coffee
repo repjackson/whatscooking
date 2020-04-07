@@ -5,7 +5,7 @@ if Meteor.isClient
 
     Template.model_view.onCreated ->
         @autorun -> Meteor.subscribe 'model', Router.current().params.model_slug
-        @autorun -> Meteor.subscribe 'model_fields', Router.current().params.model_slug
+        @autorun -> Meteor.subscribe 'model_fields_from_slug', Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'docs', selected_tags.array(), Router.current().params.model_slug
 
     Template.model_view.helpers

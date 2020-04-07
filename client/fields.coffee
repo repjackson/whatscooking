@@ -102,7 +102,7 @@ Template.icon_edit.events
         if @direct
             parent = Template.parentData()
         else
-            parent = Template.parentData(6)
+            parent = Template.parentData(5)
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
         if doc
@@ -119,7 +119,7 @@ Template.color_icon_edit.events
         if @direct
             parent = Template.parentData()
         else
-            parent = Template.parentData(6)
+            parent = Template.parentData(5)
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
         if doc

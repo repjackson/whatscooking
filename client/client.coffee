@@ -4,6 +4,8 @@
 @selected_ingredients = new ReactiveArray []
 @selected_tribe_tags = new ReactiveArray []
 
+Meteor.startup ->
+    Status.setTemplate('semantic_ui')
 
 Router.route '/', (->
     @layout 'layout'

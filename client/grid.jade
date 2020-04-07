@@ -1,24 +1,18 @@
 template(name='grid')
     .ui.stackable.padded.grid
         .sixteen.wide.column
-            .ui.stackable.cards
-                a.ui.link.card(href="")
-                    .content 
-                        a.icon.header(href="/")
-                            +icolor name='campfire'
-                            |home
             .ui.header 
                 +icolor name='food' 
                 |food
             .ui.stackable.cards
-                a.ui.link.card(href="")
+                a.ui.link.card(href="/m/meal")
                     .content 
-                        a.icon.header(href="/meals")
+                        .icon.header
                             +icolor name='soup-plate'
                             |meals
-                a.ui.link.card(href="/ingredients")
+                a.ui.link.card(href="/m/ingredient")
                     .content 
-                        a.icon.header(href=)
+                        .icon.header
                             +icolor name='ingredients'
                             |ingredients
                 //- a.ui.link.card(href="")
@@ -26,7 +20,7 @@ template(name='grid')
                 //-         a.icon.header(href="/recipes")
                 //-             +icolor name='beer-recipe'
                 //-             |recipes
-                a.ui.link.card(href="/dishes")
+                a.ui.link.card(href="/m/dishes")
                     .content 
                         .icon.header
                             +icolor name='real-food-for-meals'
@@ -35,17 +29,17 @@ template(name='grid')
                 +icolor name='shopping-cart' 
                 |commerce
             .ui.stackable.cards
-                a.ui.link.card(href="/products")
+                a.ui.link.card(href="/m/product")
                     .content 
                         .icon.header
                             +icolor name='product'
                             |products
-                a.ui.link.card(href="/services")
+                a.ui.link.card(href="/m/service")
                     .content 
                         .icon.header
                             +icolor name='wrench'
                             |services
-                a.ui.link.card(href="/orders")
+                a.ui.link.card(href="/m/order")
                     .content 
                         .icon.header
                             +icolor name='order-history'
@@ -55,7 +49,7 @@ template(name='grid')
                 +icolor name='chat' 
                 |social
             .ui.stackable.cards
-                a.ui.link.card(href="/tribes")
+                a.ui.link.card(href="/m/tribe")
                     .content 
                         .icon.header
                             +icolor name='log-cabin'

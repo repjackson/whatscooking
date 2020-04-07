@@ -4,6 +4,8 @@ template(name='nav')
         //-     i.bars.icon
         a.icon.item(href='/grid' class="{{isActivePath '/grid'}}" title='menu')
             +icolor name='circled-menu' classes='ui inline mini image'
+        a.header.item(href="/m/meal" class="{{isActivePath '/m/meal'}}" title='meals')
+            |meals
         a.header.item(href="/" class="{{isActivePath '/'}}" title='home')
             //- unless subs_ready 
                 i.yin.yang.loading.grey.icon(title='dao')
@@ -18,7 +20,7 @@ template(name='nav')
             //- i.users.icon
             +icolor name='group' classes='ui inline mini image'
             |users
-        a.mobile.hidden.item.mobile.hidden(href='/tribes' class="{{isActivePath '/tribes'}}" title='tribes')
+        a.mobile.hidden.item.mobile.hidden(href='/m/tribe' class="{{isActivePath '/tribes'}}" title='tribes')
             +icolor name='log-cabin' classes='ui inline mini image'
             |tribes
         //- a.mobile.hidden.item(href="/new_meal" title='cook')
@@ -37,8 +39,10 @@ template(name='nav')
             if is_admin 
                 a.icon.item.mobile.hidden(href='/admin' class="{{isActivePath '/admin'}}" title="admin")
                     i.shield.icon
-                a.icon.item.mobile.hidden(href='/orders' class="{{isActivePath '/orders'}}" title="orders")
-                    i.list.icon
+                a.icon.item.mobile.hidden(href='/m/model' class="{{isActivePath '/m/model'}}" title="delta")
+                    i.code.icon
+                //- a.icon.item.mobile.hidden(href='/orders' class="{{isActivePath '/orders'}}" title="orders")
+                //-     i.list.icon
                 
             //- a.mobile.hidden.icon.item(href='/events' class="{{isActivePath '/events'}}" title='events') 
             //-     i.calendar.icon
