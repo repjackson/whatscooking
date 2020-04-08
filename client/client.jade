@@ -52,7 +52,27 @@ template(name='layout')
     #main_area.global_container
         +yield
     if is_an_admin
-        +role_switcher
+        .ui.basic.segment
+            +role_switcher
+    .ui.modal
+        .header keyboard shortcuts
+        .content
+            .ui.list 
+                .item
+                    .ui.inline.header g h
+                    | go home
+                .item
+                    .ui.inline.header r a 
+                    | toggle admin
+                .item
+                    .ui.inline.header d c
+                    | config current model
+                .item
+                    .ui.inline.header d s
+                    | save current model
+                .item
+                    .ui.inline.header d s
+                    | save current model
     //- +footer
 
 

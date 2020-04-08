@@ -80,7 +80,7 @@ if Meteor.isClient
 
         'click .set_sort_direction': (e,t)->
             # console.log @
-            $(e.currentTarget).closest('.button').transition('pulse', 500)
+            $(e.currentTarget).closest('.button').transition('pulse', 250)
 
             delta = Docs.findOne model:'delta'
             if delta.sort_direction is -1
@@ -277,7 +277,7 @@ if Meteor.isClient
             facet = Template.parentData()
             delta = Docs.findOne model:'delta'
             if Session.equals 'loading', true
-                 'disabled loading'
+                 'disabled basic'
             else if facet.filters.length > 0 and @name in facet.filters
                 'active'
             else 'basic'

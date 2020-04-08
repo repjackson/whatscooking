@@ -40,57 +40,58 @@ template(name='delta')
                     each sorted_facets
                         +facet
                 .eleven.wide.column
-                    .filter_row.ui.basic.segment(class=loading_class)
-                        .ui.inline.small.grey.header(title='change sort direction')
-                            |sort by
-                        .ui.compact.small.menu
-                            .ui.simple.dropdown.item
-                                strong #{current_delta.sort_key}
-                                i.dropdown.icon
-                                .menu
-                                    each sortable_fields
-                                        .item.set_sort_key 
-                                            |#{title}
-                        .ui.compact.icon.basic.button.set_sort_direction
-                            if sorting_up
-                                i.sort.amount.down.large.icon
-                            else
-                                i.sort.amount.up.large.icon
-                        //- .ui.compact.button.set_sort_direction
-                        //-     |#{current_delta.sort_direction}
-                        |&nbsp;
-                        |&nbsp;
-                        .ui.inline.small.grey.header
-                            |limit
-                        .ui.compact.small.menu
-                            .ui.simple.dropdown.item
-                                strong #{current_delta.limit}
-                                i.dropdown.icon
-                                .menu
-                                    +set_limit amount=1
-                                    +set_limit amount=5
-                                    +set_limit amount=10
-                                    +set_limit amount=20
-                                    +set_limit amount=50
-                        .ui.inline.small.grey.header
-                            |search
-                        .ui.small.input
-                            input(type='text' val=search_value)
-                        |&nbsp;
-                        |&nbsp;
-                        .ui.inline.small.grey.header view
-                        .ui.compact.menu
-                            .ui.simple.dropdown.item
-                                |#{current_delta.view_mode}
-                                i.dropdown.icon
-                                .menu
-                                    +set_view_mode title='table' icon='table'
-                                    +set_view_mode title='list' icon='list'
-                                    +set_view_mode title='cards' icon='cards'
-                                    +set_view_mode title='items' icon='list'
-                                    +set_view_mode title='map' icon='map'
-                                    +set_view_mode title='graph' icon='graph'
-                        .ui.hidden.fitted.divider
+                    unless single_doc
+                        .ui.basic.segment(class=loading_class)
+                            .ui.inline.small.grey.header(title='change sort direction')
+                                |sort by
+                            .ui.compact.small.menu
+                                .ui.simple.dropdown.item
+                                    strong #{current_delta.sort_key}
+                                    i.dropdown.icon
+                                    .menu
+                                        each sortable_fields
+                                            .item.set_sort_key 
+                                                |#{title}
+                            .ui.compact.icon.basic.button.set_sort_direction
+                                if sorting_up
+                                    i.sort.amount.down.large.icon
+                                else
+                                    i.sort.amount.up.large.icon
+                            //- .ui.compact.button.set_sort_direction
+                            //-     |#{current_delta.sort_direction}
+                            |&nbsp;
+                            |&nbsp;
+                            .ui.inline.small.grey.header
+                                |limit
+                            .ui.compact.small.menu
+                                .ui.simple.dropdown.item
+                                    strong #{current_delta.limit}
+                                    i.dropdown.icon
+                                    .menu
+                                        +set_limit amount=1
+                                        +set_limit amount=5
+                                        +set_limit amount=10
+                                        +set_limit amount=20
+                                        +set_limit amount=50
+                            .ui.inline.small.grey.header
+                                |search
+                            .ui.small.input
+                                input(type='text' val=search_value)
+                            |&nbsp;
+                            |&nbsp;
+                            .ui.inline.small.grey.header view
+                            .ui.compact.menu
+                                .ui.simple.dropdown.item
+                                    |#{current_delta.view_mode}
+                                    i.dropdown.icon
+                                    .menu
+                                        +set_view_mode title='table' icon='table'
+                                        +set_view_mode title='list' icon='list'
+                                        +set_view_mode title='cards' icon='cards'
+                                        +set_view_mode title='items' icon='list'
+                                        +set_view_mode title='map' icon='map'
+                                        +set_view_mode title='graph' icon='graph'
+                        .spacer
                     .scrolling    
                         each current_delta.result_ids
                             //- .column
@@ -164,32 +165,32 @@ template(name='facet')
     div
     if filtering_res
         //- .ui.hidden.divider
-        .ui.fluid.rounded.accordion
-            .active.title
-                if icon
-                    +icolor name=icon classes='ui avatar image'
-                    //- i.grey.icon(class=icon)
-                .ui.grey.inline.header 
-                    if title
-                        |#{title}
-                    else 
-                        |#{key}
-                        //- i.dropdown.icon
+        //- .ui.fluid.rounded.accordion
+            //- .active.title
+        if icon
+            +icolor name=icon classes='ui avatar image'
+            //- i.grey.icon(class=icon)
+        .ui.grey.inline.header 
+            if title
+                |#{title}
+            else 
+                |#{key}
+                //- i.dropdown.icon
                 //- .ui.icon.small.transparent.input
                 //-     i.search.icon
                 //-     input.add_filter(type='text')
-            .active.content
+            //- .active.content
                 //- div
-                each filtering_res
-                    if name
-                        .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                            strong #{name}
-                            if is_admin
-                                small #{cal_count} #{count}
-                    else
-                        .selector.ui.compact.basic.button.toggle_selection(class=toggle_value_class)
-                            strong [null]
-                            //- small #{cal_count}
+        each filtering_res
+            if name
+                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                    strong #{name}
+                    if is_admin
+                        small #{cal_count} #{count}
+            else
+                .selector.ui.compact.basic.button.toggle_selection(class=toggle_value_class)
+                    strong [null]
+                    //- small #{cal_count}
         //- .ui.hidden.divider
 template(name='toggle_delta_config')
     if boolean_true
