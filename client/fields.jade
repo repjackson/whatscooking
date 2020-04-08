@@ -442,6 +442,12 @@ template(name='color_icon_edit')
     .ui.right.icon.input
         input.icon_val(type='text' value=field_value placeholder='icon class' autocomplete="off")
 
+
+template(name='color_icon_view')
+    div
+    if field_value
+        +icolor name=field_value
+
             
 template(name='float_edit')
     div

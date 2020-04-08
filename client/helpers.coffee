@@ -216,6 +216,15 @@ Template.registerHelper 'session_is', (key, value)->
     Session.equals(key, value)
 
 Template.registerHelper 'key_value_is', (key, value)->
+    # console.log 'key', key
+    # console.log 'value', value
+    # console.log 'this', this
+    @["#{key}"] is value
+
+Template.registerHelper 'parent_key_value_is', (key, value)->
+    # console.log 'key', key
+    # console.log 'value', value
+    # console.log 'this', this
     @["#{key}"] is value
 
 Template.registerHelper 'is_loading', -> Session.get 'loading'

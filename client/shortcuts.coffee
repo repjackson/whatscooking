@@ -9,7 +9,7 @@ globalHotkeys.add
             Session.set 'loading', false
 
 globalHotkeys.add
-	combo: "d c"
+	combo: "m c"
 	callback: ->
         model = Docs.findOne
             model:'model'
@@ -19,14 +19,18 @@ globalHotkeys.add
 globalHotkeys.add
 	combo: "d s"
 	callback: ->
-        model = Docs.findOne Router.current().params.doc_id
-        Router.go "/m/#{model.slug}"
+        doc = Docs.findOne Router.current().params.doc_id
+        Router.go "/m/#{doc.model}/#{doc._id}/view"
+        # model = Docs.findOne Router.current().params.doc_id
+        # Router.go "/m/#{model.slug}"
 
 globalHotkeys.add
 	combo: "d e"
 	callback: ->
         doc = Docs.findOne Router.current().params.doc_id
         Router.go "/m/#{doc.model}/#{doc._id}/edit"
+
+
 globalHotkeys.add
 	combo: "r a"
 	callback: ->
@@ -40,22 +44,6 @@ globalHotkeys.add
 				else
 					Meteor.users.update Meteor.userId(),
 						$set: roles:['admin']
-# globalHotkeys.add
-# 	combo: "r s"
-# 	callback: ->
-#         if Meteor.userId() and Meteor.userId() in ['DyNFLrLXySaYuShto','GzYbqYGeiQ6HwNNYj']
-#             if 'student' in Meteor.user().roles
-#                 Meteor.users.update Meteor.userId(), $pull:roles:'student'
-#             else
-#                 Meteor.users.update Meteor.userId(), $addToSet:roles:'student'
-# globalHotkeys.add
-# 	combo: "r m"
-# 	callback: ->
-#         if Meteor.userId() and Meteor.userId() in ['DyNFLrLXySaYuShto','GzYbqYGeiQ6HwNNYj']
-#             if 'manager' in Meteor.user().roles
-#                 Meteor.users.update Meteor.userId(), $pull:roles:'manager'
-#             else
-#                 Meteor.users.update Meteor.userId(), $addToSet:roles:'manager'
 globalHotkeys.add
 	combo: "r d"
 	callback: ->
@@ -94,16 +82,6 @@ globalHotkeys.add
 #             else
 #                 Meteor.users.update Meteor.userId(), $addToSet:roles:'tutor'
 
-# globalHotkeys.add
-# 	combo: "m r "
-# 	callback: ->
-#         if Meteor.userId()
-#             Meteor.call ''
-#                 Meteor.users.update Meteor.userId(), $pull:roles:'frontdesk'
-#             else
-#                 Meteor.users.update Meteor.userId(), $addToSet:roles:'frontdesk'
-
-
 
 globalHotkeys.add
 	combo: "g h"
@@ -112,13 +90,14 @@ globalHotkeys.add
 	combo: "g i"
 	callback: -> Router.go '/m/ingredient'
 globalHotkeys.add
+	combo: "g f"
+	callback: -> Router.go '/m/field_type'
+globalHotkeys.add
 	combo: "g t"
-	callback: -> Router.go '/m/tribes'
+	callback: -> Router.go '/m/tribe'
 globalHotkeys.add
 	combo: "g d"
-	callback: ->
-        # if Meteor.userId() and Meteor.userId() in ['DyNFLrLXySaYuShto','GzYbqYGeiQ6HwNNYj']
-        Router.go '/dishes'
+	callback: -> Router.go '/m/dish'
 
 globalHotkeys.add
 	combo: "s d"
@@ -141,9 +120,6 @@ globalHotkeys.add
 # globalHotkeys.add
 # 	combo: "g i"
 # 	callback: -> Router.go "/inbox"
-globalHotkeys.add
-	combo: "g m"
-	callback: -> Router.go "/students"
 globalHotkeys.add
 	combo: "g a"
 	callback: -> Router.go "/admin"

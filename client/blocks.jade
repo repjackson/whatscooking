@@ -2,6 +2,12 @@ template(name='session_toggle_button')
     .ui.circular.compact.icon.button.toggle(class=session_toggle_button_class title=title)
         i.large.icon(class=icon)
 
+
+template(name='call_method')
+    .ui.button.call_method
+        |#{name}
+
+
 template(name='comments')
     .ui.inline.grey.header
         +icolor name='chat' classes='ui mini inline image'

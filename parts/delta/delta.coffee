@@ -69,6 +69,15 @@ if Meteor.isClient
             Router.go "/model/edit/#{new_model._id}"
 
 
+        'click .clear_query': ->
+            # console.log @
+            delta = Docs.findOne model:'delta'
+            Docs.update delta._id,
+                $unset:search_query:1
+            Session.set 'loading', true
+            Meteor.call 'fum', delta._id, ->
+                Session.set 'loading', false
+
         'click .set_sort_key': ->
             # console.log @
             delta = Docs.findOne model:'delta'
@@ -97,13 +106,6 @@ if Meteor.isClient
             Docs.insert
                 model:'delta'
                 model_filter: Router.current().params.model_slug
-
-        'keyup .import_subreddit': (e,t)->
-            if e.which is 13
-                val = t.$('.import_subreddit').val()
-                Meteor.call 'pull_subreddit', val, (err,res)->
-                    console.log res
-
 
         'click .print_delta': (e,t)->
             delta = Docs.findOne model:'delta'
@@ -197,6 +199,34 @@ if Meteor.isClient
             #     when 8
             #         if e.target.value is ''
             #             selected_tags.pop()
+        'keyup #search': _.throttle((e,t)->
+            query = $('#search').val()
+            Session.set('current_query', query)
+            delta = Docs.findOne model:'delta'
+            Docs.update delta._id,
+                $set:search_query:query
+            Session.set 'loading', true
+            Meteor.call 'fum', delta._id, ->
+                Session.set 'loading', false
+
+            # console.log Session.get('current_query')
+            if e.which is 13
+                search = $('#search').val().trim().toLowerCase()
+                if search.length > 0
+                    selected_tags.push search
+                    console.log 'search', search
+                    # Meteor.call 'log_term', search, ->
+                    $('#search').val('')
+                    Session.set('current_query', null)
+                    # # $('#search').val('').blur()
+                    # # $( "p" ).blur();
+                    # Meteor.setTimeout ->
+                    #     Session.set('dummy', !Session.get('dummy'))
+                    # , 10000
+        , 1000)
+
+
+
 
     Template.set_limit.events
         'click .set_limit': ->

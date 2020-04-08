@@ -64,6 +64,8 @@ Meteor.methods
             model:'model'
             slug:delta.model_filter
         built_query = {}
+        if delta.search_query
+            built_query.title = {$regex:"#{delta.search_query}", $options: 'i'}
 
         fields =
             Docs.find

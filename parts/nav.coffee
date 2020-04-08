@@ -199,6 +199,15 @@ if Meteor.isClient
             Session.set 'loading', false
 
 
+        'click .home': ->
+            Session.set 'loading', true
+            Meteor.call 'set_facets', 'model', true, ->
+                Session.set 'loading', false
+
+        'click .meals': ->
+            Session.set 'loading', true
+            Meteor.call 'set_facets', 'meal', true, ->
+                Session.set 'loading', false
 
 
 
