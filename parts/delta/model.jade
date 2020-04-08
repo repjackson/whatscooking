@@ -15,7 +15,7 @@ template(name='model_edit')
                     .ui.form
                         +text_edit key='title' label='title' direct=true
                         +slug_edit key='slug' label='slug' direct=true
-                        +text_edit key='icon' label='icon' direct=true
+                        +color_icon_edit key='color_icon' label='icons8 icon' direct=true
                         +textarea_edit key='description' label='description' direct=true
                         +array_edit key='tags' label='tags' direct=true
                         +text_edit key='collection' label='collection' direct=true
@@ -34,7 +34,8 @@ template(name='model_edit')
                             .title 
                                 |#{rank}
                                 if icon
-                                    i.icon(class=icon)
+                                    +icolor name=icon classes='ui mini inline image'
+                                    //- i.icon(class=icon)
                                 |#{title} (#{field_type})
                                 if faceted
                                     i.filter.icon
@@ -52,7 +53,7 @@ template(name='model_view')
             .row
                 .sixteen.wide.column
                     .ui.breadcrumb
-                        a.section(href="/m/#{current_model.slug}" title=current_model.plural)
+                        a.section(href="/m/#{current_model}" title=current_model)
                             .ui.compact.button
                                 |#{current_model.title}
                         .divider
@@ -135,8 +136,8 @@ template(name='field_edit')
         +multi_doc_edit key='edit_roles' ref_model='role' label='edit roles' direct=true icon='pencil'        
         //- +text_edit key='ref_model' label='Reference Model' direct=true
         div
-        +boolean_edit key='faceted' label='faceted' icon='diamond' direct=true
-        +boolean_edit key='sortable' label='sortable' icon='chevron-down' direct=true
+        +boolean_edit key='faceted' label='faceted' color_icon='diamond' direct=true
+        +boolean_edit key='sortable' label='sortable' color_icon='chevron-down' direct=true
         if is_ref  
             +single_doc_edit key='ref_model' ref_model='model' label='reference model' direct=true
         else if is_user_ref  

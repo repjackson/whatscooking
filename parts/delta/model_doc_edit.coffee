@@ -15,7 +15,16 @@ if Meteor.isClient
 
     Template.model_doc_edit.helpers
         template_exists: ->
-            false
+            current_model = Docs.findOne(Router.current().params.doc_id).model
+            unless current_model.model is 'model'
+                if Template["#{current_model}_edit"]
+                    return true
+                else
+                    return false
+            else
+                return false
+
+            # false
             # # current_model = Docs.findOne(slug:Router.current().params.model_slug).model
             # current_model = Router.current().params.model_slug
             # if Template["#{current_model}_doc_edit"]
@@ -24,7 +33,7 @@ if Meteor.isClient
             # else
             #     # console.log 'false'
             #     return false
-            
+
         model_template: ->
             # current_model = Docs.findOne(slug:Router.current().params.model_slug).model
             current_model = Router.current().params.model_slug

@@ -1,9 +1,9 @@
 template(name='dish_card')
     .ui.stackable.grid.segment
-        .four.wide.column
+        .four.wide.center.aligned.column
             //- img.ui.fluid.image(src="{{c.url image }}")
             img.ui.fluid.rounded.image(src="{{c.url image_id width=400 height=600 crop='fit'}}")
-        .twelve.wide.column
+        .twelve.wide.center.aligned.column
             .ui.header #{title}
             +ismall name='dish'
             .ui.inline.small.header dishes
@@ -28,18 +28,18 @@ template(name='dish_view')
     with current_doc
         .ui.stackable.padded.grid
             .centered.middle.aligned.row
-                .four.wide.column
+                .four.wide.center.aligned.column
                     a.ui.large.basic.circular.compact.button(href="/m/dish")
                         i.left.chevron.icon
                         +icolor name='real-food-for-meals' classes='ui mini inline image'
                         |dishes
                     
-                .eight.wide.column
+                .eight.wide.center.aligned.column
                     .ui.center.aligned.header
                         small viewing
                         |'#{title}'
                         small dish
-                .four.wide.column
+                .four.wide.center.aligned.column
                     if can_edit
                         a.ui.large.basic.circular.button(href="/dish/#{_id}/edit")
                             i.pencil.blue.icon

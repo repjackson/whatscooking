@@ -142,10 +142,8 @@ template(name='user_credit')
                                         //- if is_dev
                                         //-     +remove_button
                         //- +range_edit                
-            .column
-                
-            .column
-                if is_admin
+            if is_admin
+                .column
                     .ui.segment
                         .ui.header
                             i.shield.icon

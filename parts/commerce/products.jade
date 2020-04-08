@@ -30,7 +30,7 @@ template(name='product_view')
                 .eight.wide.center.aligned.column
                     .ui.center.aligned.header #{title}
                 .four.wide.center.aligned.column
-                    a.ui.basic.circular.button(href="/product/#{_id}/edit")
+                    a.ui.basic.circular.button(href="/m/product/#{_id}/edit")
                         i.blue.pencil.icon
                         |edit        
             .five.wide.column
@@ -41,7 +41,7 @@ template(name='product_view')
                     +icolor name='closet'
                     | pantries included in
                 each pantry_inclusions
-                    a.ui.small.header(href="/meal/#{_id}/view")
+                    a.ui.small.header(href="/m/meal/#{_id}/view")
                         img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
                         |#{title}
                 .ui.header 
@@ -71,22 +71,22 @@ template(name='product_view')
 
 
 
-template(name='product_edit')
-    with current_doc
-        .ui.stackable.padded.grid
-            .row
-                .four.wide.column
-                .eight.wide.column
-                    .ui.header edit '#{title}' product
-                .four.wide.column
-                    a.ui.large.circular.basic.button(href="/product/#{_id}/view")
-                        i.checkmark.green.icon
-                        |save        
-            .five.wide.column
-                .ui.header #{title}
-                +text_edit key='title' direct=true
-                +array_edit key='tags' direct=true
-                +image_edit key='image_id' direct=true
-            .six.wide.column
-                img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
-                +textarea_edit key='description' direct=true
+//- template(name='product_edit')
+//-     with current_doc
+//-         .ui.stackable.padded.grid
+//-             .row
+//-                 .four.wide.column
+//-                 .eight.wide.column
+//-                     .ui.header edit '#{title}' product
+//-                 .four.wide.column
+//-                     a.ui.large.circular.basic.button(href="/product/#{_id}/view")
+//-                         i.checkmark.green.icon
+//-                         |save        
+//-             .five.wide.column
+//-                 .ui.header #{title}
+//-                 +text_edit key='title' direct=true
+//-                 +array_edit key='tags' direct=true
+//-                 +image_edit key='image_id' direct=true
+//-             .six.wide.column
+//-                 img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
+//-                 +textarea_edit key='description' direct=true

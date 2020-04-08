@@ -5,12 +5,12 @@ template(name='delta')
                 .five.wide.column
                     if is_loading
                         .ui.inline.header.pulsing
-                            i.yin.yang.loading.large.icon
-                            +icolor name=icon classes='loading'
-                            |loading #{title}
+                            //- i.yin.yang.loading.large.icon
+                            +icolor name=color_icon classes='pulsing'
+                            |loading #{title}...
                     else
                         .ui.inline.header(title="#{description}, #{views} views")
-                            +icolor name=icon
+                            +icolor name=color_icon
                             | #{title}
                     unless is_loading
                         if currentUser
@@ -18,8 +18,8 @@ template(name='delta')
                                 i.plus.large.green.icon
                         //- +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' label="bookmark"
                         if is_admin
-                            .ui.icon.button.edit_model
-                                i.cog.icon
+                            .ui.icon.circular.basic.button.edit_model
+                                i.grey.cog.icon
                         if current_delta
                             i.refresh.circular.link.reset.icon(title='reload session')
                             if is_dev
@@ -51,11 +51,11 @@ template(name='delta')
                                     each sortable_fields
                                         .item.set_sort_key 
                                             |#{title}
-                        .ui.compact.icon.button.set_sort_direction
+                        .ui.compact.icon.basic.button.set_sort_direction
                             if sorting_up
-                                i.sort.amount.down.icon
+                                i.sort.amount.down.large.icon
                             else
-                                i.sort.amount.up.icon
+                                i.sort.amount.up.large.icon
                         //- .ui.compact.button.set_sort_direction
                         //-     |#{current_delta.sort_direction}
                         |&nbsp;
@@ -107,17 +107,25 @@ template(name='delta')
                                         .line
                                         .line
                             else 
-                                +delta_result
+                                if key_value_is delta.view_mode 'cards'
+                                    .ui.header cards
+                                    +delta_result
+                                else 
+                                    +delta_result
                     //- +Template.dynamic template=view_mode_template
-            .row 
-                .sixteen.wide.column
-                    if model_stats_exists
-                        +Template.dynamic template=model_stats
-                    .ui.header calculations
-                    .ui.button rerun calculations
+            //- .row 
+            //-     .sixteen.wide.column
+            //-         if model_stats_exists
+            //-             +Template.dynamic template=model_stats
+            //-         .ui.header calculations
+            //-         .ui.button rerun calculations
         unless current_model
-            .ui.big.button.create_model create model
-                
+            if is_admin
+                .ui.big.button.create_model create model
+            else 
+                .ui.header model not found
+            
+            
 template(name='delta_table')
     .ui.table
         thead
@@ -156,19 +164,20 @@ template(name='facet')
     div
     if filtering_res
         //- .ui.hidden.divider
-        .ui.styled.fluid.rounded.accordion
+        .ui.fluid.rounded.accordion
             .active.title
                 if icon
-                    i.grey.icon(class=icon)
+                    +icolor name=icon classes='ui avatar image'
+                    //- i.grey.icon(class=icon)
                 .ui.grey.inline.header 
                     if title
                         |#{title}
                     else 
                         |#{key}
                         //- i.dropdown.icon
-                .ui.icon.small.transparent.input
-                    i.search.icon
-                    input.add_filter(type='text')
+                //- .ui.icon.small.transparent.input
+                //-     i.search.icon
+                //-     input.add_filter(type='text')
             .active.content
                 //- div
                 each filtering_res

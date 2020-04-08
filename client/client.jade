@@ -51,7 +51,9 @@ template(name='layout')
     //- +new_nav
     #main_area.global_container
         +yield
-    +footer
+    if is_an_admin
+        +role_switcher
+    //- +footer
 
 
 

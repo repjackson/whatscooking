@@ -44,6 +44,12 @@ template(name='grid')
                 +icolor name='chat' 
                 |social
             .ui.stackable.cards
+                a.ui.link.card(href="/m/user")
+                    .content 
+                        .icon.header
+                            +icolor name='groups'
+                            |users
+            .ui.stackable.cards
                 a.ui.link.card(href="/m/tribe")
                     .content 
                         .icon.header
@@ -54,3 +60,8 @@ template(name='grid')
                         .icon.header
                             +icolor name='chat'
                             |chat
+                a.ui.link.card(href="/m/model")
+                    .content 
+                        .icon.header
+                            +icolor name='database'
+                            |models

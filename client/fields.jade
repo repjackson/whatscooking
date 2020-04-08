@@ -823,12 +823,13 @@ template(name='single_doc_edit')
     .ui.inline.header(title=key) 
         |#{label} #{title}
     each choices
-        .ui.compact.button.select_choice(class=choice_class)
+        .ui.compact.circular.button.select_choice(class=choice_class)
             if icon 
-                i.icon(class=icon)
+                +icolor name=icon classes='ui mini inline image'
+                //- i.icon(class=icon)
             |#{title}
-            |#{calculated_label}
-            |#{slug}
+            //- |#{calculated_label}
+            //- |#{slug}
 
 
 template(name='multi_doc_edit')

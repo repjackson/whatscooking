@@ -41,6 +41,10 @@ Template.registerHelper 'global_subs_ready', () ->
 Template.registerHelper 'view_template', -> "#{@field_type}_view"
 Template.registerHelper 'edit_template', -> "#{@field_type}_edit"
 
+Template.registerHelper 'current_model', ->
+    Docs.findOne
+        model:'model'
+        slug: Router.current().params.model_slug
 
 Template.registerHelper 'fields', () ->
     model = Docs.findOne
@@ -242,5 +246,6 @@ Template.registerHelper 'loading_class', ()->
 
 Template.registerHelper 'in_dev', ()-> Meteor.isDevelopment
 
-Template.registerHelper 'is_eric', ()-> if Meteor.userId() and Meteor.userId() in ['K77p8B9jpXbTz6nfD'] then true else false
+Template.registerHelper 'is_an_admin', ()->
+    if Meteor.userId() and Meteor.userId() in ['DyNFLrLXySaYuShto','GzYbqYGeiQ6HwNNYj'] then true else false
 Template.registerHelper 'publish_when', ()-> moment(@publish_date).fromNow()

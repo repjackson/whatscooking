@@ -3,15 +3,15 @@ template(name='meal_view')
         .ui.stackable.padded.grid
             .middle.aligned.row
                 .four.wide.center.aligned.column
-                    a.ui.basic.circular.button(href="/")
+                    a.ui.basic.circular.button(href="/m/meal")
                         i.large.left.chevron.icon
                         +icolor name='fire-element' classes='ui mini inline image'
                         |whats cookin
                 .eight.wide.center.aligned.column
                     .ui.large.header 
-                        small viewing
-                        |'#{meal_dish.title}'
-                        small meal
+                        //- small viewing
+                        h1 #{meal_dish.title}
+                        //- small meal
                 .four.wide.center.aligned.column
                     if can_edit
                         a.ui.large.basic.circular.button(href="/meal/#{_id}/edit")

@@ -14,13 +14,13 @@ template(name='nav')
                 |whats cookin
             span.mobile.only
                 |wc
-        a.icon.item.mobile.hidden(href='/users' class="{{isActivePath '/users'}}" title='users')
-            //- i.users.icon
-            +icolor name='group' classes='ui inline mini image'
-            |users
-        a.mobile.hidden.item.mobile.hidden(href='/m/tribe' class="{{isActivePath '/tribes'}}" title='tribes')
-            +icolor name='log-cabin' classes='ui inline mini image'
-            |tribes
+        //- a.icon.item.mobile.hidden(href='/users' class="{{isActivePath '/users'}}" title='users')
+        //-     //- i.users.icon
+        //-     +icolor name='group' classes='ui inline mini image'
+        //-     |users
+        //- a.mobile.hidden.item.mobile.hidden(href='/m/tribe' class="{{isActivePath '/tribes'}}" title='tribes')
+        //-     +icolor name='log-cabin' classes='ui inline mini image'
+        //-     |tribes
         //- a.mobile.hidden.item(href="/new_meal" title='cook')
         //-     +icolor name='cooking' classes='ui inline mini image'
         //-     |cook
@@ -34,11 +34,11 @@ template(name='nav')
         //-     +icolor name='ingredients' classes='ui inline mini image'
         //-     |ingredients
         .right.menu
-            if is_admin 
-                a.icon.item.mobile.hidden(href='/admin' class="{{isActivePath '/admin'}}" title="admin")
-                    i.shield.icon
-                a.icon.item.mobile.hidden(href='/m/model' class="{{isActivePath '/m/model'}}" title="delta")
-                    i.code.icon
+            //- if is_admin 
+                //- a.icon.item.mobile.hidden(href='/admin' class="{{isActivePath '/admin'}}" title="admin")
+                //-     i.shield.icon
+                //- a.icon.item.mobile.hidden(href='/m/model' class="{{isActivePath '/m/model'}}" title="delta")
+                //-     i.code.icon
                 //- a.icon.item.mobile.hidden(href='/orders' class="{{isActivePath '/orders'}}" title="orders")
                 //-     i.list.icon
                 
@@ -48,11 +48,11 @@ template(name='nav')
             //-     i.chat.outline.icon
                 //- i.rss.icon
             
-            a.icon.item.mobile.hidden(href='/chat' class="{{isActivePath '/chat'}}" title='chat') 
-                i.chat.outline.blue.large.icon
+            //- a.icon.item.mobile.hidden(href='/chat' class="{{isActivePath '/chat'}}" title='chat') 
+            //-     i.chat.outline.blue.large.icon
             if currentUser
-                a.icon.item(href='/alerts' class="{{isActivePath '/alerts'}}" title='alerts') 
-                    i.bell.large.yellow.icon(class=alert_icon_class)
+                //- a.icon.item(href='/alerts' class="{{isActivePath '/alerts'}}" title='alerts') 
+                //-     i.bell.large.yellow.icon(class=alert_icon_class)
                 a.item(href="/user/#{currentUser.username}/credit" title='your credit')
                     .ui.green.header
                         |#{currentUser.credit}c
@@ -198,14 +198,6 @@ template(name='role_switcher')
         //- +user_array_element_toggle key='roles' value='dev' user=currentUser
     //- if current_user
     //-     with current_user
-    //- else if currentUser
-    //-     with currentUser
     //- +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
     //- if is_admin
-        //- +multi_doc_edit key='current_roles' label='current roles' ref_model='role' direct=true
-    //- +user_array_element_toggle key='current_roles' value='admin' user=currentUser
-    //- +user_array_element_toggle key='current_roles' value='student' user=currentUser
-    //- +user_array_element_toggle key='current_roles' value='staff' user=currentUser
-    +user_array_element_toggle key='roles' value='student' user=currentUser
-    +user_array_element_toggle key='roles' value='teacher' user=currentUser
-    +user_array_element_toggle key='roles' value='parent' user=currentUser
+    +user_array_element_toggle key='roles' value='admin' user=currentUser

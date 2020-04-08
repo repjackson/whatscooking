@@ -9,6 +9,8 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'docs', selected_tags.array(), Router.current().params.model_slug
 
     Template.model_view.helpers
+        current_model: ->
+            Router.current().params.model_slug
         model: ->
             Docs.findOne
                 model:'model'

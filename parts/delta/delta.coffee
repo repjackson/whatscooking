@@ -7,6 +7,7 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'model_fields_from_slug', Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'my_delta'
+        @autorun -> Meteor.subscribe 'model_docs', 'dish'
         Session.set 'loading', true
         Meteor.call 'set_facets', Router.current().params.model_slug, ->
             Session.set 'loading', false
@@ -276,7 +277,7 @@ if Meteor.isClient
             facet = Template.parentData()
             delta = Docs.findOne model:'delta'
             if Session.equals 'loading', true
-                 'disabled'
+                 'disabled loading'
             else if facet.filters.length > 0 and @name in facet.filters
                 'active'
             else 'basic'

@@ -45,58 +45,58 @@ if Meteor.isClient
 
     Template.user_credit.events
         'click .add_five_credits': ->
-            console.log Template.instance()
-            if confirm 'add 5 credits?'
-                Session.set('topup_amount',5)
-                Template.instance().checkout.open
-                    name: 'credit deposit'
-                    # email:Meteor.user().emails[0].address
-                    description: 'wc top up'
-                    amount: 500
+            # console.log Template.instance()
+            # if confirm 'add 5 credits?'
+            Session.set('topup_amount',5)
+            Template.instance().checkout.open
+                name: 'credit deposit'
+                # email:Meteor.user().emails[0].address
+                description: 'wc top up'
+                amount: 500
 
 
         'click .add_ten_credits': ->
-            console.log Template.instance()
-            if confirm 'add 10 credits?'
-                Session.set('topup_amount',10)
-                Template.instance().checkout.open
-                    name: 'credit deposit'
-                    # email:Meteor.user().emails[0].address
-                    description: 'wc top up'
-                    amount: 1000
+            # console.log Template.instance()
+            # if confirm 'add 10 credits?'
+            Session.set('topup_amount',10)
+            Template.instance().checkout.open
+                name: 'credit deposit'
+                # email:Meteor.user().emails[0].address
+                description: 'wc top up'
+                amount: 1000
 
 
         'click .add_twenty_credits': ->
-            console.log Template.instance()
-            if confirm 'add 20 credits?'
-                Session.set('topup_amount',20)
-                Template.instance().checkout.open
-                    name: 'credit deposit'
-                    # email:Meteor.user().emails[0].address
-                    description: 'wc top up'
-                    amount: 2000
+            # console.log Template.instance()
+            # if confirm 'add 20 credits?'
+            Session.set('topup_amount',20)
+            Template.instance().checkout.open
+                name: 'credit deposit'
+                # email:Meteor.user().emails[0].address
+                description: 'wc top up'
+                amount: 2000
 
 
         'click .add_fifty_credits': ->
-            console.log Template.instance()
-            if confirm 'add 50 credits?'
-                Session.set('topup_amount',50)
-                Template.instance().checkout.open
-                    name: 'credit deposit'
-                    # email:Meteor.user().emails[0].address
-                    description: 'wc top up'
-                    amount: 5000
+            # console.log Template.instance()
+            # if confirm 'add 50 credits?'
+            Session.set('topup_amount',50)
+            Template.instance().checkout.open
+                name: 'credit deposit'
+                # email:Meteor.user().emails[0].address
+                description: 'wc top up'
+                amount: 5000
 
 
         'click .add_hundred_credits': ->
-            console.log Template.instance()
-            if confirm 'add 100 credits?'
-                Session.set('topup_amount',100)
-                Template.instance().checkout.open
-                    name: 'credit deposit'
-                    # email:Meteor.user().emails[0].address
-                    description: 'wc top up'
-                    amount: 10000
+            # console.log Template.instance()
+            # if confirm 'add 100 credits?'
+            Session.set('topup_amount',100)
+            Template.instance().checkout.open
+                name: 'credit deposit'
+                # email:Meteor.user().emails[0].address
+                description: 'wc top up'
+                amount: 10000
 
 
 
