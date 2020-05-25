@@ -8,7 +8,7 @@ if Meteor.isClient
     Template.profile_layout.onCreated ->
         @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
         @autorun -> Meteor.subscribe 'user_events', Router.current().params.username
-        # @autorun -> Meteor.subscribe 'student_stats', Router.current().params.username
+        # @autorun -> Meteor.subscribe 'user_stats', Router.current().params.username
     Template.profile_layout.onRendered ->
         # Meteor.setTimeout ->
         #     $('.button').popup()
@@ -35,7 +35,7 @@ if Meteor.isClient
         # ssd: ->
         #     user = Meteor.users.findOne username:Router.current().params.username
         #     Docs.findOne
-        #         model:'student_stats'
+        #         model:'user_stats'
         #         user_id:user._id
 
 
@@ -46,7 +46,7 @@ if Meteor.isClient
                 duration: 750
             )
         'click .toggle_size': -> Session.set 'view_side', !Session.get('view_side')
-        'click .recalc_student_stats': -> Meteor.call 'recalc_student_stats', Router.current().params.username
+        'click .recalc_user_stats': -> Meteor.call 'recalc_user_stats', Router.current().params.username
         'click .set_delta_model': -> Meteor.call 'set_delta_facets', @slug, null, true
         'click .logout_other_clients': -> Meteor.logoutOtherClients()
         'click .logout': ->
@@ -91,11 +91,11 @@ if Meteor.isServer
             model:'log_event'
             user_id:user._id
 
-    Meteor.publish 'student_stats', (user_id)->
+    Meteor.publish 'user_stats', (user_id)->
         user = Meteor.users.findOne user_id
         if user
             Docs.find
-                model:'student_stats'
+                model:'user_stats'
                 user_id:user._id
 
 
@@ -323,21 +323,21 @@ if Meteor.isServer
 
 
 
-        recalc_student_stats: (user_id)->
+        recalc_user_stats: (user_id)->
             user = Meteor.users.findOne user_id
             unless user
                 user = Meteor.users.findOne username
             user_id = user._id
             # console.log classroom
-            student_stats_doc = Docs.findOne
-                model:'student_stats'
+            user_stats_doc = Docs.findOne
+                model:'user_stats'
                 user_id: user_id
 
-            unless student_stats_doc
+            unless user_stats_doc
                 new_stats_doc_id = Docs.insert
-                    model:'student_stats'
+                    model:'user_stats'
                     user_id: user_id
-                student_stats_doc = Docs.findOne new_stats_doc_id
+                user_stats_doc = Docs.findOne new_stats_doc_id
 
             debits = Docs.find({
                 model:'log_event'
@@ -357,16 +357,16 @@ if Meteor.isServer
             for credit in credits.fetch()
                 total_credit_amount += credit.amount
 
-            student_balance = total_credit_amount-total_debit_amount
+            user_balance = total_credit_amount-total_debit_amount
 
-            # average_credit_per_student = total_credit_amount/student_count
-            # average_debit_per_student = total_debit_amount/student_count
+            # average_credit_per_user = total_credit_amount/user_count
+            # average_debit_per_user = total_debit_amount/user_count
 
 
-            Docs.update student_stats_doc._id,
+            Docs.update user_stats_doc._id,
                 $set:
                     credit_count: credit_count
                     debit_count: debit_count
                     total_credit_amount: total_credit_amount
                     total_debit_amount: total_debit_amount
-                    student_balance: student_balance
+                    user_balance: user_balance

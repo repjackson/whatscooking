@@ -73,9 +73,9 @@ Meteor.methods
                     "<br><h4>view your messages here:<a href=#{message_link}>#{message_link}</a>.</h4>"
             })
 
-    checkout_students: ()->
+    checkout_users: ()->
         now = Date.now()
-        # checkedin_students = Meteor.users.find(healthclub_checkedin:true).fetch()
+        # checkedin_users = Meteor.users.find(healthclub_checkedin:true).fetch()
         checkedin_sessions = Docs.find(
             model:'healthclub_session',
             active:true
@@ -86,20 +86,20 @@ Meteor.methods
         for session in checkedin_sessions
             # checkedin_doc =
             #     Docs.findOne
-            #         user_id:student._id
+            #         user_id:user._id
             #         model:'healthclub_checkin'
             #         active:true
             diff = now-session._timestamp
             minute_difference = diff/1000/60
             if minute_difference>60
-                # Meteor.users.update(student._id,{$set:healthclub_checkedin:false})
+                # Meteor.users.update(user._id,{$set:healthclub_checkedin:false})
                 Docs.update session._id,
                     $set:
                         active:false
                         logout_timestamp:Date.now()
-                # checkedin_students = Meteor.users.find(healthclub_checkedin:true).fetch()
+                # checkedin_users = Meteor.users.find(healthclub_checkedin:true).fetch()
 
-    check_student_status: (user_id)->
+    check_user_status: (user_id)->
         user = Meteor.users.findOne user_id
 
 

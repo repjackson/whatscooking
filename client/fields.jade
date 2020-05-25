@@ -619,7 +619,7 @@ template(name='array_edit')
         //- +clear_value                
     if field_value
         each field_value
-            .ui.large.basic.label
+            .ui.large.basic.white.label
                 i.delete.icon.remove_element
                 |#{this}
                 
@@ -830,8 +830,8 @@ template(name='single_doc_edit')
         |#{label} #{title}
     each choices
         .ui.compact.circular.button.select_choice(class=choice_class)
-            if icon 
-                +icolor name=icon classes='ui mini inline image'
+            if colot_icon 
+                +icolor name=color_icon classes='ui mini inline image'
                 //- i.icon(class=icon)
             |#{title}
             //- |#{calculated_label}
@@ -1283,7 +1283,7 @@ template(name='document_edit')
 
 
 template(name='slug_edit')
-    .ui.inline.small.header.slugify_title
+    a.ui.inline.small.header.slugify_title
         if title
             |#{title}
         else if label

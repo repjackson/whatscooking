@@ -167,12 +167,12 @@ Meteor.users.helpers
             Docs.find
                 model:'order'
                 _author_id: Meteor.userId()
-    # is_current_student: ->
+    # is_current_user: ->
     #     if @roles
     #         if 'admin' in @roles
-    #             if 'student' in @current_roles then true else false
+    #             if 'user' in @current_roles then true else false
     #         else
-    #             if 'student' in @roles then true else false
+    #             if 'user' in @roles then true else false
     user_tribes: ->
         Docs.find
             model:'tribe'

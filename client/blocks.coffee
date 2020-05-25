@@ -482,7 +482,7 @@ if Meteor.isClient
 #     Meteor.publish 'rules_signed_username', (username)->
 #         Docs.find
 #             model:'rules_and_regs_signing'
-#             student:username
+#             user:username
 #             # agree:true
 #
 #     Meteor.publish 'type', (type)->
@@ -492,7 +492,7 @@ if Meteor.isClient
 #     Meteor.publish 'user_guidelines_username', (username)->
 #         Docs.find
 #             model:'user_guidelines_signing'
-#             # student:username
+#             # user:username
 #             # agree:true
 #
 #     Meteor.publish 'guests', ()->

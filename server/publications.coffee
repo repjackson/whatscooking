@@ -31,11 +31,8 @@ Meteor.publish 'children', (model, parent_id, limit)->
 
 Meteor.publish 'meal_facets', (
     selected_ingredients
-    selected_authors
-    selected_subreddits
     selected_timestamp_tags
     query
-    doc_limit
     doc_sort_key
     doc_sort_direction
     )->

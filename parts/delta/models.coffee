@@ -69,8 +69,8 @@ if Meteor.isClient
             Docs.insert
                 model:'field'
                 parent_id: Router.current().params.doc_id
-                view_roles: ['dev', 'admin', 'student', 'public']
-                edit_roles: ['dev', 'admin', 'student']
+                view_roles: ['dev', 'admin', 'user', 'public']
+                edit_roles: ['dev', 'admin', 'user']
 
 if Meteor.isServer
     Meteor.publish 'model', (slug)->

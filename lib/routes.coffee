@@ -102,10 +102,10 @@ Router.route '/verification_confirmation', -> @render 'verification_confirmation
 Router.route '*', -> @render 'not_found'
 
 # Router.route '/user/:username/m/:type', -> @render 'profile_layout', 'user_section'
-Router.route '/add_student', (->
+Router.route '/add_user', (->
     @layout 'layout'
-    @render 'add_student'
-    ), name:'add_student'
+    @render 'add_user'
+    ), name:'add_user'
 
 Router.route '/forgot_password', -> @render 'forgot_password'
 

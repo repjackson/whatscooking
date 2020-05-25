@@ -53,3 +53,37 @@ template(name='model_edit')
                         +boolean_edit key='show_voting' label='voting' color_icon='elections' direct=true
                     .spacer
                     +comments
+
+
+
+
+template(name='field_edit')
+    .content
+        +text_edit key='title' direct=true label='title'        
+        +text_edit key='key'  direct=true label='key'           
+        +number_edit key='rank' label='rank' direct=true      
+        +color_icon_edit key='icon' label='color icon' direct=true       
+        +textarea_edit key='description' label='description' direct=true
+        if is_admin
+            +text_edit key='field_type' direct=true label='field type'              
+        +single_doc_edit key='field_type' ref_model='field_type' label='field type' direct=true                 
+        +multi_doc_edit key='view_roles' ref_model='role' label='view roles' direct=true icon='eye'          
+        +multi_doc_edit key='edit_roles' ref_model='role' label='edit roles' direct=true icon='pencil'        
+        //- +text_edit key='ref_model' label='Reference Model' direct=true
+        div
+        +boolean_edit key='faceted' label='faceted' color_icon='diamond' direct=true
+        +boolean_edit key='sortable' label='sortable' color_icon='chevron-down' direct=true
+        if is_ref  
+            +single_doc_edit key='ref_model' ref_model='model' label='reference model' direct=true
+        else if is_user_ref  
+            +single_doc_edit key='role_filter' ref_model='role' label='role filter' direct=true
+        div             
+        +remove_button
+            
+//- template(name='view_model')
+        
+template(name='field_view')
+    +text_view key='title'                    
+    +text_view key='key'                    
+    +text_view key='field_type'                    
+    +number_view key='rank' label='rank'                  
