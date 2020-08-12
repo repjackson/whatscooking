@@ -28,7 +28,7 @@ template(name='meal_view')
                         //-     |meals
                         img.ui.fluid.image(src="{{c.url meal_dish.image_id width=400 height=400}}")
                                 
-                        a.ui.basic.circular.button(href="/dish/#{dish_id}/view")
+                        a.ui.basic.circular.button(href="/dish/#{meal_dish._id}/view")
                             |view dish
                         +array_view key='tags' direct=true
                         //- +array_view key='ingredients' direct=true
