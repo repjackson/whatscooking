@@ -15,6 +15,11 @@ template(name='business_food')
     
 template(name='business_products')
     .ui.header products
+    if is_admin
+        .ui.circular.icon.button.add_product
+            i.large.plus.icon
+    each products 
+        +product_card
     
 template(name='business_services')
     .ui.header services

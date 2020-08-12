@@ -3,17 +3,15 @@ template(name='business_layout')
     with current_business
         .ui.stackable.padded.grid
             .middle.aligned.row
-                .four.wide.center.aligned.column
+                .sixteen.wide.center.aligned.column
                     a.ui.circular.basic.button(href="/m/business")
                         i.left.chevron.icon
-                        +icolor name='log-cabin' classes='ui mini inline image'
-                        |businesss
-                .eight.wide.center.aligned.column 
-                    .ui.center.aligned.header 
+                        +icolor name='restaurant-building' classes='ui mini inline image'
+                        span.mobile.hidden businesss
+                    .ui.center.aligned.inline.header 
                         if icon
                             +icolor name=icon
                         |#{title}
-                .four.wide.center.aligned.column 
                     if can_edit
                         a.ui.circular.basic.icon.button(href="/business/#{_id}/edit")
                             i.setting.large.icon
