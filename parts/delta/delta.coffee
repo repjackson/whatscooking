@@ -13,6 +13,11 @@ if Meteor.isClient
             Session.set 'loading', false
     # Template.delta.onRendered ->
     #     Meteor.call 'log_view', @_id, ->
+    Template.registerHelper 'delta_key_value_is', (key, value) ->
+        # console.log 'key', key
+        delta = Docs.findOne model:'delta'
+        # console.log 'value', value
+        delta["#{key}"] is value
 
     Template.delta.helpers
         current_model: ->

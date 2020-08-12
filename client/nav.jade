@@ -23,16 +23,19 @@ template(name='nav')
         a.mobile.hidden.item.mobile.hidden(href='/m/tribe' class="{{isActivePath '/tribes'}}" title='tribes')
             +icolor name='log-cabin' classes='ui inline mini image'
             |tribes
-        a.mobile.hidden.item(href="/new_meal" title='cook')
-            +icolor name='cooking' classes='ui inline mini image'
-            |cook
-        a.mobile.hidden.item(href='/recipes' class="{{isActivePath '/recipes'}}") 
+        // a.mobile.hidden.item(href="/new_meal" title='cook')
+        //     +icolor name='cooking' classes='ui inline mini image'
+        //     |cook
+        a.mobile.hidden.item(href='/m/recipe' class="{{isActivePath '/m/recipe'}}") 
             +icolor name='beer-recipe'
             |recipes
-        a.mobile.hidden.item(href='/dishes' class="{{isActivePath '/dishes'}}" title='dishes') 
+        a.mobile.hidden.item(href='/m/business' class="{{isActivePath '/m/business'}}") 
+            +icolor name='restaurant'
+            |businesses
+        a.mobile.hidden.item(href='/m/dish' class="{{isActivePath '/m/dish'}}" title='dishes') 
             +icolor name='real-food-for-meals' classes='ui inline mini image'
             |dishes
-        a.mobile.hidden.item(href='/ingredients' class="{{isActivePath '/ingredients'}}" title='ingredients') 
+        a.mobile.hidden.item(href='/m/ingredient' class="{{isActivePath '/m/ingredient'}}" title='ingredients') 
             +icolor name='ingredients' classes='ui inline mini image'
             |ingredients
         .right.menu
@@ -41,7 +44,7 @@ template(name='nav')
                     i.shield.icon
                 a.icon.item.mobile.hidden(href='/m/model' class="{{isActivePath '/m/model'}}" title="delta")
                     i.code.icon
-                a.icon.item.mobile.hidden(href='/orders' class="{{isActivePath '/orders'}}" title="orders")
+                a.icon.item.mobile.hidden(href='/m/order' class="{{isActivePath '/m/order'}}" title="orders")
                     i.list.icon
                 
             // a.mobile.hidden.icon.item(href='/events' class="{{isActivePath '/events'}}" title='events') 
