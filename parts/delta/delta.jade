@@ -2,7 +2,7 @@ template(name='delta')
     .ui.stackable.padded.grid
         with current_model
             .row
-                .five.wide.column
+                .four.wide.column
                     if is_loading
                         .ui.inline.header.pulsing
                             //- i.yin.yang.loading.large.icon
@@ -43,7 +43,7 @@ template(name='delta')
                     div
                     each sorted_facets
                         +facet
-                .eleven.wide.column
+                .twelve.wide.column
                     |&nbsp;
                     .ui.small.icon.input
                         if current_delta.search_query

@@ -1,0 +1,41 @@
+
+template(name='business_segment')
+    .ui.fluid.segment.stackable.grid
+        a.four.wide.column(href="/business/#{slug}")
+            if image_id
+                img.ui.fluid.image(src="{{c.url image_id}}")
+        .twelve.wide.column
+            a.ui.header(href="/business/#{slug}")
+                |#{title}
+            |#{member_ids.length} members
+            |!{description}
+            //- +ismall name='tags' classes='ui inline image'
+            each tags
+                .ui.basic.label #{this}
+            div
+            if is_admin
+                .ui.small.header slug: #{slug}
+            if can_edit
+                a.ui.circular.basic.icon.button(href="/business/#{_id}/edit")
+                    i.pencil.blue.icon
+                    
+                    
+template(name='business_card')
+    .ui.card
+        if image
+            a(href="/business/#{slug}")
+                img.ui.fluid.image(src="{{c.url image}}")
+        .content
+            a.ui.header(href="/business/#{slug}")
+                |#{title}
+            |#{member_ids.length} members
+            |!{description}
+            //- +ismall name='tags' classes='ui inline image'
+            each tags
+                .ui.basic.label #{this}
+            div
+            if is_admin
+                .ui.small.header slug: #{slug}
+            if can_edit
+                a.ui.circular.basic.icon.button(href="/business/#{_id}/edit")
+                    i.pencil.blue.icon

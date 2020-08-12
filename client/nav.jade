@@ -1,7 +1,7 @@
 template(name='nav')
     .ui.attached.fluid.borderless.topnav.menu
-        //- a.icon.item.toggle_sidebar
-        //-     i.bars.icon
+        a.icon.item.toggle_sidebar
+            i.bars.icon
         // a.icon.item.home(href='/' class="{{isActivePath '/'}}" title='menu')
         //     +icolor name='circled-menu' classes='ui inline mini image'
         //- a.icon.item(href='/grid' class="{{isActivePath '/grid'}}" title='menu')
@@ -56,7 +56,7 @@ template(name='nav')
             a.icon.item.mobile.hidden(href='/chat' class="{{isActivePath '/chat'}}" title='chat') 
                 i.chat.outline.blue.large.icon
             if currentUser
-                a.icon.item(href='/alerts' class="{{isActivePath '/alerts'}}" title='alerts') 
+                a.icon.item.alerts(href='/alerts' class="{{isActivePath '/alerts'}}" title='alerts') 
                     i.bell.large.yellow.icon(class=alert_icon_class)
                 a.item(href="/user/#{currentUser.username}/credit" title='your credit')
                     .ui.green.header
@@ -67,10 +67,145 @@ template(name='nav')
                     else 
                         i.user.icon
                     |#{currentUser.username}
+                a.icon.item.toggle_rightbar
+                    i.ellipsis.vertical.large.icon
+                    
             else 
                 a.icon.item(href="/login")
                     +icolor name='enter-2' classes='ui mini inline image'
                     |login
+
+
+
+template(name='topbar')
+    .ui.inverted.fluid.large.attached.menu(style="background-color:#{currentUser.theme_color};")
+        .item.header notifications
+        .ui.list
+            each recent_alerts
+                .item #{description} #{author.name}
+        .spacer
+        .spacer
+        a.ui.tertiary.button.item(href="/inbox")
+            i.inbox.icon
+            |inbox
+            
+
+template(name='right_sidebar')
+    .ui.right.sidebar.inverted.vertical.large.borderless.menu(style="background-color:#{currentUser.theme_color};")
+        // a.item.toggle_rightbar(href="/user/#{currentUser.username}" class="{{isActiveRoute 'user_layout'}}")
+        //     img.ui.avatar.compact.image(src="{{c.url 'one_logo' height=200 width=200 gravity='face' crop='fill'}}")
+        //     |#{currentUser.name}
+        a.item.toggle_rightbar(href="/user/#{currentUser.username}/" class="{{isActivePath 'user_dashboard'}}")
+            | dashboard
+            i.dashboard.icon
+        
+        a.item.toggle_rightbar(href="/user/#{currentUser.username}/about" class="{{isActivePath 'user_about'}}")
+            | about
+            i.info.icon
+        // a.item.toggle_rightbar(href="/user/#{currentUser.username}/credits" class="{{isActivePath 'user_credits'}}")
+        //     | received
+        //     i.chevron.down.icon
+        // a.item.toggle_rightbar(href="/user/#{currentUser.username}/debits" class="{{isActivePath 'user_sent'}}")
+        //     | sent
+        //     i.chevron.up.icon
+        a.item.toggle_rightbar(href="/user/#{currentUser.username}/events" class="{{isActivePath 'user_events'}}")
+            | events
+            i.calendar.icon
+        a.item.toggle_rightbar(href="/user/#{currentUser.username}/requests" class="{{isActivePath 'user_requests'}}")
+            | requests
+            i.concierge.bell.icon
+        a.item.toggle_rightbar(href="/user/#{currentUser.username}/food" class="{{isActivePath 'user_food'}}")
+            | food
+            i.food.icon
+        a.item.toggle_rightbar(href="/user/#{currentUser.username}/orders" class="{{isActivePath 'user_orders'}}")
+            | orders
+            i.cart.icon
+        a.item.toggle_rightbar(href="/user/#{currentUser.username}/delivery" class="{{isActivePath 'user_delivery'}}")
+            | delivery
+            i.truck.icon
+        a.item.toggle_rightbar(href="/user/#{currentUser.username}/offers" class="{{isActivePath 'user_offers'}}")
+            | offers
+            i.hand.holding.heart.icon
+        // a.item.toggle_rightbar(href="/user/#{currentUser.username}/messages" class="{{isActivePath 'user_messages'}}")
+        //     | chat
+        //     i.chat.icon
+        .ui.divider
+        a.item.toggle_rightbar(href="/user/#{currentUser.username}/edit" title='edit your account')
+            i.cog.large.icon
+            |settings
+
+        a.item.logout(href="/user/#{currentUser.username}/messages" class="{{isActivePath 'user_messages'}}" )
+            |logout
+            if is_logging_out
+                i.refresh.loading.icon
+            else
+                i.sign.out.icon
+
+
+
+template(name='left_sidebar')
+    .ui.left.sidebar.inverted.vertical.large.borderless.menu(style="background-color:#{currentUser.theme_color};")
+        // a.item.toggle_sidebar(href="/" class="{{isActiveRoute '/'}}")
+        //     img.ui.avatar.compact.image(src="{{c.url 'one_logo' height=200 width=200 gravity='face' crop='fill'}}")
+        //     |One
+        a.item.set_member.toggle_sidebar(href="/m/member" class="{{isActivePath 'm/member'}}" title='players')
+            i.users.icon
+            | directory
+        a.item.toggle_sidebar(href="/events" class="{{isActivePath '/events'}}")
+            i.calendar.icon
+            |events
+        a.item.toggle_sidebar(href="/m/request" class="{{isActivePath '/m/request'}}")
+            i.concierge.bell.icon
+            |requests
+        a.item.toggle_sidebar(href="/m/offer" class="{{isActivePath '/m/offer'}}")
+            i.hand.holding.heart.icon
+            |offers
+        a.item.toggle_sidebar.set_post(href="/m/post" class="{{isActivePath '/m/post'}}")
+            i.newspaper.icon
+            |news
+        // a.item.toggle_sidebar(href="/m/collective" class="{{isActivePath 'requests'}}")
+        //     i.users.icon
+        //     |collectives
+        a.item.toggle_sidebar.set_bug(href="/m/bug" class="{{isActivePath '/m/bug'}}")
+            i.bug.icon
+            |bugs
+        // a.item.toggle_sidebar.set_rental(href="/m/rental" class="{{isActivePath regex='rentals'}}")
+        //     i.clock.icon
+        //     |rentals
+        // if has_badge 'facilitator'
+        a.item.toggle_sidebar(href="/chat" class="{{isActivePath '/chat'}}" title='chat') 
+            |chat
+            i.chat.icon
+        if is_in_admin
+            a.icon.item.toggle_admin.toggle_sidebar
+                |toggle admin
+                if is_admin
+                    i.shield.blue.large.icon
+                else
+                    i.shield.large.icon
+            
+        if is_admin
+            // a.item.toggle_sidebar.set_badge(href="/m/badge" class="{{isActivePath 'badges'}}")
+            //     i.certificate.blue.icon
+            //     | badges
+            // a.item.toggle_sidebar.set_debit(href="/m/debit" class="{{isActivePath regex='rentals'}}")
+            //     i.gift.blue.icon
+            //     |gifts
+            .divider
+            // a.item.toggle_sidebar.set_project(href="/m/project" class="{{isActivePath regex='projects'}}")
+            //     i.tasks.blue.icon
+            //     | projects
+            // a.item.toggle_sidebar(href="/m/room" class="{{isActiveRoute 'requests'}}")
+            //     i.building.blue.icon
+            //     |rooms
+            a.blue.item.set_model.toggle_sidebar(href="/m/model" class="{{isActivePath '/m/model'}}")
+                |admin
+                i.database.blue.icon
+            a.item.set_user.toggle_sidebar(href="/m/user" class="{{isActiveRoute '/m/user'}}")
+                i.blue.users.icon
+                | all users
+
+
 
 
 template(name='footer')

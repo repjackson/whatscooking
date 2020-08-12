@@ -49,31 +49,36 @@ template(name='layout')
     +status    
     +nav
     //- +new_nav
-    #main_area.global_container
-        +yield
-    if is_an_admin
-        .ui.basic.segment
-            +role_switcher
-    .ui.modal
-        .header keyboard shortcuts
-        .content
-            .ui.list 
-                .item
-                    .ui.inline.header g h
-                    | go home
-                .item
-                    .ui.inline.header r a 
-                    | toggle admin
-                .item
-                    .ui.inline.header d c
-                    | config current model
-                .item
-                    .ui.inline.header d s
-                    | save current model
-                .item
-                    .ui.inline.header d s
-                    | save current model
-    //- +footer
+    .ui.bottom.attached.pushable.segment
+        // +top_sidebar
+        +left_sidebar
+        +right_sidebar
+        
+        #main_area.global_container
+            +yield
+        if is_an_admin
+            .ui.basic.segment
+                +role_switcher
+        .ui.modal
+            .header keyboard shortcuts
+            .content
+                .ui.list 
+                    .item
+                        .ui.inline.header g h
+                        | go home
+                    .item
+                        .ui.inline.header r a 
+                        | toggle admin
+                    .item
+                        .ui.inline.header d c
+                        | config current model
+                    .item
+                        .ui.inline.header d s
+                        | save current model
+                    .item
+                        .ui.inline.header d s
+                        | save current model
+        //- +footer
 
 
 
