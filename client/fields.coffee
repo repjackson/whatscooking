@@ -187,9 +187,53 @@ Template.pdf_edit.events
 
 
 
+Template.html_edit.onRendered ->
+    @editor = SUNEDITOR.create((document.getElementById('sample') || 'sample'),{
+        codeMirror: CodeMirror
+        buttonList: [
+            [
+                'undo' 
+                'redo'
+                'font' 
+                'fontSize' 
+                'formatBlock' 
+                'paragraphStyle' 
+                'blockquote'
+                'bold' 
+                'underline' 
+                'italic' 
+                'strike' 
+                'subscript' 
+                'superscript'
+                'fontColor' 
+                'hiliteColor' 
+                'textStyle'
+                'removeFormat'
+                'outdent' 
+                'indent'
+                'align' 
+                'horizontalRule' 
+                'list' 
+                'lineHeight'
+                'fullScreen' 
+                'showBlocks' 
+                'codeView' 
+                'preview' 
+                'table' 
+                'image' 
+                'video' 
+                'audio' 
+                'link'
+            ]
+        ]
+        
+        lang: SUNEDITOR_LANG['en']
+    });
+
 Template.html_edit.events
-    'blur .froala-container': (e,t)->
-        html = t.$('div.froala-reactive-meteorized-override').froalaEditor('html.get', true)
+    'blur .testsun': (e,t)->
+        html = t.editor.getContents(onlyContents: Boolean);
+
         if @direct
             parent = Template.parentData()
         else
@@ -205,73 +249,6 @@ Template.html_edit.events
 
 
 Template.html_edit.helpers
-    getFEContext: ->
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
-        # @current_doc = Docs.findOne Router.current().params.doc_id
-        # @current_doc = Docs.findOne @_id
-        self = @
-        {
-            _value: parent["#{@key}"]
-            _keepMarkers: true
-            _className: 'froala-reactive-meteorized-override'
-            toolbarInline: false
-            initOnClick: false
-            toolbarButtons:
-                [
-                  'fullscreen'
-                  'bold'
-                  'italic'
-                  'underline'
-                  'strikeThrough'
-                  'subscript'
-                  'superscript'
-                  '|'
-                #   'fontFamily'
-                  'fontSize'
-                  'color'
-                #   'inlineStyle'
-                #   'paragraphStyle'
-                  '|'
-                  'paragraphFormat'
-                  'align'
-                  'formatOL'
-                  'formatUL'
-                  'outdent'
-                  'indent'
-                  # 'quote'
-                #   '-'
-                  'insertLink'
-                #   'insertImage'
-                #   'insertVideo'
-                #   'embedly'
-                #   'insertFile'
-                  'insertTable'
-                #   '|'
-                  # 'emoticons'
-                #   'specialCharacters'
-                #   'insertHR'
-                  'selectAll'
-                  'clearFormatting'
-                  '|'
-                #   'print'
-                #   'spellChecker'
-                #   'help'
-                  'html'
-                #   '|'
-                  'undo'
-                  'redo'
-                ]
-            # toolbarButtonsMD: ['bold', 'italic', 'underline']
-            # toolbarButtonsSM: ['bold', 'italic', 'underline']
-            toolbarButtonsXS: ['bold', 'italic', 'underline']
-            imageInsertButtons: ['imageBack', '|', 'imageByURL']
-            tabSpaces: false
-            height: 200
-        }
-
 
 
 

@@ -28,7 +28,6 @@ underscore@1.0.10
 coffeescript
 fourseven:scss
 lepozepo:cloudinary
-froala:editor-reactive
 ecmascript@0.14.3
 modules@0.15.0
 reactive-var@1.0.11

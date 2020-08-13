@@ -26,18 +26,16 @@ template(name='nav')
         // a.mobile.hidden.item(href="/new_meal" title='cook')
         //     +icolor name='cooking' classes='ui inline mini image'
         //     |cook
-        a.mobile.hidden.item(href='/m/recipe' class="{{isActivePath '/m/recipe'}}") 
-            +icolor name='beer-recipe'
-            |recipes
-        a.mobile.hidden.item(href='/m/business' class="{{isActivePath '/m/business'}}") 
+        // a.mobil cipes
+        a.mobile.hidden.item.set_business(href='/m/business' class="{{isActivePath '/m/business'}}") 
             +icolor name='restaurant'
             |businesses
-        a.mobile.hidden.item(href='/m/dish' class="{{isActivePath '/m/dish'}}" title='dishes') 
-            +icolor name='real-food-for-meals' classes='ui inline mini image'
-            |dishes
-        a.mobile.hidden.item(href='/m/ingredient' class="{{isActivePath '/m/ingredient'}}" title='ingredients') 
-            +icolor name='ingredients' classes='ui inline mini image'
-            |ingredients
+        // a.mobile.hidden.item(href='/m/dish' class="{{isActivePath '/m/dish'}}" title='dishes') 
+        //     +icolor name='real-food-for-meals' classes='ui inline mini image'
+        //     |dishes
+        // a.mobile.hidden.item(href='/m/ingredient' class="{{isActivePath '/m/ingredient'}}" title='ingredients') 
+        //     +icolor name='ingredients' classes='ui inline mini image'
+        //     |ingredients
         .right.menu
             if is_admin 
                 a.icon.item.mobile.hidden(href='/admin' class="{{isActivePath '/admin'}}" title="admin")

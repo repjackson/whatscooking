@@ -24,6 +24,10 @@ Template.registerHelper 'calculated_size', (metric) ->
     else if whole is 9 then 'f9'
     else if whole is 10 then 'f10'
 
+Template.registerHelper 'business', () ->
+    Docs.findOne 
+        _id:@business_id
+
 Template.registerHelper 'template_subs_ready', () ->
     Template.instance().subscriptionsReady()
 

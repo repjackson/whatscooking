@@ -191,10 +191,10 @@ if Meteor.isClient
 
         # 'mouseenter .item': (e,t)->
         #     $(e.currentTarget).closest('.item').transition('pulse', 500)
-        'click .menu_dropdown': ->
-            $('.menu_dropdown').dropdown(
-                on:'hover'
-            )
+        # 'click .menu_dropdown': ->
+        #     $('.menu_dropdown').dropdown(
+        #         on:'hover'
+        #     )
 
         # 'click .item': (e,t)->
         #     $(e.currentTarget).closest('.item').transition(
@@ -203,11 +203,11 @@ if Meteor.isClient
         #     )
 
 
-        'click .new_act_test': ->
-            new_session_id =
-                Docs.insert
-                    model:'test_session'
-            Router.go "/test/#{new_session_id}/take"
+        # 'click .new_act_test': ->
+        #     new_session_id =
+        #         Docs.insert
+        #             model:'test_session'
+        #     Router.go "/test/#{new_session_id}/take"
 
         'click #logout': ->
             Session.set 'logging_out', true
@@ -224,6 +224,12 @@ if Meteor.isClient
             Session.set 'loading', true
             # Meteor.call 'log_view', @_id, ->
             Meteor.call 'set_facets', @slug, ->
+                Session.set 'loading', false
+
+        'click .set_business': ->
+            Session.set 'loading', true
+            # Meteor.call 'log_view', @_id, ->
+            Meteor.call 'set_facets', 'business', ->
                 Session.set 'loading', false
 
 
