@@ -22,9 +22,9 @@ template(name='business_segment')
                     
 template(name='business_card')
     .ui.card
-        if image
+        if image_id
             a(href="/business/#{slug}")
-                img.ui.fluid.image(src="{{c.url image}}")
+                img.ui.fluid.image(src="{{c.url image_id}}")
         .content
             a.ui.header(href="/business/#{slug}")
                 |#{title}

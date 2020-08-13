@@ -15,8 +15,6 @@ template(name='business_layout')
                     if can_edit
                         a.ui.circular.basic.icon.button(href="/business/#{_id}/edit")
                             i.setting.large.icon
-            .row
-                .sixteen.wide.column
                     a.ui.basic.circular.compact.button(href="/business/#{slug}" class="{{isActiveRoute regex='business_dashboard'}}")
                         +ismall name='dashboard' classes='ui inline image'
                         |dashboard
@@ -26,31 +24,21 @@ template(name='business_layout')
                     a.ui.basic.circular.compact.button(href="/business/#{slug}/credit" class="{{isActiveRoute regex='business_credit'}}")
                         +ismall name='coins' classes='ui inline image'
                         |credit
-                    a.ui.basic.circular.compact.button(href="/business/#{slug}/meals" class="{{isActiveRoute regex='business_meals'}}")
-                        +ismall name='meal' classes='ui inline image'
-                        |meals
-                    a.ui.basic.circular.compact.button(href="/business/#{slug}/dishes" class="{{isActiveRoute regex='business_dishes'}}")
-                        +ismall name='meal' classes='ui inline image'
-                        |dishes
-                    a.ui.basic.circular.compact.button(href="/business/#{slug}/voting" class="{{isActiveRoute regex='business_voting'}}")
-                        +ismall name='elections' classes='ui inline image'
-                        |voting
-                    a.ui.basic.circular.compact.button(href="/business/#{slug}/events" class="{{isActiveRoute regex='business_events'}}")
-                        +ismall name='calendar' classes='ui inline image'
-                        |events
-                    a.ui.basic.circular.compact.button(href="/business/#{slug}/food" class="{{isActiveRoute regex='business_food'}}")
-                        +ismall name='food' classes='ui inline image'
-                        |food
+                    // a.ui.basic.circular.compact.button(href="/business/#{slug}/meals" class="{{isActiveRoute regex='business_meals'}}")
+                    //     +ismall name='meal' classes='ui inline image'
+                    //     |meals
+                    // a.ui.basic.circular.compact.button(href="/business/#{slug}/dishes" class="{{isActiveRoute regex='business_dishes'}}")
+                    //     +ismall name='meal' classes='ui inline image'
+                    //     |dishes
+                    // a.ui.basic.circular.compact.button(href="/business/#{slug}/food" class="{{isActiveRoute regex='business_food'}}")
+                    //     +ismall name='food' classes='ui inline image'
+                    //     |food
                     //- a.ui.basic.circular.compact.button(href="/business/#{slug}/settings" class="{{isActiveRoute regex='business_settings'}}")
                     //-     +ismall name='settings' classes='ui inline image'
                     //-     |settings
                     a.ui.basic.circular.compact.button(href="/business/#{slug}/products" class="{{isActiveRoute regex='business_products'}}")
                         +ismall name='shopping-cart' classes='ui inline image'
                         |products
-                    a.ui.basic.circular.compact.button(href="/business/#{slug}/services" class="{{isActiveRoute regex='business_services'}}")
-                        +ismall name='service-bell' classes='ui inline image'
-                        |services
-
             .row
                 .four.wide.column 
                     +image_view key='image' icon='image' label='image'
