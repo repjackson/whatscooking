@@ -1,0 +1,22 @@
+template(name='tiffen')
+    .ui.stackable.padded.grid
+        .four.wide.column
+            .ui.header tiffens
+            .ui.header $15
+            .ui.large.green.button.order 
+                |buy tiffen
+        .twelve.wide.column
+            .ui.button.today
+                |today
+            .ui.button.incomplete
+                |incomplete
+            .ui.button.incomplete
+                |incomplete
+            .ui.header orders
+            .ui.cards
+                each orders
+                    a.ui.card(href="/order/#{_id}/view")
+                        .content
+                            .ui.header #{_author_username}
+                            .ui.header #{when}
+            

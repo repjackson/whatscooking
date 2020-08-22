@@ -19,30 +19,30 @@ if Meteor.isClient
         #         })
         #         .sidebar('attach events', '.context.example .menu .toggle_sidebar.item')
         # , 1000
-        Meteor.setTimeout ->
-            # $('.menu .item')
-            #     .popup()
-            $('.ui.left.sidebar')
-                .sidebar({
-                    context: $('.bottom.segment')
-                    transition:'overlay'
-                    exclusive:true
-                    duration:250
-                    scrollLock:true
-                })
-                .sidebar('attach events', '.toggle_sidebar')
-        , 1000
-        Meteor.setTimeout ->
-            $('.ui.right.sidebar')
-                .sidebar({
-                    context: $('.bottom.segment')
-                    transition:'overlay'
-                    exclusive:true
-                    duration:250
-                    scrollLock:true
-                })
-                .sidebar('attach events', '.toggle_rightbar')
-        , 1000
+        # Meteor.setTimeout ->
+        #     # $('.menu .item')
+        #     #     .popup()
+        #     $('.ui.left.sidebar')
+        #         .sidebar({
+        #             context: $('.bottom.segment')
+        #             transition:'overlay'
+        #             exclusive:true
+        #             duration:250
+        #             scrollLock:true
+        #         })
+        #         .sidebar('attach events', '.toggle_sidebar')
+        # , 1000
+        # Meteor.setTimeout ->
+        #     $('.ui.right.sidebar')
+        #         .sidebar({
+        #             context: $('.bottom.segment')
+        #             transition:'overlay'
+        #             exclusive:true
+        #             duration:250
+        #             scrollLock:true
+        #         })
+        #         .sidebar('attach events', '.toggle_rightbar')
+        # , 1000
     
     Template.right_sidebar.events
         'click .logout': ->

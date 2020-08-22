@@ -9,8 +9,8 @@ Meteor.startup ->
 
 Router.route '/', (->
     @layout 'layout'
-    @render 'home'
-    ), name:'home'
+    @render 'tiffen'
+    ), name:'tiffen'
 
 window.addEventListener('beforeinstallprompt', (e) =>
     # // Prevent the mini-infobar from appearing on mobile
